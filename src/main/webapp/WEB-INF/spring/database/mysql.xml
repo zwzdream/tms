@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+	<!-- 开启注解配置 -->
+	<context:annotation-config />
+	<!-- 扫描service层 -->
+	<context:component-scan base-package="com.zekee.common.persistence" />
+
+	<!-- 开启事务注解驱动 -->
+	<tx:annotation-driven />
+
+	<!-- 连接池 -->
+	<beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<beans:property name="url"
+			value="jdbc:mysql://localhost:3306/zekee?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false" />
+		<beans:property name="username">
+			<beans:value>zekee</beans:value>
+		</beans:property>
+		<beans:property name="password">
+			<beans:value>wh123456!</beans:value>
+		</beans:property>
+		<beans:property name="maxActive">
+			<beans:value>20</beans:value>
+		</beans:property>
+		<beans:property name="initialSize">
+			<beans:value>1</beans:value>
+		</beans:property>
+		<beans:property name="maxWait">
+			<beans:value>60000</beans:value>
+		</beans:property>
+		<beans:property name="maxIdle">
+			<beans:value>20</beans:value>
+		</beans:property>
+		<beans:property name="minIdle">
+			<beans:value>3</beans:value>
+		</beans:property>
+		<beans:property name="removeAbandoned">
+			<beans:value>true</beans:value>
+		</beans:property>
+		<beans:property name="removeAbandonedTimeout">
+			<beans:value>180</beans:value>
+		</beans:property>
+	</beans:bean>
+
+	<!-- ========================================MyBatis的配置项============================== -->
+	<!-- 配置sqlSessionFactory -->
+	<beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- 实例化sqlSessionFactory时需要使用上述配置好的数据源以及SQL映射文件 -->
+		<beans:property name="dataSource" ref="dataSource" />
+		<!-- 其他配置 -->
+		<beans:property name="configLocation" value="classpath:database/mybatis.xml"/>
+		<!-- 自动扫描目录下的所有SQL映射的xml文件 -->
+		<beans:property name="mapperLocations"
+			value="classpath:com/zekee/common/persistence/sqlmapping/*.xml" />
+		<beans:property name="plugins">
+			<beans:array>
+				<beans:bean class="com.github.pagehelper.PageHelper">
+					<beans:property name="properties">
+						<beans:value>
+							dialect=mysql
+						</beans:value>
+					</beans:property>
+				</beans:bean>
+			</beans:array>
+		</beans:property>
+	</beans:bean>
+
+	<!-- 配置扫描器 -->
+	<beans:bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!-- 扫描包以及它的子包下的所有映射接口类 -->
+		<beans:property name="basePackage" value="com.zekee.common.persistence" />
+		<beans:property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+	</beans:bean>
+
+	<!-- 事务管理器 -->
+	<beans:bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<beans:property name="dataSource" ref="dataSource" />
+	</beans:bean>
+</beans:beans>
