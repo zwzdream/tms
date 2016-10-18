@@ -15,26 +15,28 @@ import com.wistronits.tms.entity.JDBean;
 public class JDManagementController {
 
 
-  @RequestMapping(value = "/toEdit", method = RequestMethod.POST)
+/*  @RequestMapping(value = "/toEdit", method = RequestMethod.POST)
   public String toEdit(Model model) {
-
+	  
+   
     return "/jd/jd_edit";
-  }
+  }*/
 
   @RequestMapping(value = "/toAdd", method = RequestMethod.POST)
   public String toAdd(Model model) {
 
     return "/jd/jd_add";
   }
-
-  @RequestMapping(value = "/edit/save", method = RequestMethod.POST)
+  /*
+  @RequestMapping(value = "/add/save", method = RequestMethod.POST)
   public ModelAndView save(@ModelAttribute("editForm") JDBean form, Model model, ModelMap map) {
 
     // return new ModelAndView(new RedirectView("/home/JD.html", true, false, false), map);
     // GET JD Management List
+	  System.out.println(form.toString());
     ModelAndView view = new ModelAndView("/jd/jd_management");
     view.addObject(form);
     return view;
-  }
+  }*/
 
 }

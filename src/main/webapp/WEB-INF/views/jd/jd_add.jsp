@@ -20,10 +20,10 @@
 			</div>
 		</div>
 		
-		<div class="box-content">
-			<form class="form-horizontal" id="editForm" action="${ctx}/JD/edit/save.html" method="POST">
+	<div class="box-content">
+			<form class="form-horizontal" id="editForm" name="editForm" action="${ctx}/JD/add/save" method="POST">
 				<%@ include file="jd_form.jsp"%>
-				<div class="form-actions">
+				<div class="form-actions" style="text-align:right;">
 					<button class="btn btn-primary" type="button" onclick="dataVali(this.form);">Submit</button>
 				</div>
 			</form>

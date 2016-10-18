@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zekee.common.dao.IJDBeanDao">
+	<resultMap id="BaseResultMap" type="com.zekee.common.persistence.JDBean">
+		<id column="no" property="no" jdbcType="INTEGER" />
+		<result column="priority" property="priority" jdbcType="INTEGER" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="client" property="client" jdbcType="VARCHAR" />
+		<result column="openings" property="openings" jdbcType="INTEGER" />
+		<result column="duration" property="duration" jdbcType="INTEGER" />
+		<result column="location" property="location" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="payrate" property="payrate" jdbcType="VARCHAR" />
+		<result column="description" property="description" jdbcType="VARCHAR" />
+		<result column="keyword" property="keyword" jdbcType="VARCHAR" />
+		<result column="notes" property="notes" jdbcType="VARCHAR" />
+		<result column="local" property="local" jdbcType="BOOLEAN" />
+		<result column="owner" property="owner" jdbcType="INTEGER" />
+	</resultMap>
+
+	<insert id="saveJDBean" useGeneratedKeys="true" keyProperty="no">
+	  <![CDATA[
+	  		insert into jd(no,priority,title,client,status,location,duration,payrate,keyword,local,
+	  		owner,description,qualification,notes) values(#{no},#{priority},#{title},#{client},#{status},#{location},#{duration}
+	  		,#{payrate},#{keyword},#{local},#{owner},#{description},#{qualification},#{notes})
+	  	]]>
+	</insert>
+
+	<select id="listByKeyword" resultMap="BaseResultMap">
+	<!-- mysql like的写法
+     like concat('%',#{param},'%')  或者 like '%${param}%' ，推荐使用前者，可以避免sql注入。   -->
+  		<![CDATA[
+	  		select * from jd A  where  A.keyword like concat('%',#{keyword},'%') order by no
+		]]>
+	</select>
+	<select id="getJD" resultMap="BaseResultMap">
+  		<![CDATA[
+	  		select * from jd A  where  A.no=#{no}
+		]]>
+	</select>
+	
+	<update id="editJDBean" >
+	<![CDATA[
+	update jd set priority=#{priority},title=#{title},client=#{client},location=#{location},duration=#{location},duration=#{duration},
+	payrate=#{payrate},keyword=#{keyword},local=#{local},owner=#{owner},description=#{description},qualification=#{qualification},notes=#{notes}
+	where no=#{no} and status=#{status}
+	]]>	
+	</update>
+	
+</mapper>

@@ -7,7 +7,6 @@
  */
 function ajaxContent(url, data, callback){
 	$('#content').fadeOut().parent().append('<div id="loading" class="center">Loading...<div class="center"></div></div>');
-	
 	$.ajax({
 		type : "post",
 		url : encodeURI(encodeURI(ctx + url)),

@@ -32,7 +32,7 @@
 	<div class="form-group tr-new">
         <label class="col-sm-1 control-label" for="no">No.</label>
         <div class="col-sm-5">
-         	<input type="number" class="form-control" id="no" name="no" placeholder="No." style="height:35px;">
+         	<input type="number" class="form-control" id="no" name="no" value="${jd.no }" style="height:35px;" readonly>
         </div>
         <label class="col-sm-1 control-label" for="priority">Priority</label>
         <div class="col-sm-5">
@@ -52,7 +52,7 @@
         </div>
         <label class="col-sm-1 control-label" for="status">Status</label>
         <div class="col-sm-5">
-        	<input type="text" class="form-control" id="status" name="status" placeholder="Status" style="height:35px;">
+        	<input type="text" class="form-control" id="status" name="status" value="${jd.status }" style="height:35px;" readonly>
    		</div>
     </div>					                    
     <div class="form-group tr-new">
