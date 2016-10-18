@@ -2,132 +2,141 @@ package com.wistronits.tms.entity;
 
 public class JDBean {
 
-  private String no;
-  private String priority;
-  private String title;
-  private String client;
-  private String status;
-  private String location;
-  private String duration;
-  private String payRate;
-  private String keyword;
-  private String local;
-  private String owner;
-  private String description;
-  private String qualification;
-  private String notes;
+  private int no;//系统唯一标识，自增长
+  private int priority;//优先级 0=普通，1=优先，2=紧急
+  private String title;//Job Ttitle，限定长度为50
+  private String client;//客户名，限定长度为50
+  //private String openings;//?
+  private String duration;//持续时间，单位为月
+  private String location;//工作地点，限定长度为50
+  private int status;//JD状态，0=closed，1=processing
+  private String payRate;//
+  private String description;//描述信息，限定长度为500
+  private String keyword;//JD的关键字，以空格或逗号分隔，限定长度为50
+  private String notes;//用户填写的注释，限定长度为500
+  private boolean local;//
+  private int owner;//当前处理人员
+  private String qualification;//条件
 
-  public String getNo() {
-    return no;
-  }
+public int getNo() {
+	return no;
+}
 
-  public void setNo(String no) {
-    this.no = no;
-  }
+public void setNo(int no) {
+	this.no = no;
+}
 
-  public String getPriority() {
-    return priority;
-  }
+public int getPriority() {
+	return priority;
+}
 
-  public void setPriority(String priority) {
-    this.priority = priority;
-  }
+public void setPriority(int priority) {
+	this.priority = priority;
+}
 
-  public String getTitle() {
-    return title;
-  }
+public String getTitle() {
+	return title;
+}
 
-  public void setTitle(String title) {
-    this.title = title;
-  }
+public void setTitle(String title) {
+	this.title = title;
+}
 
-  public String getClient() {
-    return client;
-  }
+public String getClient() {
+	return client;
+}
 
-  public void setClient(String client) {
-    this.client = client;
-  }
+public void setClient(String client) {
+	this.client = client;
+}
 
-  public String getStatus() {
-    return status;
-  }
+public String getDuration() {
+	return duration;
+}
 
-  public void setStatus(String status) {
-    this.status = status;
-  }
+public void setDuration(String duration) {
+	this.duration = duration;
+}
 
-  public String getLocation() {
-    return location;
-  }
+public String getLocation() {
+	return location;
+}
 
-  public void setLocation(String location) {
-    this.location = location;
-  }
+public void setLocation(String location) {
+	this.location = location;
+}
 
-  public String getDuration() {
-    return duration;
-  }
+public int getStatus() {
+	return status;
+}
 
-  public void setDuration(String duration) {
-    this.duration = duration;
-  }
+public void setStatus(int status) {
+	this.status = status;
+}
 
-  public String getPayRate() {
-    return payRate;
-  }
+public String getPayRate() {
+	return payRate;
+}
 
-  public void setPayRate(String payRate) {
-    this.payRate = payRate;
-  }
+public void setPayRate(String payRate) {
+	this.payRate = payRate;
+}
 
-  public String getKeyword() {
-    return keyword;
-  }
+public String getDescription() {
+	return description;
+}
 
-  public void setKeyword(String keyword) {
-    this.keyword = keyword;
-  }
+public void setDescription(String description) {
+	this.description = description;
+}
 
-  public String getLocal() {
-    return local;
-  }
+public String getKeyword() {
+	return keyword;
+}
 
-  public void setLocal(String local) {
-    this.local = local;
-  }
+public void setKeyword(String keyword) {
+	this.keyword = keyword;
+}
 
-  public String getOwner() {
-    return owner;
-  }
+public String getNotes() {
+	return notes;
+}
 
-  public void setOwner(String owner) {
-    this.owner = owner;
-  }
+public void setNotes(String notes) {
+	this.notes = notes;
+}
 
-  public String getDescription() {
-    return description;
-  }
+public boolean isLocal() {
+	return local;
+}
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
+public void setLocal(boolean local) {
+	this.local = local;
+}
 
-  public String getQualification() {
-    return qualification;
-  }
+public int getOwner() {
+	return owner;
+}
 
-  public void setQualification(String qualification) {
-    this.qualification = qualification;
-  }
+public void setOwner(int owner) {
+	this.owner = owner;
+}
 
-  public String getNotes() {
-    return notes;
-  }
+public String getQualification() {
+	return qualification;
+}
 
-  public void setNotes(String notes) {
-    this.notes = notes;
-  }
+public void setQualification(String qualification) {
+	this.qualification = qualification;
+}
+
+@Override
+public String toString() {
+	return "JDBean [no=" + no + ", priority=" + priority + ", title=" + title + ", client=" + client + ", duration="
+			+ duration + ", location=" + location + ", status=" + status + ", payRate=" + payRate + ", description="
+			+ description + ", keyword=" + keyword + ", notes=" + notes + ", local=" + local + ", owner=" + owner
+			+ ", qualification=" + qualification + "]";
+}
 
 
 }

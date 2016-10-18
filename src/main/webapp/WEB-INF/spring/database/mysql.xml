@@ -9,7 +9,7 @@
 	<!-- 开启注解配置 -->
 	<context:annotation-config />
 	<!-- 扫描service层 -->
-	<context:component-scan base-package="com.zekee.common.persistence" />
+	<context:component-scan base-package="com.zekee.common" />
 
 	<!-- 开启事务注解驱动 -->
 	<tx:annotation-driven />
@@ -23,7 +23,7 @@
 			<beans:value>root</beans:value>
 		</beans:property>
 		<beans:property name="password">
-			<beans:value>root</beans:value>
+			<beans:value>123456</beans:value>
 		</beans:property>
 		<beans:property name="maxActive">
 			<beans:value>20</beans:value>
@@ -55,10 +55,10 @@
 		<beans:property name="dataSource" ref="dataSource" />
 		<!-- 其他配置 -->
 		<beans:property name="configLocation" value="classpath:database/mybatis.xml"/>
-		<!-- 自动扫描目录下的所有SQL映射的xml文件
+		<!-- 自动扫描目录下的所有SQL映射的xml文件 -->
 		<beans:property name="mapperLocations"
 			value="classpath:com/zekee/common/persistence/sqlmapping/*.xml" />
-		 -->
+		
 		<beans:property name="plugins">
 			<beans:array>
 				<beans:bean class="com.github.pagehelper.PageHelper">
@@ -74,8 +74,8 @@
 
 	<!-- 配置扫描器 -->
 	<beans:bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<!-- 扫描包以及它的子包下的所有映射接口类 -->
-		<beans:property name="basePackage" value="com.zekee.common.persistence" />
+		<!-- 扫描包以及它的子包下的所有映射接口类 (dao)-->
+		<beans:property name="basePackage" value="com.zekee.common.dao" />
 		<beans:property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
 	</beans:bean>
 

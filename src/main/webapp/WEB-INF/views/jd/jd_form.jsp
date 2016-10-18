@@ -17,7 +17,13 @@
 <script type="text/javascript">
 
 	function dataVali(form){
+	  document.editForm.action= ctx + '/JD/add/save';
+	  alert(document.editForm.action);
+	  ajaxForm("content", "editForm");
+	}
+	function dataValiE(form){
 	  document.editForm.action= ctx + '/JD/edit/save';
+	  alert(document.editForm.action);
 	  ajaxForm("content", "editForm");
 	}
 
@@ -33,7 +39,7 @@
          	<input type="text" class="form-control" id="priority" name="priority" placeholder="Priority" style="height:35px;">
         </div>
     </div>
-    <div class="form-group tr-new">
+     <div class="form-group tr-new">
         <label class="col-sm-1 control-label" for="title">Title</label>
         <div class="col-sm-11">
    			<input type="text" class="form-control" id="title" name="title" placeholder="Title" style="height:35px;"></input>
@@ -60,9 +66,9 @@
        	<div class="col-sm-5">
         	<input type="text" class="form-control" id="duration" name="duration" placeholder="Duration" style="height:35px;">
         </div>
-        <label class="col-sm-1 control-label" for="payRate">Pay Rate</label>
+        <label class="col-sm-1 control-label" for="payrate">Pay Rate</label>
         <div class="col-sm-5">
-        	<input type="text" class="form-control" id="payRate" name="payRate" placeholder="PayRate" style="height:35px;">
+        	<input type="text" class="form-control" id="payrate" name="payrate" placeholder="PayRate" style="height:35px;">
    		</div>
     </div>
     <div class="form-group tr-new">
@@ -98,5 +104,5 @@
         <div class="col-sm-11">
         	<textarea class="form-control" id="notes" name="notes" placeholder="Notes" style="height:55px;"></textarea>
    		</div>
-    </div>	
+    </div>
 </fieldset>

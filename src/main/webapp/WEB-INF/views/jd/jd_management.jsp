@@ -35,7 +35,7 @@
 					  		<div style="float:right;">
 								<button type="button" class="btn btn-primary" onclick='ajaxForm("content", "splitPage");'>Search</button>
 								&nbsp;&nbsp;&nbsp;
-					  			<button type="button" class="btn" onclick='ajaxForm("content", "splitPage");'>Add</button>
+					  			<button type="button" class="btn" onclick='ajaxContent("/JD/toAdd.html");'>Add</button>
 								&nbsp;&nbsp;&nbsp;
 								<button type="reset" class="btn">Clear</button>
 					  		</div>

@@ -7,5 +7,5 @@
 	
 	<import resource="database/mysql.xml"/>
 	<import resource="manager/cache.xml"/>
-	<!-- <import resource="services/services.xml"/> -->
+	 <import resource="services/services.xml"/> 
 </beans>

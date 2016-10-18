@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zekee.common.dao.IJDBeanDao">
+	<resultMap id="BaseResultMap" type="com.zekee.common.persistence.JDBean">
+		<id column="no" property="no" jdbcType="INTEGER" />
+		<result column="priority" property="priority" jdbcType="INTEGER" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="client" property="client" jdbcType="VARCHAR" />
+		<result column="openings" property="openings" jdbcType="INTEGER" />
+		<result column="duration" property="duration" jdbcType="INTEGER" />
+		<result column="location" property="location" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="payrate" property="payrate" jdbcType="VARCHAR" />
+		<result column="description" property="description" jdbcType="VARCHAR" />
+		<result column="keyword" property="keyword" jdbcType="VARCHAR" />
+		<result column="notes" property="notes" jdbcType="VARCHAR" />
+		<result column="local" property="local" jdbcType="BOOLEAN" />
+		<result column="owner" property="owner" jdbcType="INTEGER" />
+	</resultMap>
+
+	<insert id="saveJDBean" useGeneratedKeys="true" keyProperty="no">
+	  <![CDATA[
+	  		insert into jd(no,priority,title,client,status,location,duration,payrate,keyword,local,
+	  		owner,description,qualification,notes) values(#{no},#{priority},#{title},#{client},#{status},#{location},#{duration}
+	  		,#{payrate},#{keyword},#{local},#{owner},#{description},#{qualification},#{notes})
+	  	]]>
+	</insert>
+
+	<select id="getFileId" resultMap="BaseResultMap">
+  		<![CDATA[
+	  		select * from jd order by uptime desc 
+		]]>
+	</select>
+	
+	<update id="updateStudentById" >
+	<![CDATA[
+	update jd set 
+	]]>	
+	</update>
+	
+</mapper>
