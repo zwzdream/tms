@@ -20,10 +20,10 @@
 		<beans:property name="url"
 			value="jdbc:mysql://localhost:3306/zekee?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false" />
 		<beans:property name="username">
-			<beans:value>zekee</beans:value>
+			<beans:value>root</beans:value>
 		</beans:property>
 		<beans:property name="password">
-			<beans:value>wh123456!</beans:value>
+			<beans:value>root</beans:value>
 		</beans:property>
 		<beans:property name="maxActive">
 			<beans:value>20</beans:value>
@@ -55,9 +55,10 @@
 		<beans:property name="dataSource" ref="dataSource" />
 		<!-- 其他配置 -->
 		<beans:property name="configLocation" value="classpath:database/mybatis.xml"/>
-		<!-- 自动扫描目录下的所有SQL映射的xml文件 -->
+		<!-- 自动扫描目录下的所有SQL映射的xml文件
 		<beans:property name="mapperLocations"
 			value="classpath:com/zekee/common/persistence/sqlmapping/*.xml" />
+		 -->
 		<beans:property name="plugins">
 			<beans:array>
 				<beans:bean class="com.github.pagehelper.PageHelper">

@@ -54,9 +54,9 @@
 		</beans:property>
 	</beans:bean>
 
-	<beans:bean name="jsonView" class="com.wistronits.web.view.JsonViewResolver">
+	<beans:bean name="jsonView" class="com.wistronits.tms.web.view.JsonViewResolver">
 	</beans:bean>
 
-	<context:component-scan base-package="com.zekee.web, com.wistronits.web" />
+	<context:component-scan base-package="com.zekee.web, com.wistronits.tms.web" />
 
 </beans:beans>
