@@ -4,7 +4,10 @@
                 <a href="#">Home</a>
             </li>
             <li>
-                <a href="#">JD Management Add</a>
+                <a href="#">Resource Repository</a>
+            </li>
+            <li>
+                <a href="#">Resume Add</a>
             </li>
     </ul>
 </div>
