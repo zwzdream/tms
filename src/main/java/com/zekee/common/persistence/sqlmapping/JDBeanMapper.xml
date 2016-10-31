@@ -25,7 +25,6 @@
 	  		,#{payrate},#{keyword},#{local},#{owner},#{description},#{qualification},#{notes})
 	  	]]>
 	</insert>
-
 	<select id="listByKeyword" resultMap="BaseResultMap">
 	<!-- mysql like的写法
      like concat('%',#{param},'%')  或者 like '%${param}%' ，推荐使用前者，可以避免sql注入。   -->
