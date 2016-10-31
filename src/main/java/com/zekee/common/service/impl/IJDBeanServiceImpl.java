@@ -12,7 +12,7 @@ import com.zekee.common.service.IJDBeanService;
 
 @Service("jdBeanService")
 public class IJDBeanServiceImpl implements IJDBeanService{
-
+	
 	@Resource
 	private IJDBeanDao jdBeanDao;
 	@Override	
