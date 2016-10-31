@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping("/Resource")
-public class ResourceRepositoryControlle {
+public class ResourceRepositoryController {
 
 	
 	@RequestMapping(value = "/toAdd", method = RequestMethod.POST)
