@@ -16,15 +16,21 @@
 </style>
 <script type="text/javascript">
 
-	function dataVali(form){
-	  document.editForm.action= ctx + '/JD/add/save';
-	  alert(document.editForm.action);
-	  ajaxForm("content", "editForm");
+	function closeJD(form){
+	  document.editForm.action= ctx + '/JD/edit/close';
+	  if(confirm('Are you sure?')){
+		  ajaxForm("content", "editForm");
+		  return true;
+	  }
+	  return false;
 	}
 	function dataValiE(form){
 	  document.editForm.action= ctx + '/JD/edit/save';
-	  alert(document.editForm.action);
-	  ajaxForm("content", "editForm");
+	  if(confirm('Are you sure?')){
+		  ajaxForm("content", "editForm");
+		  return true;
+	  }
+	  return false;
 	}
 
 </script>

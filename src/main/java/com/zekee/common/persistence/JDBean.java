@@ -1,5 +1,7 @@
 package com.zekee.common.persistence;
 
+import java.util.Date;
+
 public class JDBean {
 
 	  private int no;//系统唯一标识，自增长
@@ -17,6 +19,7 @@ public class JDBean {
 	  private boolean local;//
 	  private int owner;//当前处理人员
 	  private String qualification;//条件
+	  private Date modifydate;//修改日期
 	public int getNo() {
 		return no;
 	}
@@ -101,13 +104,20 @@ public class JDBean {
 	public void setQualification(String qualification) {
 		this.qualification = qualification;
 	}
+	public Date getModifydate() {
+		return modifydate;
+	}
+	public void setModifydate(Date modifydate) {
+		this.modifydate = modifydate;
+	}
 	@Override
 	public String toString() {
 		return "JDBean [no=" + no + ", priority=" + priority + ", title=" + title + ", client=" + client + ", duration="
 				+ duration + ", location=" + location + ", status=" + status + ", payrate=" + payrate + ", description="
 				+ description + ", keyword=" + keyword + ", notes=" + notes + ", local=" + local + ", owner=" + owner
-				+ ", qualification=" + qualification + "]";
+				+ ", qualification=" + qualification + ", modifydate=" + modifydate + "]";
 	}
+
 	  
 
 	

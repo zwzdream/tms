@@ -18,12 +18,7 @@
 
 	function dataVali(form){
 	  document.editForm.action= ctx + '/JD/add/save';
-	  alert(document.editForm.action);
-	  ajaxForm("content", "editForm");
-	}
-	function dataValiE(form){
-	  document.editForm.action= ctx + '/JD/edit/save';
-	  alert(document.editForm.action);
+	 // alert(document.editForm.action);
 	  ajaxForm("content", "editForm");
 	}
 

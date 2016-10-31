@@ -27,6 +27,7 @@
 				<form class="form-horizontal" id="editForm" name="editForm" action="${ctx}/JD/edit/save" method="POST">
 					<%@ include file="jd_edit_form.jsp"%>
 					<div class="form-actions" style="text-align:right;">
+						<button class="btn btn-primary" type="button" onclick="closeJD(this.form);">Close JD</button>
 						<button class="btn btn-primary" type="button" onclick="dataValiE(this.form);">Submit</button>
 					</div>
 				</form>

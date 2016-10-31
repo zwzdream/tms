@@ -1,12 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
-<!-- <script>
-	//init method one
-	$(function(){
-		ajaxForm("content", "splitPage");
-		}
-	); 
-</script> -->
 <form id="splitPage" class="form-horizontal" action="${ctx}/JD/keyword/listPage?pageNum=1" method="POST">
 	<div>
 		<ul class="breadcrumb">
@@ -124,27 +117,6 @@
 							            </a>
 							        </td>
 							    </tr>
-					<!-- 		    <tr>
-							        <td>2</td>
-							        <td class="center">David R</td>
-							        <td class="center">Member</td>
-							        <td class="center">
-							            <span class="label-success label label-default">128</span>
-							        </td>
-							        <td class="center">
-							            <span class="label-success label label-default">Active</span>
-							        </td>
-							        <td class="center">
-							            <a class="btn btn-info" href="#" onclick="ajaxContent('/JD/toEdit');">
-							                <i class="glyphicon glyphicon-edit icon-white"></i>
-							                Edit
-							            </a>
-							            <a class="btn btn-success" href="#">
-							                <i class="glyphicon glyphicon-edit icon-white" onclick="ajaxContent('/JD/toAdd');"></i>
-							                Add Resource
-							            </a>
-							        </td>
-							    </tr> -->
 							    </c:forEach>
 						    </tbody>
 				    </table>			    

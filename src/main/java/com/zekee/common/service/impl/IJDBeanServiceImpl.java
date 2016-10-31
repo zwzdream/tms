@@ -1,6 +1,7 @@
 package com.zekee.common.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.annotation.Resource;
 
@@ -37,6 +38,17 @@ public class IJDBeanServiceImpl implements IJDBeanService{
 		// TODO Auto-generated method stub
 		
 		return this.jdBeanDao.getJD(no);
+	}
+	@Override
+	public void closeJD(int no,Date date) {
+		// TODO Auto-generated method stub
+		this.jdBeanDao.closeJD(no,date);
+		
+	}
+	@Override
+	public ArrayList<JDBean> listAll() {
+		// TODO Auto-generated method stub
+		return this.jdBeanDao.listAll();
 	}
 	
 

@@ -1,5 +1,6 @@
 package com.zekee.common.web;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -26,12 +27,27 @@ public class JDBeanController {
 	  @RequestMapping(value = "/toEdit", method = RequestMethod.POST)
 	  public ModelAndView toEdit(int no) {
 		  ModelAndView view = new ModelAndView("/jd/jd_edit");
+		  PageHelper.startPage(1, 5);  
+		  List<JDBean> jdBeanList=jdBeanService.listAll();
+		  PageInfo<JDBean> page=new PageInfo<>(jdBeanList); 
 		  view.addObject("jd",jdBeanService.getJD(no));
+		  System.out.println(jdBeanService.getJD(no).toString());
+		  view.addObject("page",page);
+		  return view;
+	  }
+	  @RequestMapping(value="/all/list",method = RequestMethod.POST)
+	  public ModelAndView listAll(int pageNum,int pageSize){
+		  ModelAndView view = new ModelAndView("/jd/jd_edit");
+		  PageHelper.startPage(pageNum, pageSize);  
+		  List<JDBean> jdBeanList=jdBeanService.listAll();
+		  PageInfo<JDBean> page=new PageInfo<>(jdBeanList);
+		  view.addObject("page",page);
 		  return view;
 	  }
 
   @RequestMapping(value = "/add/save", method = RequestMethod.POST)
   public ModelAndView save(@ModelAttribute("editForm") JDBean form, Model model, ModelMap map) {
+	  form.setModifydate(new Date());
 	  jdBeanService.saveJDBean(form);
     ModelAndView view = new ModelAndView("/jd/jd_management");
     view.addObject(form);
@@ -40,28 +56,16 @@ public class JDBeanController {
   
   @RequestMapping(value = "/edit/save", method = RequestMethod.POST)
   public ModelAndView edit(@ModelAttribute("editForm") JDBean form, Model model, ModelMap map) {
+	      form.setModifydate(new Date());
 		  jdBeanService.editJDBean(form);
 	    ModelAndView view = new ModelAndView("/jd/jd_management");
 	    view.addObject(form);
 	    return view;
 	  }
   
-  @RequestMapping(value = "/keyword/list")
-  public ModelAndView list(String keyword) {
-	  List<JDBean> jdBean=jdBeanService.listByKeyword(keyword);
-       
-	  ModelAndView view = new ModelAndView("/jd/jd_management");
-	  view.addObject("jdBean",jdBean);
-	  return view;
-  }
   //mysql缓存，上一页，下一页或更改每页记录数时，keyword为空
   @RequestMapping(value = "/keyword/listPage")
-  public ModelAndView listPage(String keyword,int pageNum,int pageSize,HttpServletResponse response ) {
-
-	 // Cookie cookie = new Cookie(Cookiename, null); 
-	  /*cookie.setMaxAge(-1);
-	  response.addCookie(cookie); */
-	  
+  public ModelAndView listPage(String keyword,int pageNum,int pageSize ) {
 	  PageHelper.startPage(pageNum, pageSize);  
 	  List<JDBean> jdBean=jdBeanService.listByKeyword(keyword);
 	  PageInfo<JDBean> page=new PageInfo<>(jdBean);
@@ -70,5 +74,14 @@ public class JDBeanController {
 	  view.addObject("page",page);
 	  return view;
   }
+  
+  @RequestMapping(value="/edit/close",method=RequestMethod.POST)
+  public ModelAndView close(int no){
+	  ModelAndView view=new ModelAndView("/jd/jd_management");
+	  jdBeanService.closeJD(no,new Date());
+	  return view;
+	  
+  }
+  
 
 }
