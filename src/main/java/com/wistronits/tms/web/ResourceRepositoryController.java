@@ -15,5 +15,13 @@ public class ResourceRepositoryController {
 
 	    return "/resource/resource_add";
 	  }
-
+	@RequestMapping(value = "/toimport", method = RequestMethod.POST)
+	public String toImportPage(Model model) {
+		return "/resource/resource_importFile";
+	}
+	
+	@RequestMapping(value = "/importResource", method = RequestMethod.POST)
+	public String importResource(Model model) {
+		return "/resource/resource_importFile";
+	}
 }
