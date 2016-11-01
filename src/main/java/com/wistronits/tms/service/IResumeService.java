@@ -1,8 +1,8 @@
 package com.wistronits.tms.service;
 
-import com.wistronits.tms.entity.ResumeDto;
+import com.wistronits.tms.entity.ResumeBean;
 
 public interface IResumeService {
 
-	public void saveResume(ResumeDto rDto);
+	public void saveResume(ResumeBean rDto);
 }
