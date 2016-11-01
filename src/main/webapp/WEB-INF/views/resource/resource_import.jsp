@@ -24,12 +24,13 @@ function importResource(divId, formId,callback){
 		cache: false,
 		contentType: false,  
         processData: false,
-		success:function(returnData){
-			$("#content").html(returnData);
-			if( callback != null ){
-				callback();
+        dataType: "json",
+		success:function(obj){
+			if((obj) && (obj.success)){
+				noty({type:"success",text: "Import successed!", layout: "bottom", timeout: 3000});
+			}else{
+				noty({type:"error",text: "Import failed!", layout: "bottom", timeout: 3000});
 			}
-			noty({type:"success",text: "Import successed!", layout: "bottom", timeout: 3000});
 		},
 		error: function(XMLHttpRequest, textStatus, errorThrown) { 
 			noty({type:"error",text: "Import failed!", layout: "bottom", timeout: 3000});

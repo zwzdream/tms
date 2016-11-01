@@ -5,4 +5,5 @@ import com.wistronits.tms.entity.ImportResourceBean;
 public interface IResumeService {
 
 	public void saveResume(ImportResourceBean rDto);
+	public Boolean importResource(ImportResourceBean resource);
 }
