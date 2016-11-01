@@ -1,8 +1,8 @@
 package com.wistronits.tms.dao;
 
-import com.wistronits.tms.entity.ImportResourceBean;
+import com.wistronits.tms.entity.ResumeDto;
 
 public interface IResumeDao {
 
-	 public void saveResume(ImportResourceBean rDto);
+	 public void saveResume(ResumeDto rDto);
 }
