@@ -25,6 +25,13 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 
+	<!-- 支持上传文件 -->    
+     <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">    
+        <beans:property name="defaultEncoding" value="utf-8"/>    
+        <beans:property name="maxUploadSize" value="10485760000"/>    
+        <beans:property name="maxInMemorySize" value="40960"/> 
+     </beans:bean>
+     
 	<beans:bean
 		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
 		<beans:property name="viewResolvers">

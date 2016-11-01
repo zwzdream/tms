@@ -37,6 +37,8 @@
 								&nbsp;&nbsp;&nbsp;
 					  			<button type="button" class="btn" onclick="ajaxContent('/Resource/toAdd.html');">Add</button>
 								&nbsp;&nbsp;&nbsp;
+								<button type="button" class="btn" onclick="ajaxContent('/Resource/toimport');">Import</button>
+								&nbsp;&nbsp;&nbsp;
 								<button type="reset" class="btn">Clear</button>
 					  		</div>
 					  	</div>
