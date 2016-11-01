@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wistronits.tms.dao.IResumeDao">
+	<resultMap id="BaseResultMap" type="com.wistronits.tms.entity.ResumeDto">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="firstname" property="firstname" jdbcType="VARCHAR" />
+		<result column="lastname" property="latname" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<insert id="saveResume" useGeneratedKeys="true" keyProperty="id">
+	  <![CDATA[
+	  		insert into jd(no,priority,title,client,status,location,duration,payrate,keyword,local,
+	  		owner,description,qualification,notes) values(#{no},#{priority},#{title},#{client},#{status},#{location},#{duration}
+	  		,#{payrate},#{keyword},#{local},#{owner},#{description},#{qualification},#{notes})
+	  	]]>
+	</insert>
+
+	<select id="getFileId" resultMap="BaseResultMap">
+  		<![CDATA[
+	  		select * from jd order by uptime desc 
+		]]>
+	</select>
+	
+	<update id="updateStudentById" >
+	<![CDATA[
+	update jd set 
+	]]>	
+	</update>
+	
+</mapper>
