@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.wistronits.tms.dao.IResumeDao;
 import com.wistronits.tms.entity.ImportResourceBean;
+import com.wistronits.tms.entity.ResumeBean;
 import com.wistronits.tms.service.IResumeService;
 import com.wistronits.tms.util.LuceneIndexer;
 
@@ -17,7 +18,7 @@ public class IResumeServiceImpl implements IResumeService {
 	@Resource
 	private IResumeDao rDao;
 	@Override
-	public void saveResume(ImportResourceBean rDto) {
+	public void saveResume(ResumeBean rDto) {
 		// TODO Auto-generated method stub
 		this.rDao.saveResume(rDto);
 	}
