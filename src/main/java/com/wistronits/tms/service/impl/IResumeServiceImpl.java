@@ -18,18 +18,18 @@ import com.wistronits.tms.util.LuceneIndexer;
 public class IResumeServiceImpl implements IResumeService {
 
 	@Autowired
-	private IResumeDao rDao;
+	private IResumeDao iResumeDao;
 	@Override
 	public void saveResume(ResumeBean rDto) {
 		// TODO Auto-generated method stub
-		this.rDao.saveResume(rDto);
+		this.iResumeDao.saveResume(rDto);
 	}
 	@Override
-	public Boolean importResource(ImportResourceBean resource) {
+	public Boolean importResource(ImportResourceBean resource, MultipartFile file) {
 		try {
-			String filePath = uploadFile(resource.getInputFile());
+			String filePath = uploadFile(file);
 			resource.setFilePath(filePath);
-			int resourceId =  rDao.insertResource(resource);
+			int resourceId =  iResumeDao.insertResource(resource);
 			if(resourceId<=0){
 				return false;
 			}

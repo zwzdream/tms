@@ -27,4 +27,9 @@
 	]]>	
 	</update>
 	
+	<insert id="insertResource" parameterType="com.wistronits.tms.entity.ImportResourceBean">
+         insert into import_resource (first_name, last_name, birth,gender,file_path)
+     		values (#{firstName,jdbcType=VARCHAR}, #{lastName,jdbcType=VARCHAR}, #{birth,jdbcType=DATE}, 
+       			#{gender,jdbcType=BOOLEAN},#{filePath,jdbcType=VARCHAR})
+     </insert>
 </mapper>

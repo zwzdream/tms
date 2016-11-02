@@ -9,7 +9,7 @@ public class ImportResourceBean {
 	private String lastName;
 	private Date birth;
 	private Boolean gender;
-	private MultipartFile inputFile;
+//	private MultipartFile inputFile;
 	private String filePath;
 	public String getFilePath() {
 		return filePath;
@@ -41,12 +41,12 @@ public class ImportResourceBean {
 	public void setGender(Boolean gender) {
 		this.gender = gender;
 	}
-	public MultipartFile getInputFile() {
-		return inputFile;
-	}
-	public void setInputFile(MultipartFile inputFile) {
-		this.inputFile = inputFile;
-	}
+//	public MultipartFile getInputFile() {
+//		return inputFile;
+//	}
+//	public void setInputFile(MultipartFile inputFile) {
+//		this.inputFile = inputFile;
+//	}
 	
 	
 }
