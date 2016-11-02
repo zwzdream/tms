@@ -3,7 +3,7 @@ package com.wistronits.tms.service.impl;
 import java.io.File;
 import java.io.IOException;
 
-import javax.annotation.Resource;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

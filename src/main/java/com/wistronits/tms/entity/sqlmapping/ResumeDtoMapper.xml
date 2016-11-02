@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.wistronits.tms.dao.IResumeDao">
-	<resultMap id="BaseResultMap" type="com.wistronits.tms.entity.ResumeDto">
+	<resultMap id="BaseResultMap" type="com.wistronits.tms.entity.ResumeBean">
 		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="firstname" property="firstname" jdbcType="VARCHAR" />
 		<result column="lastname" property="latname" jdbcType="VARCHAR" />

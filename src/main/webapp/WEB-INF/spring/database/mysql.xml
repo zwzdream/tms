@@ -10,6 +10,7 @@
 	<context:annotation-config />
 	<!-- 扫描service层 -->
 	<context:component-scan base-package="com.zekee.common,com.wistronits.tms.service" />
+
 	<!-- 开启事务注解驱动 -->
 	<tx:annotation-driven />
 
@@ -56,7 +57,7 @@
 		<beans:property name="configLocation" value="classpath:database/mybatis.xml"/>
 		<!-- 自动扫描目录下的所有SQL映射的xml文件 -->
 		<beans:property name="mapperLocations"
-			value="classpath:com/zekee/common/persistence/sqlmapping/*.xml" />
+			value="classpath:com/wistronits/tms/entity/sqlmapping/*.xml" />
 		
 		<beans:property name="plugins">
 			<beans:array>
