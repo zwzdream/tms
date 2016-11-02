@@ -10,6 +10,13 @@ public class ImportResourceBean {
 	private Date birth;
 	private Boolean gender;
 	private MultipartFile inputFile;
+	private String filePath;
+	public String getFilePath() {
+		return filePath;
+	}
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
 	public String getFirstName() {
 		return firstName;
 	}

@@ -25,7 +25,8 @@ public class IResumeServiceImpl implements IResumeService {
 	@Override
 	public Boolean importResource(ImportResourceBean resource) {
 		try {
-			uploadFile(resource.getInputFile());
+			String filePath = uploadFile(resource.getInputFile());
+			resource.setFilePath(filePath);
 		} catch (IllegalStateException | IOException e) {
 			e.printStackTrace();
 			return false;
@@ -33,7 +34,7 @@ public class IResumeServiceImpl implements IResumeService {
 		return true;
 	}
 	
-	public void uploadFile(MultipartFile file) throws IllegalStateException, IOException{
+	public String uploadFile(MultipartFile file) throws IllegalStateException, IOException{
 		String fileName = file.getOriginalFilename();
 		String path = "D:/uploadFiles/" + fileName;
 		File fileDir = new File("D:/uploadFiles");
@@ -43,5 +44,6 @@ public class IResumeServiceImpl implements IResumeService {
 		File localFile = new File(path);
 		file.transferTo(localFile);
 		LuceneIndexer.createIndexer(localFile);
+		return path;
 	}
 }
