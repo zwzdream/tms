@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.wistronits.tms.dao.IResumeDao;
@@ -12,7 +13,7 @@ import com.wistronits.tms.entity.ImportResourceBean;
 import com.wistronits.tms.entity.ResumeBean;
 import com.wistronits.tms.service.IResumeService;
 import com.wistronits.tms.util.LuceneIndexer;
-
+@Service("resumeService")
 public class IResumeServiceImpl implements IResumeService {
 
 	@Resource
