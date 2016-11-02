@@ -1,9 +1,11 @@
-package com.zekee.common.dao;
+package com.wistronits.tms.dao;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-import com.zekee.common.persistence.JDBean;
+import com.wistronits.tms.entity.JDBean;
+
+
 
 public interface IJDBeanDao {
 	public void saveJDBean(JDBean jdBean);

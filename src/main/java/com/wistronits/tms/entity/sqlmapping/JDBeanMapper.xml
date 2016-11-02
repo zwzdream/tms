@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.zekee.common.dao.IJDBeanDao">
-	<resultMap id="BaseResultMap" type="com.zekee.common.persistence.JDBean">
+<mapper namespace="com.wistronits.tms.dao.IJDBeanDao">
+	<resultMap id="BaseResultMap" type="com.wistronits.tms.entity.JDBean">
 		<id column="no" property="no" jdbcType="INTEGER" />
 		<result column="priority" property="priority" jdbcType="INTEGER" />
 		<result column="title" property="title" jdbcType="VARCHAR" />

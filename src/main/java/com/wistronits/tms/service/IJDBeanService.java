@@ -1,9 +1,11 @@
-package com.zekee.common.service;
+package com.wistronits.tms.service;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-import com.zekee.common.persistence.JDBean;
+import com.wistronits.tms.entity.JDBean;
+
+
 
 public interface IJDBeanService {
 	public void saveJDBean(JDBean jdBean);

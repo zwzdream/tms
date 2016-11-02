@@ -1,4 +1,4 @@
-package com.zekee.common.service.impl;
+package com.wistronits.tms.service.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -7,9 +7,11 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.zekee.common.dao.IJDBeanDao;
-import com.zekee.common.persistence.JDBean;
-import com.zekee.common.service.IJDBeanService;
+import com.wistronits.tms.dao.IJDBeanDao;
+import com.wistronits.tms.entity.JDBean;
+import com.wistronits.tms.service.IJDBeanService;
+
+
 
 @Service("jdBeanService")
 public class IJDBeanServiceImpl implements IJDBeanService{
