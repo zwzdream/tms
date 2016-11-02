@@ -5,6 +5,8 @@ import java.io.IOException;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.wistronits.tms.dao.IResumeDao;
@@ -12,10 +14,10 @@ import com.wistronits.tms.entity.ImportResourceBean;
 import com.wistronits.tms.entity.ResumeBean;
 import com.wistronits.tms.service.IResumeService;
 import com.wistronits.tms.util.LuceneIndexer;
-
+@Service("resumeService")
 public class IResumeServiceImpl implements IResumeService {
 
-	@Resource
+	@Autowired
 	private IResumeDao rDao;
 	@Override
 	public void saveResume(ResumeBean rDto) {
@@ -27,6 +29,10 @@ public class IResumeServiceImpl implements IResumeService {
 		try {
 			String filePath = uploadFile(resource.getInputFile());
 			resource.setFilePath(filePath);
+			int resourceId =  rDao.insertResource(resource);
+			if(resourceId<=0){
+				return false;
+			}
 		} catch (IllegalStateException | IOException e) {
 			e.printStackTrace();
 			return false;
