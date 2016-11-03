@@ -1,7 +1,9 @@
 package com.wistronits.tms.web;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -9,8 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.github.pagehelper.PageHelper;
@@ -71,8 +76,8 @@ public class JDManagementController {
 	}
 
 	// mysql缓存，上一页，下一页或更改每页记录数时，keyword为空
-	@RequestMapping(value = "/keyword/listPage")
-	public ModelAndView listPage(String keyword, int pageNum, int pageSize) {
+	@RequestMapping(value = "/keyword/listPage", method = RequestMethod.POST)
+	public  ModelAndView listPage(String keyword,int pageNum,int pageSize) {
 		PageHelper.startPage(pageNum, pageSize);
 		List<JDBean> jdBean = jdBeanService.listByKeyword(keyword);
 		PageInfo<JDBean> page = new PageInfo<>(jdBean);
@@ -80,6 +85,11 @@ public class JDManagementController {
 		view.addObject("keyword", keyword);
 		view.addObject("page", page);
 		return view;
+	/*   Map<String,Object> map =new HashMap<String,Object>();
+	   map.put("keyword", keyword);
+	   map.put("page", page);
+	   return map;
+	   */
 	}
 
 	@RequestMapping(value = "/edit/close", method = RequestMethod.POST)

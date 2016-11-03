@@ -21,10 +21,10 @@
 		</div>
 		
 	<div class="box-content">
-			<form class="form-horizontal" id="editForm" name="editForm"  action="${ctx}/JD/add/save" method="POST">
+			<form class="form-horizontal" id="editForm" name="editForm"  action="#" method="POST">
 				<%@ include file="jd_form.jsp"%>
 				<div class="form-actions" style="text-align:right;">
-					<button class="btn btn-primary" type="button" onclick="dataVali(this.form);">Submit</button>
+					<button class="btn btn-primary" type="button" onclick="addJD(this.form);">Submit</button>
 				</div>
 			</form>
 		</div>

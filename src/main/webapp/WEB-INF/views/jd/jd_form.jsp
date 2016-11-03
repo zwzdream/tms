@@ -16,10 +16,35 @@
 </style>
 <script type="text/javascript">
 
-	function dataVali(form){
-	  document.editForm.action= ctx + '/JD/add/save';
-	 // alert(document.editForm.action);
-	  ajaxForm("content", "editForm");
+	function addJD(form){
+		var formData = new FormData(form);
+	  form.action= ctx + '/JD/add/save';
+	  $('#content').fadeOut().parent().append('<div id="loading" class="center">Loading...<div class="center"></div></div>');
+	  $.ajax({
+			type : "post",
+			url : form.action,
+			data :formData,
+			async: false,
+			cache: false,
+			contentType: false,  
+	        processData: false,
+	        dataType : 'html',
+	        success:function(data){
+				if(data !=""){
+					noty({type:"success",text: "Add successed!", layout: "center", timeout: 3000});
+					$('#content').html(data);
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) { 
+				noty({type:"error",text: "Add failed!", layout: "center", timeout: 3000});
+	        },
+	        complete: function(XMLHttpRequest, textStatus) { 
+		    	$('#loading').remove();
+				$('#content').fadeIn();
+				docReady();
+	        }
+		}); 
+	 // ajaxForm("content", "editForm");
 	}
 
 </script>

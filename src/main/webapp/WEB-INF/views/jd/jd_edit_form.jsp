@@ -17,17 +17,69 @@
 <script type="text/javascript">
 
 	function closeJD(form){
-	  document.editForm.action= ctx + '/JD/edit/close';
+		var formData = new FormData(form);
+	  form.action= ctx + '/JD/edit/close';
+	  form.method = "post";	
 	  if(confirm('Are you sure?')){
-		  ajaxForm("content", "editForm");
+		  $('#content').fadeOut().parent().append('<div id="loading" class="center">Loading...<div class="center"></div></div>');
+		  $.ajax({
+				type : "post",
+				url : form.action,
+				data :formData,
+				async: false,
+				cache: false,
+				contentType: false,  
+		        processData: false,
+		        dataType : 'html',
+		        success:function(data){
+					if(data !=""){
+						noty({type:"success",text: "Close successed!", layout: "center", timeout: 3000});
+						$('#content').html(data);
+					}
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) { 
+					noty({type:"error",text: "Close failed!", layout: "center", timeout: 3000});
+		        },
+		        complete: function(XMLHttpRequest, textStatus) { 
+			    	$('#loading').remove();
+					$('#content').fadeIn();
+					docReady();
+		        }
+			}); 
 		  return true;
 	  }
 	  return false;
 	}
 	function dataValiE(form){
-	  document.editForm.action= ctx + '/JD/edit/save';
+	 var formData = new FormData(form);
+	  form.action= ctx + '/JD/edit/save';
+	  form.method = "post";	
 	  if(confirm('Are you sure?')){
-		  ajaxForm("content", "editForm");
+		  $('#content').fadeOut().parent().append('<div id="loading" class="center">Loading...<div class="center"></div></div>');
+		  $.ajax({
+				type : "post",
+				url : form.action,
+				data :formData,
+				async: false,
+				cache: false,
+				contentType: false,  
+		        processData: false,
+		        dataType : 'html',
+		        success:function(data){
+					if(data !=""){
+						noty({type:"success",text: "Edit successed!", layout: "center", timeout: 3000});
+						$('#content').html(data);
+					}
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) { 
+					noty({type:"error",text: "Edit failed!", layout: "center", timeout: 3000});
+		        },
+		        complete: function(XMLHttpRequest, textStatus) { 
+			    	$('#loading').remove();
+					$('#content').fadeIn();
+					docReady();
+		        }
+			}); 
 		  return true;
 	  }
 	  return false;

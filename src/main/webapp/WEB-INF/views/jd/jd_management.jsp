@@ -1,6 +1,90 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
-<form id="splitPage" class="form-horizontal" action="${ctx}/JD/keyword/listPage?pageNum=1" method="POST">
+<script type="text/javascript">
+function SearchJD(divId, formId,callback){
+	var form = $("#" + formId)[0];
+	form.action= ctx + '/JD/keyword/listPage';
+	form.method = "post";	
+    var formData = new FormData(form);
+	formData.append("pageNum","1"); 
+	$('#table').fadeOut().parent().append('<div id="loading" class="center">Loading...<div class="center"></div></div>');
+	$.ajax({
+		type : "post",
+		url : form.action,
+		data :formData,
+		async: false,
+		cache: false,
+		contentType: false,  
+        processData: false,
+        dataType: "html",
+		success:function(data){
+			if(data !=""){
+				$('#content').html(data);
+			 }
+				if( callback != null ){
+					callback();
+				}
+				$('#loading').remove();
+				$('#table').fadeIn();
+				docReady();
+			}
+		});
+	}
+
+ function Edit(url, data, callback){
+		$('#content').fadeOut().parent().append('<div id="loading" class="center">Loading...<div class="center"></div></div>');
+		$.ajax({
+			type : "post",
+			url : encodeURI(encodeURI(ctx + url)),
+			data : {no:data},
+			dataType : "html",
+			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+			async: false,
+			cache: false,
+			success:function(returnData){
+				$("#content").html(returnData);
+				if( callback != null ){
+					callback();
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) { 
+				alert("error!");
+			},
+			complete: function(XMLHttpRequest, textStatus) { 
+				$('#loading').remove();
+				$('#content').fadeIn();
+				docReady();
+			}
+		});
+	}
+ function SearchTo(url, data, callback){
+		$('#table').fadeOut().parent().append('<div id="loading" class="center">Loading...<div class="center"></div></div>');
+		$.ajax({
+			type : "post",
+			url : encodeURI(encodeURI(ctx + url)),
+			data : data,
+			dataType : "html",
+			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+			async: false,
+			cache: false,
+			success:function(returnData){
+				$("#content").html(returnData);
+				if( callback != null ){
+					callback();
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) { 
+				alert("error!");
+	        },
+	        complete: function(XMLHttpRequest, textStatus) { 
+		    	$('#loading').remove();
+				$('#table').fadeIn();
+				docReady();
+	        }
+		});
+	}
+</script>
+<form id="splitPage" class="form-horizontal" action="#" method="POST">
 	<div>
 		<ul class="breadcrumb">
 	            <li>
@@ -30,12 +114,12 @@
 					  	<div class="form-group">
 							<label class="col-sm-1 control-label" for="name">Key word</label>
 						  	<div class="col-sm-3">
-							  	<input  class="form-control" type="text" name="keyword" value='' maxlength="20" >
+							  	<input id="keyword" class="form-control" type="text" name="keyword" value='' maxlength="20" >
 						  	</div>	
 					  	</div>
 					  	<div class="form-actions" >
 					  		<div style="float:right;">
-								<button type="button" class="btn btn-primary" onclick='ajaxForm("content", "splitPage");'>Search</button>
+								<button type="button" class="btn btn-primary" onclick='SearchJD("table1", "splitPage");'>Search</button>
 								&nbsp;&nbsp;&nbsp;
 					  			<button type="button" class="btn" onclick='ajaxContent("/JD/toAdd.html");'>Add</button>
 								&nbsp;&nbsp;&nbsp;
@@ -47,7 +131,7 @@
 			</div>
 		</div><!--/span-->
 	</div><!--/row-->
-	<div class="row">
+	<div id="table" class="row">
 		<div class="box col-md-12">
 			<div class="box-inner">
 				<div class="box-header well" data-original-title="">
@@ -69,7 +153,7 @@
 						<div class="col-md-6">
 							<div id="DataTables_Table_0_length" class="dataTables_length">
 								<label>
-									<select name="pageSize" size="1"  aria-controls="DataTables_Table_0" onchange='ajaxForm("content", "splitPage");'>
+									<select id="pageSize" name="pageSize" size="1"  aria-controls="DataTables_Table_0" onchange='ajaxForm("table1", "splitPage");'>
 										<option value="5" selected="selected">5</option>
 										<option value="10">10</option>
 										<option value="15">15</option>
@@ -81,10 +165,10 @@
 						</div>
 					</div>
 					
-				    <table class="table table-striped table-bordered bootstrap-datatable ">
+				    <table id="table1" class="table table-striped table-bordered bootstrap-datatable ">
 						    <thead>
-						    <tr>
-						       <!--  <th class="sr-only">No</th> -->
+				    <tr>
+						        <th class="sr-only">No</th>
 						        <th>Seq</th>
 						        <th>Name</th>
 						        <th>Description</th>
@@ -93,10 +177,10 @@
 						        <th>Actions</th>
 						    </tr>
 						    </thead>
-						    <tbody>
+		 				    <tbody>
 						       <c:forEach items="${page.list}" var="jd" varStatus="status">
 							    <tr>
-							 <%--    <td class="sr-only">${jd.no }</td> --%>
+							    <td class="sr-only">${jd.no }</td>
 							        <td>${status.count}</td>
 							        <td class="center">${jd.title}</td>
 							        <td class="center">${jd.description}</td>
@@ -118,58 +202,27 @@
 							        </td>
 							    </tr>
 							    </c:forEach>
-						    </tbody>
+						    </tbody> 
 				    </table>			    
          <table class="gridtable" style="width:100%;text-align: center;">
                 <tr>
                     <c:if test="${page.hasPreviousPage}">
-                        <td><a href="#" onclick="ajaxContent('/JD/keyword/listPage','keyword=${keyword}&pageNum=${page.prePage}&pageSize=${page.pageSize}');">Previous</a></td>
+                        <td><a href="#" onclick="SearchTo('/JD/keyword/listPage','keyword=${keyword}&pageNum=${page.prePage}&pageSize=${page.pageSize}');">Previous</a></td>
                     </c:if>
                     <c:forEach items="${page.navigatepageNums}" var="nav">
                         <c:if test="${nav == page.pageNum}">
                             <td style="font-weight: bold;">${nav}</td>
                         </c:if>
                         <c:if test="${nav != page.pageNum}">
-                            <td><a href="#" onclick="ajaxContent('/JD/keyword/listPage','keyword=${keyword}&pageNum=${nav}&pageSize=${page.pageSize}')">${nav}</a></td>
+                            <td><a href="#" onclick="SearchTo('/JD/keyword/listPage','keyword=${keyword}&pageNum=${nav}&pageSize=${page.pageSize}')">${nav}</a></td>
                         </c:if>
                     </c:forEach>
                     <c:if test="${page.hasNextPage}">
-                        <td><a href="#" onclick="ajaxContent('/JD/keyword/listPage','keyword=${keyword }&pageNum=${page.nextPage}&pageSize=${page.pageSize}');">Next</a></td>
+                        <td><a href="#" onclick="SearchTo('/JD/keyword/listPage','keyword=${keyword }&pageNum=${page.nextPage}&pageSize=${page.pageSize}');">Next</a></td>
                     </c:if>
                 </tr>
-            </table>
-                     
-		<!-- 			<div class="row">
-						<div class="col-md-12">
-							<div id="DataTables_Table_0_info" class="dataTables_info">Showing 1 to 2 of 2 entries</div>
-						</div>
-						<div class="col-md-12 center-block">
-							<div class="dataTables_paginate paging_bootstrap pagination">
-								<ul class="pagination">
-									<li class="prev disabled">
-										<a href="#"> Previous </a>
-									</li>
-									<li class="active">
-										<a href="#">1</a>
-									</li>
-									<li class="next disabled">
-										<a href="#"> Next </a>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div> -->
-					<!-- 		    
-				    <ul class="pagination pagination-centered">
-                        <li><a href="#">Prev</a></li>
-                        <li class="active">
-                            <a href="#">1</a>
-                        </li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">Next</a></li>
-                    </ul> -->
+            </table> 
+                   <div id="nav"></div>
 				</div>
 			</div>
 		</div>

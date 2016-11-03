@@ -43,7 +43,7 @@
 	<![CDATA[
 	update jd set priority=#{priority},title=#{title},client=#{client},location=#{location},duration=#{location},duration=#{duration},
 	payrate=#{payrate},keyword=#{keyword},local=#{local},owner=#{owner},description=#{description},qualification=#{qualification},
-	notes=#{notes},modiftdate=#{modifydate} where no=#{no} and status=#{status}
+	notes=#{notes},modifydate=#{modifydate} where no=#{no} and status=#{status}
 	]]>	
 	</update>
 	
