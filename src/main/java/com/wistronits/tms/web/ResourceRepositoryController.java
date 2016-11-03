@@ -64,8 +64,10 @@ public class ResourceRepositoryController {
 		resource.setBirth(birthDate);
 		resource.setGender(gender);
 
+
 //		resource.setInputFile(file);
 		boolean ret = resumeService.importResource(resource,file);
+
 
 		if(!ret)
 			return RsResponse.getErrorInstance("import to database failed!");

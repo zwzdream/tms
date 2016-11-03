@@ -9,7 +9,7 @@
 	<!-- 开启注解配置 -->
 	<context:annotation-config />
 	<!-- 扫描service层 -->
-	<context:component-scan base-package="com.zekee.common,com.wistronits.tms.service" />
+	<context:component-scan base-package="com.wistronits.tms" />
 
 	<!-- 开启事务注解驱动 -->
 	<tx:annotation-driven />
@@ -76,7 +76,7 @@
 	<!-- 配置扫描器 -->
 	<beans:bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<!-- 扫描包以及它的子包下的所有映射接口类 (dao)-->
-		<beans:property name="basePackage" value="com.zekee.common.dao,com.wistronits.tms.dao" />
+		<beans:property name="basePackage" value="com.wistronits.tms.dao" />
 		<beans:property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
 	</beans:bean>
 
