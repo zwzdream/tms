@@ -49,7 +49,7 @@ public class JDManagementController {
 
 	@RequestMapping(value = "/all/list", method = RequestMethod.POST)
 	public ModelAndView listAll(int pageNum, int pageSize) {
-		ModelAndView view = new ModelAndView("/jd/jd_edit");
+		ModelAndView view = new ModelAndView("/jd/jd_grid");
 		PageHelper.startPage(pageNum, pageSize);
 		List<JDBean> jdBeanList = jdBeanService.listAll();
 		PageInfo<JDBean> page = new PageInfo<>(jdBeanList);
@@ -77,7 +77,7 @@ public class JDManagementController {
 
 	// mysql缓存，上一页，下一页或更改每页记录数时，keyword为空
 	@RequestMapping(value = "/keyword/listPage", method = RequestMethod.POST)
-	public  ModelAndView listPage(String keyword,int pageNum,int pageSize) {
+	public  ModelAndView listPage(String keyword,int pageNum,@RequestParam(value="pageSize",defaultValue="5")int pageSize) {
 		PageHelper.startPage(pageNum, pageSize);
 		List<JDBean> jdBean = jdBeanService.listByKeyword(keyword);
 		PageInfo<JDBean> page = new PageInfo<>(jdBean);

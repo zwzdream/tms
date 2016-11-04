@@ -131,6 +131,8 @@ function SearchJD(divId, formId,callback){
 			</div>
 		</div><!--/span-->
 	</div><!--/row-->
+
+	<c:if test="${not empty page}">
 	<div id="table" class="row">
 		<div class="box col-md-12">
 			<div class="box-inner">
@@ -228,5 +230,7 @@ function SearchJD(divId, formId,callback){
 		</div>
 		<!--/span-->
 	</div>
+	
 	<!--/row-->
+	</c:if>
 </form>
