@@ -16,13 +16,13 @@
 		<result column="file_path" property="filePath" jdbcType="VARCHAR" />
 	</resultMap>
 
-	<insert id="saveResume" useGeneratedKeys="true" keyProperty="id">
-	  <![CDATA[
-	  		insert into jd(no,priority,title,client,status,location,duration,payrate,keyword,local,
-	  		owner,description,qualification,notes) values(#{no},#{priority},#{title},#{client},#{status},#{location},#{duration}
-	  		,#{payrate},#{keyword},#{local},#{owner},#{description},#{qualification},#{notes})
-	  	]]>
-	</insert>
+	<insert id="addResume" parameterType="com.wistronits.tms.entity.ResumeBean" useGeneratedKeys="true" keyProperty="id">
+       insert into resume (id,first_name, last_name,birth,gender,mobile,starts,email,residency,education,workExp,projectExp)
+     		values (#{id,jdbcType=INTEGER},#{firstName,jdbcType=VARCHAR}, #{lastName,jdbcType=VARCHAR},#{birth,jdbcType=DATE},
+     		#{gender,jdbcType=VARCHAR},#{mobile,jdbcType=VARCHAR},#{starts,jdbcType=DATE},#{email,jdbcType=VARCHAR},#{residency,jdbcType=VARCHAR},
+     		#{education,jdbcType=VARCHAR},#{workExp,jdbcType=VARCHAR},#{projectExp,jdbcType=VARCHAR}
+     		)
+     </insert>
 
 	<select id="getFileId" resultMap="BaseResultMap">
   		<![CDATA[
