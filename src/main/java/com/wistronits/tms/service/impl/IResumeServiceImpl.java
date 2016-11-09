@@ -27,9 +27,15 @@ public class IResumeServiceImpl implements IResumeService {
 	@Autowired
 	private IResumeDao iResumeDao;
 	@Override
-	public void saveResume(ResumeBean rDto) {
-		// TODO Auto-generated method stub
-		this.iResumeDao.saveResume(rDto);
+	public Boolean addResume(ResumeBean rDto) {
+		int resumeCount=this.iResumeDao.addResume(rDto);
+		if(resumeCount<=0)
+		{
+			return false;
+		}
+		else {
+			return true;
+		}	
 	}
 	@Override
 	public Boolean importResource(ImportResourceBean resource, MultipartFile file) {

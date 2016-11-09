@@ -10,7 +10,7 @@ import com.wistronits.tms.entity.ResumeBean;
 
 public interface IResumeService {
 
-	public void saveResume(ResumeBean rDto);
+	public Boolean addResume(ResumeBean rDto);
 	public Boolean importResource(ImportResourceBean resource, MultipartFile file);
 	public List<ImportResourceBean> getAllImportBeans(int offSet, int pageSize);
 	public Map<String,Object> searchResource(String keyWord, int offSet, int pageSize);
