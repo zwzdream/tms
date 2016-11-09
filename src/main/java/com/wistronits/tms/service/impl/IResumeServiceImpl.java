@@ -28,14 +28,8 @@ public class IResumeServiceImpl implements IResumeService {
 	private IResumeDao iResumeDao;
 	@Override
 	public Boolean addResume(ResumeBean rDto) {
-		int resumeCount=this.iResumeDao.addResume(rDto);
-		if(resumeCount<=0)
-		{
-			return false;
-		}
-		else {
-			return true;
-		}	
+		this.iResumeDao.addResume(rDto);
+		return true;
 	}
 	@Override
 	public Boolean importResource(ImportResourceBean resource, MultipartFile file) {
