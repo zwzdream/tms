@@ -7,9 +7,11 @@ import com.wistronits.tms.entity.ResumeBean;
 
 public interface IResumeDao {
 
-	 public void saveResume(ResumeBean rDto);
+	 public Boolean addResume(ResumeBean rDto);
 	 public int insertResource(ImportResourceBean resource);
+	 public List<ResumeBean> getAllResume();
 	 public List<ImportResourceBean> getAllImportBeans();
 	 public List<ImportResourceBean> getResourceByIds(List<Integer> ids);
 	 public int getAllImportBeansCount();
+
 }
