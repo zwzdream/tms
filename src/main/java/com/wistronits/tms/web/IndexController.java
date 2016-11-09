@@ -46,11 +46,10 @@ public class IndexController {
       } else if ("JD".equals(targetAction)) {
         return "/jd/jd_management";
       } else if ("resource".equals(targetAction)) {
-        return "/resource/resource_repository";
+        return "redirect:/Resource/toRepository";
       } else if("user".equals(targetAction)){
     	  return "user/user_management";
       }  else {
-
         return "/home";
       }
     } else {
