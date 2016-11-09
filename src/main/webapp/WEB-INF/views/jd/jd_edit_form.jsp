@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <style type="text/css">
 	.tr-new {
 		position: static;
@@ -94,19 +95,19 @@
         </div>
         <label class="col-sm-1 control-label" for="priority">Priority</label>
         <div class="col-sm-5">
-         	<input type="text" class="form-control" id="priority" name="priority" placeholder="Priority" style="height:35px;">
+         	<input type="text" class="form-control" id="priority" name="priority" value="${jd.priority }" style=height:35px;">
         </div>
     </div>
      <div class="form-group tr-new">
         <label class="col-sm-1 control-label" for="title">Title</label>
         <div class="col-sm-11">
-   			<input type="text" class="form-control" id="title" name="title" placeholder="Title" style="height:35px;"></input>
+   			<input type="text" class="form-control" id="title" name="title" value="${jd.title }" style=height:35px;"></input>
    		</div>
     </div>		
     <div class="form-group tr-new">
         <label class="col-sm-1 control-label" for="client">Client</label>
         <div class="col-sm-5">
-        	<input type="text" class="form-control" id="client" name="client" placeholder="Client" style="height:35px;">
+        	<input type="text" class="form-control" id="client" name="client" value="${jd.client}" style=height:35px;">
         </div>
         <label class="col-sm-1 control-label" for="status">Status</label>
         <div class="col-sm-5">
@@ -116,51 +117,51 @@
     <div class="form-group tr-new">
         <label class="col-sm-1 control-label" for="location">Location</label>
         <div class="col-sm-11">
-			<input type="text" class="form-control" id="location" name="location" placeholder="Location" style="height:35px;"></input>							        	
+			<input type="text" class="form-control" id="location" name="location" value="${jd.location }" style="height:35px;"></input>							        	
     	</div>
     </div>					                    
     <div class="form-group tr-new">
         <label class="col-sm-1 control-label" for="duration">Duration</label>
        	<div class="col-sm-5">
-        	<input type="text" class="form-control" id="duration" name="duration" placeholder="Duration" style="height:35px;">
+        	<input type="text" class="form-control" id="duration" name="duration" value="${jd.duration }" style="height:35px;">
         </div>
         <label class="col-sm-1 control-label" for="payrate">Pay Rate</label>
         <div class="col-sm-5">
-        	<input type="text" class="form-control" id="payrate" name="payrate" placeholder="PayRate" style="height:35px;">
+        	<input type="text" class="form-control" id="payrate" name="payrate" value="${jd.payrate }" style="height:35px;">
    		</div>
     </div>
     <div class="form-group tr-new">
         <label class="col-sm-1 control-label" for="keyword">Key word</label>
         <div class="col-sm-11">
-        	<input type="text" class="form-control" id="keyword" name="keyword" placeholder="Key word" style="height:35px;"></input>
+        	<input type="text" class="form-control" id="keyword" name="keyword" value="${jd.keyword }" style="height:35px;"></input>
    		</div>
     </div>
     <div class="form-group tr-new">
         <label class="col-sm-1 control-label" for="local">Local</label>
         <div class="col-sm-5">
-        	<input type="text" class="form-control" id="local" name="local" placeholder="Local" style="height:35px;">
+        	<input type="text" class="form-control" id="local" name="local" value="${jd.local }" style="height:35px;">
         </div>
         <label class="col-sm-1 control-label" for="owner">Owner</label>
         <div class="col-sm-5">
-       	 	<input type="text" class="form-control" id="owner" name="owner" placeholder="Owner" style="height:35px;">
+       	 	<input type="text" class="form-control" id="owner" name="owner" value="${jd.owner }" style="height:35px;">
     	</div>
     </div>	
     <div class="form-group tr-new">
         <label class="col-sm-1 control-label" for="description">Description</label>
         <div class="col-sm-11">
-       		<textarea class="form-control" id="description" name="description" placeholder="Description" style="height:55px;"></textarea> 
+       		<textarea class="form-control" id="description" name="description"  style="height:55px;">${jd.description }</textarea> 
         </div>
     </div>			                    				                    				                    		                   
     <div class="form-group tr-new">
         <label class="col-sm-1 control-label" for="qualification">Qualification</label>
         <div class="col-sm-11">
-			<textarea class="form-control" id="qualification" name="qualification" placeholder="Qualification" style="height:55px;"></textarea>							            
+			<textarea class="form-control" id="qualification" name="qualification"  style="height:55px;">${jd.qualification }</textarea>							            
         </div>
     </div>
     <div class="form-group tr-new">    
         <label class="col-sm-1 control-label" for="notes">Notes</label>
         <div class="col-sm-11">
-        	<textarea class="form-control" id="notes" name="notes" placeholder="Notes" style="height:55px;"></textarea>
+        	<textarea class="form-control" id="notes" name="notes"  style="height:55px;">${jd.notes }</textarea>
    		</div>
     </div>
 </fieldset>

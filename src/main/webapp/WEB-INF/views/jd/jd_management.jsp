@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <script type="text/javascript">
@@ -155,7 +156,7 @@ function SearchJD(divId, formId,callback){
 						<div class="col-md-6">
 							<div id="DataTables_Table_0_length" class="dataTables_length">
 								<label>
-									<select id="pageSize" name="pageSize" size="1"  aria-controls="DataTables_Table_0" onchange='ajaxForm("table1", "splitPage");'>
+									<select id="pageSize" name="pageSize" size="1"  aria-controls="DataTables_Table_0" onchange='SearchJD("table1", "splitPage");'>
 										<option value="5" selected="selected">5</option>
 										<option value="10">10</option>
 										<option value="15">15</option>
@@ -193,7 +194,7 @@ function SearchJD(divId, formId,callback){
 							            <span class="label-success label label-default">Active</span>
 							        </td>
 							        <td class="center">
-							            <a class="btn btn-info" href="#" onclick="ajaxContent('/JD/toEdit','no=${jd.no}');">
+							            <a class="btn btn-info" href="#" onclick="Edit('/JD/toEdit','${jd.no}');">
 							                <i class="glyphicon glyphicon-edit icon-white"></i>
 							                Edit
 							            </a>

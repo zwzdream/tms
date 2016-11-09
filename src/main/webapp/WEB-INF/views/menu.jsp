@@ -21,6 +21,11 @@
                 		<i class="glyphicon glyphicon-edit"></i><span> Resource Repository</span>
                 	</a>
                 </li>
+                <li>
+                	<a class="ajax-link" href="${ctx}/Index/home/user">
+                		<i class="glyphicon glyphicon-user"></i><span> User Management</span>
+                	</a>
+                </li>
             </ul>
         </div>
     </div>

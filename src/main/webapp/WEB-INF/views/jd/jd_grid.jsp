@@ -68,7 +68,7 @@ function gridConvert(url, data, callback){
 										</c:if></td>
 									<td class="center">${jd.notes}</td>
 								 <td class="center"><fmt:formatDate
-											value="${jd.modifydate}" pattern="yyyy-MM-dd hh:mm:ss" /></td> 
+											value="${jd.modifydate}" pattern="yyyy-MM-dd HH:mm:ss" /></td> 
 									<td class="center">${jd.owner}</td>
 								</tr>
 							</c:forEach>

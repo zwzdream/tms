@@ -46,8 +46,11 @@ public class IndexController {
       } else if ("JD".equals(targetAction)) {
         return "/jd/jd_management";
       } else if ("resource".equals(targetAction)) {
-        return "redirect:/Resource/toRepository";
-      } else {
+        return "/resource/resource_repository";
+      } else if("user".equals(targetAction)){
+    	  return "user/user_management";
+      }  else {
+
         return "/home";
       }
     } else {
@@ -98,6 +101,20 @@ public class IndexController {
   @RequestMapping(value = "/resource/init", method = RequestMethod.POST)
   public String resource(Model model) {
     return "/resource/resource_repository";
+  }
+  /**
+   * Ajax load User Management
+   * 
+   * @param model
+   * @return
+   * 
+   * @return String
+   * @exception throws
+   * @see
+   */
+  @RequestMapping(value = "/user/init", method = RequestMethod.POST)
+  public String user(Model model) {
+	  return "/user/user_management";
   }
 
 }
