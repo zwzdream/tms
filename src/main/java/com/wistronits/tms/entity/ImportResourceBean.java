@@ -1,16 +1,17 @@
 package com.wistronits.tms.entity;
 
+import java.util.Calendar;
 import java.util.Date;
 
-import org.springframework.web.multipart.MultipartFile;
 
 public class ImportResourceBean {
+	private int id;
 	private String firstName;
 	private String lastName;
 	private Date birth;
 	private Boolean gender;
-//	private MultipartFile inputFile;
 	private String filePath;
+	private int age;
 	public String getFilePath() {
 		return filePath;
 	}
@@ -34,6 +35,7 @@ public class ImportResourceBean {
 	}
 	public void setBirth(Date birth) {
 		this.birth = birth;
+		setAge();
 	}
 	public Boolean getGender() {
 		return gender;
@@ -41,12 +43,39 @@ public class ImportResourceBean {
 	public void setGender(Boolean gender) {
 		this.gender = gender;
 	}
-//	public MultipartFile getInputFile() {
-//		return inputFile;
-//	}
-//	public void setInputFile(MultipartFile inputFile) {
-//		this.inputFile = inputFile;
-//	}
-	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge() {
+		this.age = getAgeFromBirth();
+	}
+
+	private int getAgeFromBirth(){
+		Calendar cal = Calendar.getInstance();
+		int yearNow = cal.get(Calendar.YEAR);
+		int monthNow = cal.get(Calendar.MONTH);
+		int dayOfMonthNow = cal.get(Calendar.DAY_OF_MONTH);
+		cal.setTime(this.birth);
+		
+		int yearBirth = cal.get(Calendar.YEAR);
+		int monthBirth = cal.get(Calendar.MONTH);
+		int dayOfMonthBirth = cal.get(Calendar.DAY_OF_MONTH);
+		
+		int age = yearNow-yearBirth;
+		if(monthNow<=monthBirth){
+			if(monthNow==monthBirth){
+				if(dayOfMonthNow<dayOfMonthBirth) age--;
+			}else{
+				age--;
+			}
+		}
+		return age;
+	}
 	
 }

@@ -10,7 +10,7 @@
 </div>
 <script type="text/javascript">
 
-function importResource(divId, formId,callback){
+function importResource(divId, formId){
 	var form = $("#" + formId)[0];
 	form.action= ctx + '/Resource/importResource';
 	form.method = "post";
@@ -61,6 +61,7 @@ function importResource(divId, formId,callback){
             </div>
             <div class="box-content">
                 <form role="form" id="importResource">
+                	<input type="hidden" name="actionFlag" id="actionFlag" value="insert">
                     <div class="form-inline">
                         <label for="firstName">First Name</label>&nbsp;
                         <input type="text" class="form-control" id="firstName" name="firstName">

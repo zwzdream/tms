@@ -7,12 +7,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
-import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
@@ -37,33 +38,30 @@ import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.xmlbeans.XmlException;
 
 public class LuceneIndexer {
-	//source file
-//	private static String FILE_PATH = "D:\\LuceneFiles\\script.txt";
-	//create lucene index to dir
-	static{
-		File indexDir = new File("D:\\LuceneIndex");
-		if(!indexDir.exists() && !indexDir.isDirectory()){
-			indexDir.mkdir();
-		}
-	}
-	private static File INDEX_DIR = new File("D:\\LuceneIndex");;
 	
-//	public static void main(String[] args){
-////		createIndexer(new File(FILE_PATH));
-//		seacher("Shipping Label");
-//	}
-	public static void createIndexer(File srcFile){
+	public static String UPLOAD_FOLDER_PATH = "D:/uploadFiles";
+	public static String LUCENE_INDEX_FOLDER_PATH = "D:/luceneIndex";
+	
+	@SuppressWarnings("deprecation")
+	public static void createIndexer(File srcFile, int id){
 		Directory directory = null;
 		IndexWriter writer = null;
 		Document doc = null;
 		try {
-			directory = FSDirectory.open(INDEX_DIR.toPath(),NoLockFactory.INSTANCE);
+			File indexDir = new File(LUCENE_INDEX_FOLDER_PATH);
+			if(!indexDir.exists() && !indexDir.isDirectory()){
+				indexDir.mkdir();
+			}
+			
+			directory = FSDirectory.open(indexDir.toPath(),NoLockFactory.INSTANCE);
 			
 			IndexWriterConfig writerConfig = new IndexWriterConfig(new StandardAnalyzer());
 			writer = new IndexWriter(directory,writerConfig);
 			
 			if(srcFile.isFile()){
+				System.out.println("id:"+id);
 				System.out.println("File "+ srcFile.getCanonicalPath() + "  creating the index....");
+				
 				doc = new Document();
 				String content = null;
 				String filePath = srcFile.getAbsolutePath();
@@ -76,10 +74,10 @@ public class LuceneIndexer {
 				}else if (filePath.endsWith(".pdf")) {
 					content = PdfboxFileReader(srcFile.getCanonicalPath());
 				}
-				doc.getFields().add(new TextField("content",content,Field.Store.YES));
-				doc.getFields().add(new TextField("filename",srcFile.getName(),Field.Store.YES));
-				doc.getFields().add(new TextField("path",srcFile.getAbsolutePath(),Field.Store.YES));
+				doc.add(new Field("content",content,Field.Store.NO,Field.Index.ANALYZED));
+				doc.add(new Field("id",String.valueOf(id),Field.Store.YES,Field.Index.NO));
 				writer.addDocument(doc);
+				
 				System.out.println("Create index successfully!");
 			}
 		} catch (IOException e) {
@@ -101,35 +99,41 @@ public class LuceneIndexer {
 		}
 	}
 	
-	public static List<String> seacher(String workKey){
+	public static Map<String, Object> seacher(String workKey, int page, int pageSize){
 		Directory directory = null; 
 		IndexReader reader = null;
-		List<String> ret = new ArrayList<String>();
+		List<Integer> list = new ArrayList<Integer>();
+		Map<String, Object> result = new HashMap<String,Object>();
 		try {
-			directory = FSDirectory.open(INDEX_DIR.toPath());
+			File indexDir = new File(LUCENE_INDEX_FOLDER_PATH);
+			if(!indexDir.exists() && !indexDir.isDirectory()){
+				indexDir.mkdir();
+			}
+			
+			directory = FSDirectory.open(indexDir.toPath());
 			reader = DirectoryReader.open(directory);
 			IndexSearcher seacher = new IndexSearcher(reader);
+			
+
+//			Term term = new Term("content", "lucene");  
+//			Query query = new TermQuery(term);
 			
 			QueryParser parser = new QueryParser("content", new StandardAnalyzer());
 			Query query = parser.parse(workKey);
 			
-			TopDocs tds = seacher.search(query, 10);
+			TopDocs tds = getDocsByPage(page, pageSize, seacher, query);
 			ScoreDoc[] docs = tds.scoreDocs;
-//			if(docs.length==0){
-//				System.out.println("No file matched!");
-//			}else{
-//				System.out.println("matched files count��"+tds.totalHits);  
-//				for (ScoreDoc scoreDoc : docs) {
-//					Document doc = seacher.doc(scoreDoc.doc);
-//					System.out.println("Path:" + doc.get("path"));
-//				}
-//			}
-			System.out.println("matched files count��"+tds.totalHits);
+
+//			System.out.println("all match files count:"+getAllMatchDocCount(seacher));
+			System.out.println("matched files count:"+tds.totalHits);
+			System.out.println("matched files count in page:"+docs.length);
 			for (ScoreDoc scoreDoc : docs) {
 				Document doc = seacher.doc(scoreDoc.doc);
-				System.out.println("Path:" + doc.get("path"));
-				ret.add(doc.get("path"));
+				System.out.println("id:" + doc.get("id"));
+				list.add(Integer.parseInt(doc.get("id")));
 			}
+			result.put("count", tds.totalHits);
+			result.put("list", list);
 		} catch (IOException | ParseException e) {
 			e.printStackTrace();
 		}finally{
@@ -141,8 +145,38 @@ public class LuceneIndexer {
 				}
 			}
 		}
+		return result;
+	}
+	
+	/**
+	 * search by page
+	 * @param searcher
+	 * @return count
+	 * @throws IOException 
+	 */
+	public static TopDocs getDocsByPage(int page,int pageSize,IndexSearcher searcher,Query query) throws IOException{
+		TopDocs ret = null;
+		ScoreDoc before = null;
+		if(page!=1){
+			TopDocs docsBefore = searcher.search(query, (page-1)*pageSize);
+			ScoreDoc[] scoreDocs = docsBefore.scoreDocs;
+			if(scoreDocs.length > 0){
+				before = scoreDocs[scoreDocs.length - 1];
+			}
+		}
+		ret = searcher.searchAfter(before, query, pageSize);
 		return ret;
 	}
+	
+	/**
+	 * All match Doc count
+	 * @param searcher
+	 * @return count
+	 */
+	public static int getAllMatchDocCount(IndexSearcher seacher){
+		return seacher.getIndexReader().maxDoc();
+	}
+	
 	/**
 	  * Excel extractor
 	  * @param fileName
@@ -175,6 +209,7 @@ public class LuceneIndexer {
 		 PDFTextStripper ts = new PDFTextStripper();
 		 content.append(ts.getText(p.getPDDocument()));
 		 fis.close();
+		 p.getPDDocument().close();
 		 return content.toString().trim();
 	 }
 

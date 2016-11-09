@@ -7,6 +7,15 @@
 		<result column="lastname" property="latname" jdbcType="VARCHAR" />
 	</resultMap>
 
+	<resultMap id="ImportResourceBeanResultMap" type="com.wistronits.tms.entity.ImportResourceBean">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="first_name" property="firstName" jdbcType="VARCHAR" />
+		<result column="last_name" property="lastName" jdbcType="VARCHAR" />
+		<result column="birth" property="birth" jdbcType="DATE" />
+		<result column="gender" property="gender" jdbcType="BOOLEAN" />
+		<result column="file_path" property="filePath" jdbcType="VARCHAR" />
+	</resultMap>
+
 	<insert id="saveResume" useGeneratedKeys="true" keyProperty="id">
 	  <![CDATA[
 	  		insert into jd(no,priority,title,client,status,location,duration,payrate,keyword,local,
@@ -27,9 +36,26 @@
 	]]>	
 	</update>
 	
-	<insert id="insertResource" parameterType="com.wistronits.tms.entity.ImportResourceBean">
+	<insert id="insertResource" parameterType="com.wistronits.tms.entity.ImportResourceBean" 
+	useGeneratedKeys="true" keyProperty="id">
          insert into import_resource (first_name, last_name, birth,gender,file_path)
      		values (#{firstName,jdbcType=VARCHAR}, #{lastName,jdbcType=VARCHAR}, #{birth,jdbcType=DATE}, 
        			#{gender,jdbcType=BOOLEAN},#{filePath,jdbcType=VARCHAR})
      </insert>
+     
+     <select id="getAllImportBeans" resultMap="ImportResourceBeanResultMap">
+     	select * from import_resource
+     </select>
+     
+     <select id="getResourceByIds" resultMap="ImportResourceBeanResultMap" >
+     	select * from import_resource where id in 
+     	<foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+  			#{item}  
+ 		</foreach>
+     </select>
+     
+     <select id="getAllImportBeansCount" resultType="int">
+     	select count(*) from import_resource
+     </select>
+     
 </mapper>
