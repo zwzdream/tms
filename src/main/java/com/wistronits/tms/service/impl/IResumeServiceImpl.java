@@ -28,7 +28,11 @@ public class IResumeServiceImpl implements IResumeService {
 	private IResumeDao iResumeDao;
 	@Override
 	public Boolean addResume(ResumeBean rDto) {
-		this.iResumeDao.addResume(rDto);
+		int cnt = iResumeDao.addResume(rDto);
+		if(cnt<=0){
+			return false;
+		}
+		LuceneIndexer.createIndexer(rDto.toString(), rDto.getId());
 		return true;
 	}
 	@Override
@@ -70,10 +74,15 @@ public class IResumeServiceImpl implements IResumeService {
 		List<ImportResourceBean> beans = new ArrayList<ImportResourceBean>();
 		Map<String,Object> resultMap= LuceneIndexer.seacher(keyWord,getCurrentPageNum(offSet,pageSize),pageSize);
 		@SuppressWarnings("unchecked")
-		List<Integer> ids = (List<Integer>) resultMap.get("list");
+		List<Integer> addListIds = (List<Integer>) resultMap.get("addList");
+		@SuppressWarnings("unchecked")
+		List<Integer> importListIds = (List<Integer>) resultMap.get("importList");
 		int count = (int) resultMap.get("count");
-		if(!ids.isEmpty()){
-			beans = iResumeDao.getResourceByIds(ids);
+		if(!importListIds.isEmpty()){
+			beans = iResumeDao.getImportResourceByIds(importListIds);
+		}
+		if(!addListIds.isEmpty()){
+			beans.addAll(iResumeDao.getAddResourceByIds(addListIds));
 		}
 		Map<String,Object> ret = new HashMap<String,Object>();
 		ret.put("list", beans);

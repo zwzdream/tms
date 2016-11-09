@@ -1,11 +1,13 @@
 package com.wistronits.tms.entity;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 
 
 public class ResumeBean implements Serializable {
-		
+
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private String firstName;
 	private String lastName;
@@ -18,6 +20,7 @@ public class ResumeBean implements Serializable {
 	private String education;
 	private String workExp;
 	private String projectExp;
+	private int age;
 	 
 	
 	public String getEducation() {
@@ -92,5 +95,36 @@ public class ResumeBean implements Serializable {
 	}
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge() {
+		this.age = getAgeFromBirth();
+	}
+
+	private int getAgeFromBirth(){
+		Calendar cal = Calendar.getInstance();
+		int yearNow = cal.get(Calendar.YEAR);
+		int monthNow = cal.get(Calendar.MONTH);
+		int dayOfMonthNow = cal.get(Calendar.DAY_OF_MONTH);
+		cal.setTime(this.birth);
+		
+		int yearBirth = cal.get(Calendar.YEAR);
+		int monthBirth = cal.get(Calendar.MONTH);
+		int dayOfMonthBirth = cal.get(Calendar.DAY_OF_MONTH);
+		
+		int age = yearNow-yearBirth;
+		if(monthNow<=monthBirth){
+			if(monthNow==monthBirth){
+				if(dayOfMonthNow<dayOfMonthBirth) age--;
+			}else{
+				age--;
+			}
+		}
+		return age;
+	}
+	public String toString(){
+		return this.firstName+" "+this.lastName+" "+this.mobile+" "+this.email+" "+this.residency+" "+this.education+" "+this.workExp+" "+this.projectExp;
 	}
 }

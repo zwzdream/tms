@@ -15,6 +15,14 @@
 		<result column="gender" property="gender" jdbcType="BOOLEAN" />
 		<result column="file_path" property="filePath" jdbcType="VARCHAR" />
 	</resultMap>
+	
+	<resultMap id="ADddResourceBeanResultMap" type="com.wistronits.tms.entity.ImportResourceBean">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="first_name" property="firstName" jdbcType="VARCHAR" />
+		<result column="last_name" property="lastName" jdbcType="VARCHAR" />
+		<result column="birth" property="birth" jdbcType="DATE" />
+		<result column="gender" property="gender" jdbcType="BOOLEAN" />
+	</resultMap>
 
 	<insert id="addResume" parameterType="com.wistronits.tms.entity.ResumeBean" useGeneratedKeys="true" keyProperty="id">
        insert into resume (id,first_name, last_name,birth,gender,mobile,starts,email,residency,education,workExp,projectExp)
@@ -47,7 +55,7 @@
      	select * from import_resource
      </select>
      
-     <select id="getResourceByIds" resultMap="ImportResourceBeanResultMap" >
+     <select id="getImportResourceByIds" resultMap="ImportResourceBeanResultMap" >
      	select * from import_resource where id in 
      	<foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
   			#{item}  
@@ -58,4 +66,10 @@
      	select count(*) from import_resource
      </select>
      
+     <select id="getAddResourceByIds" resultMap="ADddResourceBeanResultMap">
+     	select id,first_name,last_name,birth,gender from resume where id in 
+     	<foreach item="item" index="index" collection="list" open="(" separator="," close=")"> 
+     		#{item}
+     	</foreach>
+     </select>
 </mapper>

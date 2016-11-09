@@ -76,6 +76,7 @@ public class LuceneIndexer {
 				}
 				doc.add(new Field("content",content,Field.Store.NO,Field.Index.ANALYZED));
 				doc.add(new Field("id",String.valueOf(id),Field.Store.YES,Field.Index.NO));
+				doc.add(new Field("type","import",Field.Store.YES,Field.Index.NO));
 				writer.addDocument(doc);
 				
 				System.out.println("Create index successfully!");
@@ -102,7 +103,8 @@ public class LuceneIndexer {
 	public static Map<String, Object> seacher(String workKey, int page, int pageSize){
 		Directory directory = null; 
 		IndexReader reader = null;
-		List<Integer> list = new ArrayList<Integer>();
+		List<Integer> addList = new ArrayList<Integer>();
+		List<Integer> importList = new ArrayList<Integer>();
 		Map<String, Object> result = new HashMap<String,Object>();
 		try {
 			File indexDir = new File(LUCENE_INDEX_FOLDER_PATH);
@@ -130,10 +132,16 @@ public class LuceneIndexer {
 			for (ScoreDoc scoreDoc : docs) {
 				Document doc = seacher.doc(scoreDoc.doc);
 				System.out.println("id:" + doc.get("id"));
-				list.add(Integer.parseInt(doc.get("id")));
+				System.out.println("type:" + doc.get("type"));
+				if("add".equals(doc.get("type"))){
+					addList.add(Integer.parseInt(doc.get("id")));
+				}else if("import".equals(doc.get("type"))){
+					importList.add(Integer.parseInt(doc.get("id")));
+				}
 			}
 			result.put("count", tds.totalHits);
-			result.put("list", list);
+			result.put("importList", importList);
+			result.put("addList", addList);
 		} catch (IOException | ParseException e) {
 			e.printStackTrace();
 		}finally{
@@ -252,4 +260,45 @@ public class LuceneIndexer {
 		 reader.close();
 		 return temp;
 	 }
+
+	@SuppressWarnings("deprecation")
+	public static void createIndexer(String content, int id) {
+		Directory directory = null;
+		IndexWriter writer = null;
+		Document doc = null;
+		try {
+			File indexDir = new File(LUCENE_INDEX_FOLDER_PATH);
+			if(!indexDir.exists() && !indexDir.isDirectory()){
+				indexDir.mkdir();
+			}
+			
+			directory = FSDirectory.open(indexDir.toPath(),NoLockFactory.INSTANCE);
+			
+			IndexWriterConfig writerConfig = new IndexWriterConfig(new StandardAnalyzer());
+			writer = new IndexWriter(directory,writerConfig);
+			
+			if(!content.isEmpty()){
+				System.out.println("id:"+id);
+				System.out.println("creating the index for manual add resource....");
+				
+				doc = new Document();
+				doc.add(new Field("content",content,Field.Store.NO,Field.Index.ANALYZED));
+				doc.add(new Field("id",String.valueOf(id),Field.Store.YES,Field.Index.NO));
+				doc.add(new Field("type","add",Field.Store.YES,Field.Index.NO));
+				writer.addDocument(doc);
+				
+				System.out.println("Create index successfully for manual add resource!");
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally{
+			if(writer!=null){
+				try {
+					writer.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 }
