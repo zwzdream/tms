@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.wistronits.tms.entity.ImportResourceBean;
+import com.wistronits.tms.entity.ResumeBean;
 import com.wistronits.tms.entity.RsResponse;
 import com.wistronits.tms.service.IResumeService;
 
@@ -109,4 +110,61 @@ public class ResourceRepositoryController {
 		return rs;
 	}
 	
+	@RequestMapping(value = "/addResume", method = RequestMethod.POST)
+	public @ResponseBody RsResponse addResume(
+			@RequestParam(value="firstName") String firstName,
+			@RequestParam(value="lastName") String lastName,
+			@RequestParam(value="birth") String birthYYYY_MM_DD,
+			@RequestParam(value="inlineRadio") String gender,
+			@RequestParam(value="mobile") String mobile,
+			@RequestParam(value="starts") String startsYYYY_MM_DD,
+			@RequestParam(value="email") String email,
+			@RequestParam(value="residency") String residency,
+			@RequestParam(value="education") String education,
+			@RequestParam(value="workExp") String workExp,
+			@RequestParam(value="projectExp") String projectExp
+			) {	
+		Date birthDate = null;
+		Date startsDate=null;
+		if(!birthYYYY_MM_DD.isEmpty()) {
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+			try {
+				birthDate = df.parse(birthYYYY_MM_DD);
+			} catch (ParseException e) {
+				return RsResponse.getErrorInstance("Birth date invalid:"+birthYYYY_MM_DD);
+			}
+		}
+		if(birthDate == null){
+			return RsResponse.getErrorInstance("Birth date must exist");
+		}
+		if(!startsYYYY_MM_DD.isEmpty()) {
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+			try {
+				startsDate = df.parse(startsYYYY_MM_DD);
+			} catch (ParseException e) {
+				return RsResponse.getErrorInstance("Work starts date invalid:"+birthYYYY_MM_DD);
+			}
+		}
+		if(startsDate == null){
+			return RsResponse.getErrorInstance("Work starts date must exist");
+		}
+		ResumeBean rBean = new ResumeBean();
+		rBean.setBirth(birthDate);
+		rBean.setFirstName(firstName);
+		rBean.setLastName(lastName);
+		rBean.setGender(gender);
+		rBean.setMobile(mobile);
+		rBean.setStarts(startsDate);
+		rBean.setEmail(email);
+		rBean.setResidency(residency);
+		rBean.setEducation(education);
+		rBean.setWorkExp(workExp);
+		rBean.setProjectExp(projectExp);
+		boolean ret = resumeService.addResume(rBean);
+		if(!ret)
+			return RsResponse.getErrorInstance("add to database failed!");
+		else
+			return RsResponse.BLANKSUCCESS;
+			
+	}
 }
