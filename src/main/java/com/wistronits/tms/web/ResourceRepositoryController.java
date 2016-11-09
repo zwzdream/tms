@@ -110,6 +110,7 @@ public class ResourceRepositoryController {
 		return rs;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "/addResume", method = RequestMethod.POST)
 	public @ResponseBody RsResponse addResume(
 			@RequestParam(value="firstName") String firstName,
@@ -166,5 +167,11 @@ public class ResourceRepositoryController {
 		else
 			return RsResponse.BLANKSUCCESS;
 			
+	}
+	@RequestMapping(value="/toEditImport", method=RequestMethod.POST)
+	public ModelAndView toEditImportView(@RequestParam(value="resourceId") int resourceId){
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/resource/resource_edit_importrecource");
+		return mv;
 	}
 }

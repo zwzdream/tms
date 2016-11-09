@@ -68,7 +68,7 @@ function initTable(){
     		}else{
     			$('td:eq(3)', nRow).html('<span class="label-warning label label-default">Female</span>');
     		}
-    		$('td:eq(4)', nRow).html('<a class="btn btn-info" href="#" onclick=ajaxContent();>'
+    		$('td:eq(4)', nRow).html('<a class="btn btn-info" href="#" onclick=ajaxContent(\"/Resource/toEditImport\");>'
     			+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit</a>&nbsp;'
     			+'<a class="btn btn-danger" href="#" onclick=ajaxContent();>'
     			+'<i class="glyphicon glyphicon-trash icon-white"></i>Delete</a>');
