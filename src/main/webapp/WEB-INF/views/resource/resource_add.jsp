@@ -24,10 +24,10 @@
 		</div>
 		
 		<div class="box-content">
-			<form class="form-horizontal" id="editForm" name="editForm" action="${ctx}/Resource/toSave" method="POST">
+			<form class="form-horizontal" id="addResume" method="POST">
 				<%@ include file="resource_form.jsp"%>
 				<div class="form-actions" style="text-align:center;">
-					<button class="btn btn-primary" type="button" onclick="dataVali();">Submit</button>
+					<button class="btn btn-primary" type="button" onclick="addResume('content','addResume');">Submit</button>
 				</div>
 			</form>
 		</div>
