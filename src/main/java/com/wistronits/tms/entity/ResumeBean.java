@@ -12,7 +12,7 @@ public class ResumeBean implements Serializable {
 	private String firstName;
 	private String lastName;
 	private Date birth;
-	private String gender;
+	private Boolean gender;
 	private String mobile;
 	private Date starts;
 	private String email;
@@ -66,10 +66,10 @@ public class ResumeBean implements Serializable {
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
-	public String getGender() {
+	public Boolean getGender() {
 		return gender;
 	}
-	public void setGender(String gender) {
+	public void setGender(Boolean gender) {
 		this.gender = gender;
 	}
 	public Date getBirth() {

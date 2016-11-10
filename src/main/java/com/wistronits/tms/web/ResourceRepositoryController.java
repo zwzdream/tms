@@ -96,8 +96,10 @@ public class ResourceRepositoryController {
 		List<ImportResourceBean> importBeans = new ArrayList<ImportResourceBean>();
 		int count = 0;
 		if(keyWord.isEmpty()){
-			importBeans = resumeService.getAllImportBeans(offSet,pageSize);
-			count = resumeService.getAllImportBeansCount();
+//			importBeans = resumeService.getAllImportBeans(offSet,pageSize);
+//			count = resumeService.getAllImportBeansCount();
+			importBeans = resumeService.getAllBeans(offSet,pageSize);
+			count = resumeService.getAllBeansCount();
 		}else{
 			Map<String,Object> map = resumeService.searchResource(keyWord,offSet,pageSize);
 			importBeans = (List<ImportResourceBean>) map.get("list");
@@ -116,7 +118,7 @@ public class ResourceRepositoryController {
 			@RequestParam(value="firstName") String firstName,
 			@RequestParam(value="lastName") String lastName,
 			@RequestParam(value="birth") String birthYYYY_MM_DD,
-			@RequestParam(value="inlineRadio") String gender,
+			@RequestParam(value="gender") boolean gender,
 			@RequestParam(value="mobile") String mobile,
 			@RequestParam(value="starts") String startsYYYY_MM_DD,
 			@RequestParam(value="email") String email,

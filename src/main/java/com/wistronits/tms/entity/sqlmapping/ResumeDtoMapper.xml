@@ -29,7 +29,7 @@
 	<insert id="addResume" parameterType="com.wistronits.tms.entity.ResumeBean" useGeneratedKeys="true" keyProperty="id">
        insert into resume (id,first_name, last_name,birth,gender,mobile,starts,email,residency,education,workExp,projectExp)
      		values (#{id,jdbcType=INTEGER},#{firstName,jdbcType=VARCHAR}, #{lastName,jdbcType=VARCHAR},#{birth,jdbcType=DATE},
-     		#{gender,jdbcType=VARCHAR},#{mobile,jdbcType=VARCHAR},#{starts,jdbcType=DATE},#{email,jdbcType=VARCHAR},#{residency,jdbcType=VARCHAR},
+     		#{gender,jdbcType=BOOLEAN},#{mobile,jdbcType=VARCHAR},#{starts,jdbcType=DATE},#{email,jdbcType=VARCHAR},#{residency,jdbcType=VARCHAR},
      		#{education,jdbcType=VARCHAR},#{workExp,jdbcType=VARCHAR},#{projectExp,jdbcType=VARCHAR}
      		)
      </insert>
@@ -73,5 +73,18 @@
      	<foreach item="item" index="index" collection="list" open="(" separator="," close=")"> 
      		#{item}
      	</foreach>
+     </select>
+     
+     <select id="getAllBeans" resultMap="ImportResourceBeanResultMap">
+     	select id,first_name,last_name,birth,gender,'import' as 'type' from import_resource 
+     	UNION ALL
+     	select id,first_name,last_name,birth,gender,'add' as 'type' from resume
+     </select>
+     
+     <select id="getAllBeansCount" resultType="int">
+     	select count(*) from 
+		(select id,first_name,last_name,birth,gender,'import' as 'type' from import_resource 
+     	 UNION ALL
+     	 select id,first_name,last_name,birth,gender,'add' as 'type' from resume) temp
      </select>
 </mapper>

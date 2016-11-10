@@ -67,10 +67,10 @@ function addResume(divId, formId,callback){
    		</div>
    		<label class="col-sm-1 control-label" for="gender">Gender</label>
        <label class="radio-inline" style="margin-left:15px;">
-		  <input type="radio" id="inlineRadio1" name="inlineRadio"  value="Male">Male
+		  <input type="radio" id="inlineRadio1" name="gender"  value="true">Male
 		</label>
 		 <label class="radio-inline" style="margin-left:15px;">
-		  <input type="radio" id="inlineRadio2" name="inlineRadio"  value="Female">Female
+		  <input type="radio" id="inlineRadio2" name="gender"  value="false">Female
 		</label>
     </div>		
     <div class="form-group tr-new">

@@ -14,5 +14,7 @@ public interface IResumeDao {
 	 public List<ImportResourceBean> getImportResourceByIds(List<Integer> ids);
 	 public int getAllImportBeansCount();
 	 public List<ImportResourceBean> getAddResourceByIds(List<Integer> ids);
+	 public List<ImportResourceBean> getAllBeans();
+	 public int getAllBeansCount();
 	 
 }

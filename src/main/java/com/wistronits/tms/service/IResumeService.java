@@ -15,4 +15,6 @@ public interface IResumeService {
 	public List<ImportResourceBean> getAllImportBeans(int offSet, int pageSize);
 	public Map<String,Object> searchResource(String keyWord, int offSet, int pageSize);
 	public int getAllImportBeansCount();
+	public List<ImportResourceBean> getAllBeans(int offSet, int pageSize);
+	public int getAllBeansCount();
 }

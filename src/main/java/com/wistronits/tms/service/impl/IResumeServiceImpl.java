@@ -98,4 +98,15 @@ public class IResumeServiceImpl implements IResumeService {
 	public int getCurrentPageNum(int offSet, int pageSize){
 		return offSet/pageSize+1;
 	}
+	@Override
+	public List<ImportResourceBean> getAllBeans(int offSet, int pageSize) {
+		PageHelper.startPage(getCurrentPageNum(offSet,pageSize), pageSize);
+		List<ImportResourceBean> importBeans = iResumeDao.getAllBeans();
+		return importBeans;
+	}
+	@Override
+	public int getAllBeansCount() {
+		int count = iResumeDao.getAllBeansCount();
+		return count;
+	}
 }
