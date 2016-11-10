@@ -69,14 +69,14 @@ function initTable(){
     			$('td:eq(3)', nRow).html('<span class="label-warning label label-default">Female</span>');
     		}
     		if(aData.type=='add'){
-    			$('td:eq(4)', nRow).html('<a class="btn btn-info" href="#" onclick=ajaxContent(\"/Resource/toEditAdd\");>'
+    			$('td:eq(4)', nRow).html('<a class="btn btn-info" href="#" onclick=ajaxContent(\"/Resource/toEditAdd\","resourceId='+ aData.id +'");>'
     	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit</a>&nbsp;'
-    	    			+'<a class="btn btn-danger" href="#" onclick=ajaxContent(\"/Resource/toDeleteAdd\");>'
+    	    			+'<a class="btn btn-danger" href="#" onclick=ajaxContent(\"/Resource/toDeleteAdd\","resourceId='+ aData.id +'");>'
     	    			+'<i class="glyphicon glyphicon-trash icon-white"></i>Delete</a>');
     		}else if(aData.type=='import'){
-    			$('td:eq(4)', nRow).html('<a class="btn btn-info" href="#" onclick=ajaxContent(\"/Resource/toEditImport\");>'
+    			$('td:eq(4)', nRow).html('<a class="btn btn-info" href="#" onclick=ajaxContent(\"/Resource/toEditImport\","resourceId='+ aData.id +'");>'
     	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit</a>&nbsp;'
-    	    			+'<a class="btn btn-danger" href="#" onclick=ajaxContent(\"/Resource/toDeleteImport\");>'
+    	    			+'<a class="btn btn-danger" href="#" onclick=ajaxContent(\"/Resource/toDeleteImport\","resourceId='+ aData.id +'");>'
     	    			+'<i class="glyphicon glyphicon-trash icon-white"></i>Delete</a>');
     		}
     		
