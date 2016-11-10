@@ -12,6 +12,7 @@ public class ImportResourceBean {
 	private Boolean gender;
 	private String filePath;
 	private int age;
+	private String type;
 	public String getFilePath() {
 		return filePath;
 	}
@@ -56,6 +57,12 @@ public class ImportResourceBean {
 		this.age = getAgeFromBirth();
 	}
 
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
 	private int getAgeFromBirth(){
 		Calendar cal = Calendar.getInstance();
 		int yearNow = cal.get(Calendar.YEAR);
