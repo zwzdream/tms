@@ -11,8 +11,17 @@ public class ImportResourceBean {
 	private Date birth;
 	private Boolean gender;
 	private String filePath;
+	private String fileName;
 	private int age;
 	private String type;
+	
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName() {
+		String[] temp= this.filePath.split("\\\\");
+		this.fileName = temp[temp.length-1];
+	}
 	public String getFilePath() {
 		return filePath;
 	}

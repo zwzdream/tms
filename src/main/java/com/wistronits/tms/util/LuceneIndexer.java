@@ -18,6 +18,7 @@ import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.index.Term;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
@@ -299,6 +300,32 @@ public class LuceneIndexer {
 					e.printStackTrace();
 				}
 			}
+		}
+	}
+
+	public static void deleteIndex(int resourceId) {
+		Directory directory = null;
+		IndexWriter writer = null;
+		File indexDir = new File(LUCENE_INDEX_FOLDER_PATH);
+		if(!indexDir.exists() && !indexDir.isDirectory()){
+			indexDir.mkdir();
+		}
+		try {
+			directory = FSDirectory.open(indexDir.toPath(),NoLockFactory.INSTANCE);
+			IndexWriterConfig writerConfig = new IndexWriterConfig(new StandardAnalyzer());
+			writer = new IndexWriter(directory,writerConfig);
+			writer.deleteDocuments(new Term("id",String.valueOf(resourceId)));
+			writer.commit();
+			System.out.println("delete index successfully --id:"+resourceId);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally{
+			if(writer!=null)
+				try {
+					writer.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 		}
 	}
 }

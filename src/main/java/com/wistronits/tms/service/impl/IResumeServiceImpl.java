@@ -109,4 +109,17 @@ public class IResumeServiceImpl implements IResumeService {
 		int count = iResumeDao.getAllBeansCount();
 		return count;
 	}
+	@Override
+	public boolean deleteImportResource(int resourceId) {
+		int count = iResumeDao.deleteImportResource(resourceId);
+		if(count!=1){
+			return false;
+		}
+		LuceneIndexer.deleteIndex(resourceId);
+		return true;
+	}
+	@Override
+	public ImportResourceBean getImportResourceById(int resourceId) {
+		return iResumeDao.getImportResourceById(resourceId);
+	}
 }

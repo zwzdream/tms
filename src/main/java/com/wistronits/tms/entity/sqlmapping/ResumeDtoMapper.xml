@@ -87,4 +87,12 @@
      	 UNION ALL
      	 select id,first_name,last_name,birth,gender,'add' as 'type' from resume) temp
      </select>
+     
+     <delete id="deleteImportResource" parameterType="int">
+     	delete from import_resource where id=#{id}
+     </delete>
+     
+     <select id="getImportResourceById" parameterType="int" resultMap="ImportResourceBeanResultMap">
+     	select * from import_resource where id=#{id}
+     </select>
 </mapper>

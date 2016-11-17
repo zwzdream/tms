@@ -17,4 +17,6 @@ public interface IResumeService {
 	public int getAllImportBeansCount();
 	public List<ImportResourceBean> getAllBeans(int offSet, int pageSize);
 	public int getAllBeansCount();
+	public boolean deleteImportResource(int resourceId);
+	public ImportResourceBean getImportResourceById(int resourceId);
 }

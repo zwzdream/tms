@@ -173,7 +173,22 @@ public class ResourceRepositoryController {
 	@RequestMapping(value="/toEditImport", method=RequestMethod.POST)
 	public ModelAndView toEditImportView(@RequestParam(value="resourceId") int resourceId){
 		ModelAndView mv = new ModelAndView();
+		ImportResourceBean bean = resumeService.getImportResourceById(resourceId);
+		mv.getModel().put("bean",bean);
 		mv.setViewName("/resource/resource_edit_importrecource");
 		return mv;
+	}
+	@SuppressWarnings("rawtypes")
+	@RequestMapping(value="/toDeleteImport", method=RequestMethod.POST)
+	public @ResponseBody RsResponse toDeleteImport (@RequestParam(value="resourceId") int resourceId){
+		if(resourceId<=0){
+			return RsResponse.getErrorInstance("resourceId invalid: "+resourceId);
+		}
+		boolean ret = resumeService.deleteImportResource(resourceId);
+		if(!ret){
+			return RsResponse.getErrorInstance("delete import resource failed!");
+		}else{
+			return RsResponse.BLANKSUCCESS;
+		}
 	}
 }

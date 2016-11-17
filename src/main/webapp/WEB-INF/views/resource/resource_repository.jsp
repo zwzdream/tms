@@ -1,5 +1,6 @@
 <script type="text/javascript">
 function searchResource(url){
+	var keyWord = $('#keyWord').val();
 	if(keyWord=='') {
 		noty({type:"warning",text: "The keyword is emopty! Please enter it.", layout: "bottom", timeout: 3000});
 	}else{
@@ -71,12 +72,12 @@ function initTable(){
     		if(aData.type=='add'){
     			$('td:eq(4)', nRow).html('<a class="btn btn-info" href="#" onclick=ajaxContent(\"/Resource/toEditAdd\","resourceId='+ aData.id +'");>'
     	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit</a>&nbsp;'
-    	    			+'<a class="btn btn-danger" href="#" onclick=ajaxContent(\"/Resource/toDeleteAdd\","resourceId='+ aData.id +'");>'
+    	    			+'<a class="btn btn-danger" href="#" onclick=deleteResource(\"/Resource/toDeleteAdd\","resourceId='+ aData.id +'");>'
     	    			+'<i class="glyphicon glyphicon-trash icon-white"></i>Delete</a>');
     		}else if(aData.type=='import'){
     			$('td:eq(4)', nRow).html('<a class="btn btn-info" href="#" onclick=ajaxContent(\"/Resource/toEditImport\","resourceId='+ aData.id +'");>'
     	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit</a>&nbsp;'
-    	    			+'<a class="btn btn-danger" href="#" onclick=ajaxContent(\"/Resource/toDeleteImport\","resourceId='+ aData.id +'");>'
+    	    			+'<a class="btn btn-danger" href="#" onclick=deleteResource(\"/Resource/toDeleteImport\","resourceId='+ aData.id +'");>'
     	    			+'<i class="glyphicon glyphicon-trash icon-white"></i>Delete</a>');
     		}
     		
@@ -90,7 +91,34 @@ function initTable(){
 $(document).ready(function() {  
 	initTable();
 });
-
+function deleteResource(url, data){
+	$('#content').fadeOut().parent().append('<div id="loading" class="center">Loading...<div class="center"></div></div>');
+	$.ajax({
+		type : "post",
+		url : ctx + url,
+		data : data,
+		async: false,
+		cache: false,
+		contentType: false,  
+        processData: false,
+        dataType: "json",
+		success:function(obj){
+			if((obj) && (obj.success)){
+				noty({type:"success",text: "Delete successed!", layout: "bottom", timeout: 3000});
+			}else{
+				noty({type:"error",text: "Delete failed!", layout: "bottom", timeout: 3000});
+			}
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) { 
+			noty({type:"error",text: "Delete failed!", layout: "bottom", timeout: 3000});
+        },
+        complete: function(XMLHttpRequest, textStatus) { 
+	    	$('#loading').remove();
+			$('#content').fadeIn();
+			docReady();
+        }
+	}); 
+}
 </script>
 <form id="splitPage" class="form-horizontal" action="${ctx}/resource/list" method="POST">
 	<div>
