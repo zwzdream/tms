@@ -10,5 +10,9 @@ public interface IUserDao {
 	public void editUser(UserBean userBean);
 	public void deleteUser(int id);
 	public ArrayList<UserBean> listByName(String username);
+	public ArrayList<UserBean> getAllNotIncludedUser(int gid);
+	public ArrayList<UserBean> getAllIncludedUser(int gid);
+	public void addUserToGroup(int uid,int gid);
+	public void removeUserToGroup(int uid,int gid);
 
 }

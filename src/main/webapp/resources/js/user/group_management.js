@@ -6,8 +6,9 @@ function doQry(){
 	   $table.dataTable().fnClearTable();
 	   initTable();
 }
+
 function initTable(){
-	var username = $('#username').val();
+	var groupname = $('#groupname').val();
 	$table.DataTable({
     	searching: false,
     	iDisplayLength: 5,//pagesize
@@ -31,26 +32,22 @@ function initTable(){
                 "sLast" : "Last"
             }
         },
-    	sAjaxSource: ctx+'/User/username/list?username='+username, //'GET'to server url
-        //"ajax": { "url": ctx+'/User/username/list?username='+username, "type": "POST" },
+    	sAjaxSource: ctx+'/Group/group/list?name='+groupname, //'GET'to server url
+        //"ajax": { "url": ctx+'/User/groupname/list?groupname='+groupname, "type": "POST" },
    	aoColumns:[
     		{mData:'id'},
-    		{mData:'username'},
-    		{mData:'password'},
-    		{mData:'mail'},
-    		{mData:'telphone'},
-    		{mData:'permission'},
-    		{mData:'date'},
+    		{mData:'name'},
+    		{mData:'remark'},
     		{sDefaultContent: ''},
     		{sDefaultContent: ''}
     	],
     	fnRowCallback: function(nRow, aData, iDisplayIndex) {
-    		$('td:eq(7)', nRow).html('<a class="btn btn-info" href="#" onclick="edit(\''+ aData.id + '\')";>'
+    		$('td:eq(3)', nRow).html('<a class="btn btn-info" href="#" onclick="edit(\''+ aData.id + '\')";>'
 	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit</a>&nbsp;'
 	    			+'<a class="btn btn-danger" href="#" onclick="del(\''+ aData.id + '\')";>'
 	    			+'<i class="glyphicon glyphicon-trash icon-white"></i>Delete</a>');
-    		$('td:eq(8)',nRow).html('<a class="btn btn-info" onclick="editGroup(\''+aData.id+'\')";>'
-    				+'<i class="glyphicon glyphicon-edit "></i>Edit</a>');
+    		$('td:eq(4)', nRow).html('<a class="btn btn-info" href="#" onclick="editUser(\''+ aData.id + '\')";>'
+    				+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit</a>')
     	},
 
     	fnInitComplete: function(oSettings, json) { 
@@ -59,11 +56,11 @@ function initTable(){
     });
 }
 function edit(id){
-	ajaxContent('/User/toEdit/' + id);
+	ajaxContent('/Group/toEdit/' + id);
 }
 function del(id){
-	ajaxContent('/User/delete/' + id);
+	ajaxContent('/Group/delete/' + id);
 }
-function editGroup(id){
-	ajaxContent('/User/editGroup/' + id);
+function editUser(id){
+	ajaxContent('/Group/editUser/' + id);
 }

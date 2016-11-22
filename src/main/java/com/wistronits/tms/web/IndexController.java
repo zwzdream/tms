@@ -49,7 +49,10 @@ public class IndexController {
         return "redirect:/Resource/toRepository";
       } else if("user".equals(targetAction)){
     	  return "user/user_management";
-      }  else {
+      }  else if("group".equals(targetAction)){
+    	  return "group/group_management";
+      }
+      else {
         return "/home";
       }
     } else {
@@ -114,6 +117,10 @@ public class IndexController {
   @RequestMapping(value = "/user/init", method = RequestMethod.POST)
   public String user(Model model) {
 	  return "/user/user_management";
+  }
+  @RequestMapping(value = "/group/init", method = RequestMethod.POST)
+  public String group(Model model) {
+	  return "/group/group_management";
   }
 
 }

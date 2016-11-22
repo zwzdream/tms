@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
     <link href='${ctx}/resources/ui/charisma/bower_components/datatables/media/css/jquery.dataTables.css' rel='stylesheet'>
-<script src="${ctx}/resources/js/user/user_management.js"></script>
+<script src="${ctx}/resources/js/user/group_management.js"></script>
 
 <form id="splitPage" class="form-horizontal" action="#" method="POST">
 	<div>
@@ -32,15 +32,15 @@
 				<div class="box-content">
 					<fieldset>
 					  	<div class="form-group">
-							<label class="col-sm-1 control-label" for="name">User Name</label>
+							<label class="col-sm-1 control-label" for="name">Group Name</label>
 						  	<div class="col-sm-3">
-							  	<input id="username" class="form-control" type="text" name="username"  maxlength="20" >
+							  	<input id="groupname" class="form-control" type="text" name="groupname"  maxlength="20" >
 						  	</div>	
 					  	</div>
 					  	<div class="form-actions" >
 					  		<div style="float:right;">
 								<button id="button" type="button" class="btn btn-primary" onclick='doQry();'>Search</button>
-					  			<button type="button" class="btn" onclick='ajaxContent("/User/toAdd");'>Add</button>
+					  			<button type="button" class="btn" onclick='ajaxContent("/Group/toAdd");'>Add</button>
 								&nbsp;&nbsp;&nbsp;
 								<button type="reset" class="btn">Clear</button>
 					  		</div>
@@ -74,14 +74,10 @@
 				 	    <thead>
 						    <tr>
 						    	<th>ID</th>
-						        <th>userName</th>
-						        <th>Password</th>
-						        <th>Mail</th>
-						        <th>Telphone</th>
-						        <th>Permission</th>
-						        <th>Date</th>
+						        <th>GroupName</th>
+						        <th>Remarks</th>
 						        <th>Operate</th>
-						        <th>Group Setting</th>
+						        <th>User Setting</th>
 						    </tr>
 						    </thead>
 				 

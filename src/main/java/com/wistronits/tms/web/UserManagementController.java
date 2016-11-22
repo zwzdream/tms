@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.wistronits.tms.entity.UserBean;
 import com.wistronits.tms.service.IUserService;
 
@@ -35,22 +35,23 @@ public class UserManagementController {
 		return "/user/user_add";
 	}
 
-	@RequestMapping(value = "/toEdit", method = RequestMethod.POST)
-	public ModelAndView toEdit(int id) {
+	@RequestMapping(value = "/toEdit/{id}", method = RequestMethod.POST)
+	public ModelAndView toEdit(@PathVariable int id) {
 		ModelAndView view = new ModelAndView("/user/user_edit");	
 		view.addObject("user", userService.getUserById(id));
 		return view;
 	}
-
-/*	@RequestMapping(value = "/all/list", method = RequestMethod.POST)
-	public ModelAndView listAll(int pageNum, int pageSize) {
-		ModelAndView view = new ModelAndView("/jd/jd_grid");
-		PageHelper.startPage(pageNum, pageSize);
-		List<UserBean> userList = userService.listByName("");
-		PageInfo<UserBean> page = new PageInfo<>(userList);
-		view.addObject("page", page);
+	
+	@RequestMapping(value = "/edit/update", method = RequestMethod.POST)
+	public ModelAndView edit(@ModelAttribute("editForm") UserBean form, Model model, ModelMap map) {
+		form.setDate(new Date());
+		userService.editUser(form);
+		ModelAndView view = new ModelAndView("/user/user_management");
+		view.addObject(form);
 		return view;
-	}*/
+	}
+
+
 
 	@RequestMapping(value = "/add/save", method = RequestMethod.POST)
 	public ModelAndView save(@ModelAttribute("editForm") UserBean form, Model model, ModelMap map) {
@@ -61,44 +62,41 @@ public class UserManagementController {
 		return view;
 	}
 
-	@RequestMapping(value = "/edit/update", method = RequestMethod.POST)
-	public ModelAndView edit(@ModelAttribute("editForm") UserBean form, Model model, ModelMap map) {
-		form.setDate(new Date());
-		userService.editUser(form);
-		ModelAndView view = new ModelAndView("/jd/jd_management");
-		view.addObject(form);
-		return view;
-	}
-
-	// mysql缓存，上一页，下一页或更改每页记录数时，keyword为空
-	@RequestMapping(value = "/username/listPage", method = RequestMethod.POST)
-	public  ModelAndView listPage(String username,int pageNum,@RequestParam(value="pageSize",defaultValue="5")int pageSize) {
+	
+	@RequestMapping(value = "/username/list", method = RequestMethod.GET)
+	@ResponseBody
+	public  Map<Object,Object> list(@RequestParam(value="username") String username,
+			@RequestParam(value="sEcho") String sEcho,
+			@RequestParam(value="iDisplayStart") int offSet,
+			@RequestParam(value="iDisplayLength") int pageSize) {
+		int pageNum=offSet/pageSize+1;
 		PageHelper.startPage(pageNum, pageSize);
 		List<UserBean> userBean = userService.listByName(username);
-		PageInfo<UserBean> page = new PageInfo<>(userBean);
-		ModelAndView view = new ModelAndView("/user/user_management");
-		view.addObject("name", username);
-		view.addObject("page", page);
-		return view;
-
+		List<UserBean> userBean1 = userService.listByName(username);
+        Map<Object,Object> map=new HashMap<>();
+        map.put("aaData", userBean);
+        map.put("iTotalDisplayRecords", userBean1.size());//一共查询到的记录
+        map.put("iTotalRecords", userBean.size());//每页显示的记录数
+        map.put("sEcho", sEcho);
+		return map;
 	}
-/*	@RequestMapping(value = "/username/listPage", method = RequestMethod.POST)
-	public  ModelAndView listPage(String username,int pageNum,@RequestParam(value="pageSize",defaultValue="5")int pageSize) {
-		PageHelper.startPage(pageNum, pageSize);
-		List<UserBean> userBean = userService.listByName(username);
-		PageInfo<UserBean> page = new PageInfo<>(userBean);
-		ModelAndView view = new ModelAndView("/jd/jd_management");
-		view.addObject("username", username);
-		view.addObject("page", page);
-		return view;
-	}*/
 
-	@RequestMapping(value = "/edit/delete", method = RequestMethod.POST)
-	public ModelAndView close(int id) {
+
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
+	public ModelAndView delete(@PathVariable int id) {
+		//ModelAndView view = new ModelAndView("/user/user_management");
 		ModelAndView view = new ModelAndView("/user/user_management");
 		userService.deleteUser(id);
 		return view;
-
+		
+	}
+	
+	@RequestMapping(value = "/editGroup/{id}", method = RequestMethod.POST)
+	public ModelAndView editGroup(@PathVariable int id) {
+		ModelAndView view = new ModelAndView("/user/user_group");
+		view.addObject("userId", userService.getUserById(id).getId());
+		view.addObject("userName", userService.getUserById(id).getUsername());
+		return view;
 	}
 
 }

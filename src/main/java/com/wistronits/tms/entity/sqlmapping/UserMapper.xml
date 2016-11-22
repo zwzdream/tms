@@ -20,9 +20,11 @@
 	<select id="listByName" resultMap="BaseResultMap">
 	<!-- mysql like的写法
      like concat('%',#{param},'%')  或者 like '%${param}%' ，推荐使用前者，可以避免sql注入。   -->
-  		<![CDATA[
-	  		select * from user A  where  A.username like concat('%',#{username},'%') order by id desc
-		]]>
+  		
+	  		select * from user A 
+	  		<if test="_parameter !=null and _parameter!=''">
+	  		<![CDATA[ where  A.username=#{username} order by id desc]]>
+		  </if>
 	</select>
 	<select id="getUserById" resultMap="BaseResultMap">
   		<![CDATA[
@@ -40,6 +42,28 @@
 	<delete id="deleteUser">
 	<![CDATA[
 	delete from user where user.id=#{id}
+	]]>
+	</delete>
+	
+	<select id="getAllNotIncludedUser" resultMap="BaseResultMap">
+  		<![CDATA[
+	  		SELECT a.* FROM USER a LEFT JOIN user_group b ON a.id=b.user_id WHERE b.user_id IS null
+		]]>
+	</select>
+	<select id="getAllIncludedUser" resultMap="BaseResultMap">
+  		<![CDATA[
+	  		SELECT a.* FROM USER a LEFT JOIN user_group b ON a.id=b.user_id LEFT JOIN groups c ON b.group_id=c.id WHERE c.id=#{gid}
+		]]>
+	</select>
+	<insert id="addUserToGroup" >
+	  <![CDATA[
+	  		insert into user_group(user_id,group_id) 
+	  		values(#{0},#{1})
+	  	]]>
+	</insert>
+	<delete id="removeUserToGroup">
+	<![CDATA[
+	delete from user_group where user_id=#{0} and group_id=#{1}
 	]]>
 	</delete>
 

@@ -26,6 +26,11 @@
                 		<i class="glyphicon glyphicon-user"></i><span> User Management</span>
                 	</a>
                 </li>
+                <li>
+                	<a class="ajax-link" href="${ctx}/Index/home/group">
+                		<i class="glyphicon glyphicon-user"></i><span> Group Management</span>
+                	</a>
+                </li>
             </ul>
         </div>
     </div>

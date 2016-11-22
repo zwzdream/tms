@@ -39,4 +39,23 @@ public class IUserServiceImpl implements IUserService {
 		return this.userDao.listByName(username);
 	}
 
+	@Override
+	public ArrayList<UserBean> getAllNotIncludedUser(int gid) {
+		return this.userDao.getAllNotIncludedUser(gid);
+	}
+	@Override
+	public ArrayList<UserBean> getAllIncludedUser(int gid) {
+		return this.userDao.getAllIncludedUser(gid);
+	}
+
+	@Override
+	public void addUserToGroup(int uid, int gid) {
+    this.userDao.addUserToGroup(uid, gid);		
+	}
+
+	@Override
+	public void removeUserToGroup(int uid, int gid) {
+      this.userDao.removeUserToGroup(uid, gid);		
+	}
+
 }
