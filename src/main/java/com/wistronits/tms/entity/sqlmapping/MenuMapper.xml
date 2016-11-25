@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wistronits.tms.dao.IMenuDao">
+	<resultMap id="BaseResultMap" type="com.wistronits.tms.entity.MenuBean">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="pId" property="pId" jdbcType="INTEGER" />
+		<result column="isParent" property="isParent" jdbcType="BOOLEAN" />
+		<result column="url" property="url" jdbcType="VARCHAR" />
+	</resultMap>
+
+	
+	<select id="listByGroupId" resultMap="BaseResultMap">	
+	  		select A.* from resource A left join group_resource B on A.id=B.resource_id left join groups C on
+	  		b.group_id=C.id where C.id=#{gid}
+	
+	</select>
+	<select id="listByParentId" resultMap="BaseResultMap">
+  		<![CDATA[
+	  		select A.* from resource A  where  A.pId=#{pid}
+		]]>
+	</select>
+	<select id="getMenuById" resultMap="BaseResultMap">
+  		<![CDATA[
+	  		select * from resource A  where  A.id=#{id}
+		]]>
+	</select>
+
+
+	
+</mapper>

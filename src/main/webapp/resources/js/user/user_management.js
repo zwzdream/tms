@@ -3,7 +3,7 @@ $(function(){
    initTable();
 });
 function doQry(){
-	   $table.dataTable().fnClearTable();
+	$table.dataTable().fnClearTable(false);
 	   initTable();
 }
 function initTable(){

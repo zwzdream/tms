@@ -36,8 +36,8 @@ this.groupDao.deleteGroup(id);
 }
 
 @Override
-public ArrayList<GroupBean> listByName(String username) {
-	return this.groupDao.listByName(username);
+public ArrayList<GroupBean> listByName(String name) {
+	return this.groupDao.listByName(name);
 }
 
 @Override
