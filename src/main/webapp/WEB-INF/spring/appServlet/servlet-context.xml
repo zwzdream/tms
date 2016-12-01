@@ -66,4 +66,5 @@
 	</beans:bean>
 
 	<context:component-scan base-package="com.wistronits.tms.web" />
+
 </beans:beans>

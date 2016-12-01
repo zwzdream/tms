@@ -18,7 +18,7 @@
 </div>
 <div class="row-fluid sortable">
  <div class="form-control">
-	 <label class="col-sm-1 control-label" for="title">UserName:<span class="text-success">${userName }</span></label>
+	 <label class="col-sm-12 control-label" for="title">UserName:<span class="text-success">${userName }</span></label>
 	 <input type="hidden" id="id" name="id" value="${userId }">
 </div>
 <div class="row">

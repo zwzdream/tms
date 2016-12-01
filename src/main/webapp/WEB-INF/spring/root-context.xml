@@ -4,8 +4,10 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-	
+ 
 	<import resource="database/mysql.xml"/>
-	<import resource="manager/cache.xml"/>
+	 <import resource="manager/cache.xml"/>
 	 <import resource="services/services.xml"/> 
+	 <import resource="security/spring-security.xml"/> 
+
 </beans>
