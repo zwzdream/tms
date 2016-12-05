@@ -1,8 +1,3 @@
-<script>
-		function formSubmit() {
-			document.getElementById("logoutForm").submit();
-		}
-</script> 
 <!-- topbar starts -->
 <div class="navbar navbar-default" role="navigation">
 
@@ -25,14 +20,13 @@
             <ul class="dropdown-menu">
                 <li><a href="#">Profile</a></li>
                 <li class="divider"></li>
-                <li><a href="javascript:formSubmit();">Logout</a></li>
+                 <li><a href="javascript:ajaxToLogin('/auth/login');">Login</a></li>
+                <li><a href="javascript:ajaxToLogout(logoutForm);">Logout</a></li>
             </ul>
         </div>
         <!-- user dropdown ends -->
        <form action="${ctx}/auth/logout" method="post" id="logoutForm">
-		<input type="hidden" 
-			name="${_csrf.parameterName}"
-			value="${_csrf.token}" />
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	    </form>
 
         <!-- theme selector starts -->

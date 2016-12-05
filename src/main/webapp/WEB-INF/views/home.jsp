@@ -25,6 +25,7 @@
 <meta name="description"
 	content="Charisma, a fully featured, responsive, HTML5, Bootstrap admin template.">
 <meta name="author" content="Muhammad Usman">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN / DENY "> 
 <meta name="_csrf" content="${_csrf.token}" />
 <meta name="_csrf_header" content="${_csrf.headerName}" />
 
@@ -203,7 +204,9 @@ body {
 		});
 	</script>
 	 	<script type="text/javascript">
+	 	$(function(){
 		ajaxContent("/Index/dashboard/init");
+	 	});
 	</script>  
 
 </body>
