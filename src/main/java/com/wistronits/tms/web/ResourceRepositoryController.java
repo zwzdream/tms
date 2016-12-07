@@ -14,6 +14,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.wistronits.tms.entity.ImportResourceBean;
 import com.wistronits.tms.entity.ResumeBean;
 import com.wistronits.tms.entity.RsResponse;
+import com.wistronits.tms.entity.UserBean;
 import com.wistronits.tms.service.IResumeService;
 
 @Controller
@@ -178,6 +181,14 @@ public class ResourceRepositoryController {
 		mv.setViewName("/resource/resource_edit_importrecource");
 		return mv;
 	}
+	@RequestMapping(value="/toEditAdd", method=RequestMethod.POST)
+	public ModelAndView toEditAddView(@RequestParam(value="resourceId") int resourceId){
+		ModelAndView mv = new ModelAndView();
+		ResumeBean bean = resumeService.getResumeById(resourceId);
+		mv.getModel().put("bean",bean);
+		mv.setViewName("/resource/resource_add_edit");
+		return mv;
+	}
 	@SuppressWarnings("rawtypes")
 	@RequestMapping(value="/toDeleteImport", method=RequestMethod.POST)
 	public @ResponseBody RsResponse toDeleteImport (@RequestParam(value="resourceId") int resourceId){
@@ -191,4 +202,110 @@ public class ResourceRepositoryController {
 			return RsResponse.BLANKSUCCESS;
 		}
 	}
+	@SuppressWarnings("rawtypes")
+	@RequestMapping(value="/toDeleteAdd", method=RequestMethod.POST)
+	public @ResponseBody RsResponse toDeleteAdd (@RequestParam(value="resourceId") int resourceId){
+		if(resourceId<=0){
+			return RsResponse.getErrorInstance("resourceId invalid: "+resourceId);
+		}
+		boolean ret = resumeService.deleteResume(resourceId);
+		if(!ret){
+			return RsResponse.getErrorInstance("delete Resume resource failed!");
+		}else{
+			return RsResponse.BLANKSUCCESS;
+		}
+	}
+	
+	@SuppressWarnings("rawtypes")
+	@RequestMapping(value = "/updateImportResource", method = RequestMethod.POST)
+	public @ResponseBody RsResponse updateImportResource(
+			@RequestParam(value="id") int id,
+			@RequestParam(value="firstName") String firstName,
+			@RequestParam(value="lastName") String lastName,
+			@RequestParam(value="birth") String birthYYYY_MM_DD,
+			@RequestParam(value="gender") Boolean gender,
+			@RequestParam(value="inputFile") MultipartFile file) {
+		Date birthDate = null;
+		if(!birthYYYY_MM_DD.isEmpty()) {
+			SimpleDateFormat df = new SimpleDateFormat("YYYY-MM-DD");
+			try {
+				birthDate = df.parse(birthYYYY_MM_DD);
+			} catch (ParseException e) {
+				return RsResponse.getErrorInstance("Birth date invalid:"+birthYYYY_MM_DD);
+			}
+		}
+		if(birthDate == null){
+			return RsResponse.getErrorInstance("Birth date must exist");
+		}
+		ImportResourceBean resource = new ImportResourceBean();
+		resource.setId(id);
+		resource.setFirstName(firstName);
+		resource.setLastName(lastName);
+		resource.setBirth(birthDate);
+		resource.setGender(gender);
+		boolean ret = resumeService.editImportResource(resource, file);
+		if(!ret)
+			return RsResponse.getErrorInstance("edit to database failed!");
+		else
+			return RsResponse.BLANKSUCCESS;
+	}
+	@SuppressWarnings("rawtypes")
+	@RequestMapping(value = "/updateResume", method = RequestMethod.POST)
+	public @ResponseBody RsResponse updateResume(
+			@RequestParam(value="id") int id,
+			@RequestParam(value="firstName") String firstName,
+			@RequestParam(value="lastName") String lastName,
+			@RequestParam(value="birth") String birthYYYY_MM_DD,
+			@RequestParam(value="gender") boolean gender,
+			@RequestParam(value="mobile") String mobile,
+			@RequestParam(value="starts") String startsYYYY_MM_DD,
+			@RequestParam(value="email") String email,
+			@RequestParam(value="residency") String residency,
+			@RequestParam(value="education") String education,
+			@RequestParam(value="workExp") String workExp,
+			@RequestParam(value="projectExp") String projectExp) {
+		Date birthDate = null;
+		Date startsDate=null;
+		if(!birthYYYY_MM_DD.isEmpty()) {
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+			try {
+				birthDate = df.parse(birthYYYY_MM_DD);
+			} catch (ParseException e) {
+				return RsResponse.getErrorInstance("Birth date invalid:"+birthYYYY_MM_DD);
+			}
+		}
+		if(birthDate == null){
+			return RsResponse.getErrorInstance("Birth date must exist");
+		}
+		if(!startsYYYY_MM_DD.isEmpty()) {
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+			try {
+				startsDate = df.parse(startsYYYY_MM_DD);
+			} catch (ParseException e) {
+				return RsResponse.getErrorInstance("Work starts date invalid:"+birthYYYY_MM_DD);
+			}
+		}
+		if(startsDate == null){
+			return RsResponse.getErrorInstance("Work starts date must exist");
+		}
+		ResumeBean rBean = new ResumeBean();
+		rBean.setId(id);
+		rBean.setBirth(birthDate);
+		rBean.setFirstName(firstName);
+		rBean.setLastName(lastName);
+		rBean.setGender(gender);
+		rBean.setMobile(mobile);
+		rBean.setStarts(startsDate);
+		rBean.setEmail(email);
+		rBean.setResidency(residency);
+		rBean.setEducation(education);
+		rBean.setWorkExp(workExp);
+		rBean.setProjectExp(projectExp);
+		boolean ret = resumeService.editResume(rBean);
+		if(!ret)
+			return RsResponse.getErrorInstance("edit to database failed!");
+		else
+			return RsResponse.BLANKSUCCESS;
+	}
+				
 }

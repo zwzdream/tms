@@ -18,5 +18,9 @@ public interface IResumeService {
 	public List<ImportResourceBean> getAllBeans(int offSet, int pageSize);
 	public int getAllBeansCount();
 	public boolean deleteImportResource(int resourceId);
+	public boolean deleteResume(int resourceId);
 	public ImportResourceBean getImportResourceById(int resourceId);
+	public ResumeBean getResumeById(int resourceId);
+	public Boolean editImportResource(ImportResourceBean resource,MultipartFile file);
+	public Boolean editResume(ResumeBean rDto);
 }

@@ -119,7 +119,48 @@ public class IResumeServiceImpl implements IResumeService {
 		return true;
 	}
 	@Override
+	public boolean deleteResume(int resourceId) {
+		int count = iResumeDao.deleteResume(resourceId);
+		if(count!=1){
+			return false;
+		}
+		LuceneIndexer.deleteIndex(resourceId);
+		return true;
+	}
+	@Override
 	public ImportResourceBean getImportResourceById(int resourceId) {
 		return iResumeDao.getImportResourceById(resourceId);
 	}
+	@Override
+	public ResumeBean getResumeById(int resourceId) {
+		return iResumeDao.getResumeById(resourceId);
+	}
+	@Override
+	public Boolean editImportResource(ImportResourceBean resource,MultipartFile file) {
+		try {
+			File localFile = uploadFile(file);
+			resource.setFilePath(localFile.getAbsolutePath());
+			int cnt =  iResumeDao.editImportResource(resource);
+			if(cnt<=0){
+				return false;
+			}
+			LuceneIndexer.deleteIndex(resource.getId());
+			LuceneIndexer.createIndexer(localFile, resource.getId());
+		} catch (IllegalStateException | IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+	@Override
+	public Boolean editResume(ResumeBean rDto) {
+		int cnt = iResumeDao.editResume(rDto);
+		if(cnt<=0){
+			return false;
+		}
+		LuceneIndexer.deleteIndex(rDto.getId());
+		LuceneIndexer.createIndexer(rDto.toString(), rDto.getId());
+		return true;
+	}
+
 }

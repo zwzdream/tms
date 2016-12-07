@@ -7,6 +7,20 @@
 		<result column="lastname" property="latname" jdbcType="VARCHAR" />
 	</resultMap>
 
+	<resultMap id="ResumeBeanResultMap" type="com.wistronits.tms.entity.ResumeBean">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="first_name" property="firstName" jdbcType="VARCHAR" />
+		<result column="last_name" property="lastName" jdbcType="VARCHAR" />
+		<result column="birth" property="birth" jdbcType="DATE" />
+		<result column="gender" property="gender" jdbcType="BOOLEAN" />
+		<result column="mobile" property="mobile" jdbcType="VARCHAR" />
+		<result column="starts" property="starts" jdbcType="DATE" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="residency" property="residency" jdbcType="VARCHAR" />
+		<result column="education" property="education" jdbcType="VARCHAR" />
+		<result column="workExp" property="workExp" jdbcType="VARCHAR" />
+		<result column="projectExp" property="projectExp" jdbcType="VARCHAR" />
+	</resultMap>
 	<resultMap id="ImportResourceBeanResultMap" type="com.wistronits.tms.entity.ImportResourceBean">
 		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="first_name" property="firstName" jdbcType="VARCHAR" />
@@ -91,8 +105,25 @@
      <delete id="deleteImportResource" parameterType="int">
      	delete from import_resource where id=#{id}
      </delete>
+     <delete id="deleteResume" parameterType="int">
+     	delete from resume where id=#{id}
+     </delete>
      
      <select id="getImportResourceById" parameterType="int" resultMap="ImportResourceBeanResultMap">
      	select * from import_resource where id=#{id}
      </select>
+     <select id="getResumeById" parameterType="int" resultMap="ResumeBeanResultMap">
+     	select * from resume where id=#{id}
+     </select>
+     <update id="editImportResource" parameterType="com.wistronits.tms.entity.ImportResourceBean" >
+	
+	update import_resource set first_name=#{firstName},last_name=#{lastName},birth=#{birth},gender=#{gender},file_path=#{filePath} where id=#{id} 
+
+	</update>
+     <update id="editResume" parameterType="com.wistronits.tms.entity.ResumeBean" >
+	
+	update resume set first_name=#{firstName},last_name=#{lastName},birth=#{birth},gender=#{gender},mobile=#{mobile},
+	starts=#{starts},email=#{email},residency=#{residency},workExp=#{workExp},projectExp=#{projectExp} where id=#{id} 
+
+	</update>
 </mapper>

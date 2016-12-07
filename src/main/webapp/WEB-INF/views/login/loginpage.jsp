@@ -5,8 +5,8 @@
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
+<link id="bs-css" href="<%=basePath %>/resources/ui/charisma/css/cerulean/bootstrap.min.css"	rel="stylesheet">
 
-      
         <h1>Login</h1>  
       
         <div id="login-error">${error}</div>  

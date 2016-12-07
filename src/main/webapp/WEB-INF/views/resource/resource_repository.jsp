@@ -99,7 +99,7 @@ function deleteResource(url, data){
 		data : data,
 		async: false,
 		cache: false,
-		contentType: false,  
+		contentType: "application/x-www-form-urlencoded; charset=UTF-8", 
         processData: false,
         dataType: "json",
 		success:function(obj){
@@ -120,7 +120,7 @@ function deleteResource(url, data){
 	}); 
 }
 </script>
-<form id="splitPage" class="form-horizontal" action="${ctx}/resource/list" method="POST">
+<form id="splitPage" class="form-horizontal" action="${ctx}/Resource/searchresource" method="POST">
 	<div>
 		<ul class="breadcrumb">
 	            <li>
