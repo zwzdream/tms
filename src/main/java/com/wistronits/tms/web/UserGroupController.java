@@ -35,17 +35,25 @@ import com.wistronits.tms.service.IUserService;
 		
 	}
 	@RequestMapping(value = "/addRole", method = RequestMethod.POST)
-	public ModelAndView addRole(@RequestParam(value = "userId") int uid,@RequestParam(value = "groupId") int gid) {
+	public ModelAndView addRole(
+			@RequestParam(value = "userId") int uid,
+			@RequestParam(value = "groupId") int gid,
+			@RequestParam(value="groupName" )String groupName) {
 		userService.addUserToGroup(uid, gid);
 		ModelAndView view = new ModelAndView("/group/group_user");
 		 view.addObject("groupId", gid);
+		 view.addObject("groupName", groupName);
 		return view;
 	}
 	@RequestMapping(value = "/removeRole", method = RequestMethod.POST)
-	public ModelAndView removeRole(@RequestParam(value = "userId") int uid,@RequestParam(value = "groupId") int gid) {
+	public ModelAndView removeRole(
+			@RequestParam(value = "userId") int uid,
+			@RequestParam(value = "groupId") int gid,
+			@RequestParam(value="groupName" )String groupName) {
 		 userService.removeUserToGroup(uid, gid);
 		 ModelAndView view = new ModelAndView("/group/group_user");
 		 view.addObject("groupId", gid);
+		 view.addObject("groupName", groupName);
 		return view;
 	}
 	
@@ -61,13 +69,17 @@ import com.wistronits.tms.service.IUserService;
 
 	}
 	@RequestMapping(value = "/editTheBelongGroup", method = RequestMethod.POST)
-	public ModelAndView editTheBelongGroup(@RequestParam(value = "userId") int uid,@RequestParam(value = "groupId") int gid) {
+	public ModelAndView editTheBelongGroup(
+			@RequestParam(value = "userId") int uid,
+			@RequestParam(value = "groupId") int gid,
+			@RequestParam(value="userName") String userName) {
 		int i=groupService.editTheBelongGroup(uid, gid);
 		if(i==0 ){
 			 userService.addUserToGroup(uid, gid);
 		}
 		 ModelAndView view = new ModelAndView("/user/user_group");
 		 view.addObject("userId", uid);
+		 view.addObject("userName", userName);
 		return view;
 	}
 	

@@ -35,6 +35,14 @@ public class JDManagementController {
 
 		return "/jd/jd_add";
 	}
+	@RequestMapping(value = "/toAddResource", method = RequestMethod.POST)
+	public ModelAndView toAddResource(int no) {	
+		ModelAndView view = new ModelAndView("/jd/jd_add_resource");
+		JDBean jd=jdBeanService.getJD(no);
+		view.addObject("jdNo", jd.getNo());
+		view.addObject("jdTitle", jd.getTitle());
+		return view;
+	}
 
 	@RequestMapping(value = "/toEdit", method = RequestMethod.POST)
 	public ModelAndView toEdit(int no) {
@@ -75,21 +83,23 @@ public class JDManagementController {
 		return view;
 	}
 
-	// mysql缓存，上一页，下一页或更改每页记录数时，keyword为空
+
 	@RequestMapping(value = "/keyword/listPage", method = RequestMethod.POST)
-	public  ModelAndView listPage(String keyword,int pageNum,@RequestParam(value="pageSize",defaultValue="5")int pageSize) {
+	public  @ResponseBody  Map<Object,Object> listPage(
+			@RequestParam(value="keyword")String keyword,
+			@RequestParam(value="sEcho") String sEcho,
+			@RequestParam(value="iDisplayStart") int offSet,
+			@RequestParam(value="iDisplayLength") int pageSize) {
+		int pageNum=offSet/pageSize+1;
 		PageHelper.startPage(pageNum, pageSize);
 		List<JDBean> jdBean = jdBeanService.listByKeyword(keyword);
-		PageInfo<JDBean> page = new PageInfo<>(jdBean);
-		ModelAndView view = new ModelAndView("/jd/jd_management");
-		view.addObject("keyword", keyword);
-		view.addObject("page", page);
-		return view;
-	/*   Map<String,Object> map =new HashMap<String,Object>();
-	   map.put("keyword", keyword);
-	   map.put("page", page);
-	   return map;
-	   */
+		List<JDBean> jdBean1 = jdBeanService.listByKeyword(keyword);
+	  Map<Object,Object> map =new HashMap<Object,Object>();
+	  map.put("aaData", jdBean);
+      map.put("iTotalDisplayRecords", jdBean1.size());
+      map.put("iTotalRecords", jdBean1.size());
+      map.put("sEcho", sEcho);
+	   return map;	
 	}
 
 	@RequestMapping(value = "/edit/close", method = RequestMethod.POST)

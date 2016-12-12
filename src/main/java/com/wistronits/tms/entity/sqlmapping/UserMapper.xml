@@ -47,12 +47,12 @@
 	
 	<select id="getAllNotIncludedUser" resultMap="BaseResultMap">
   		<![CDATA[
-	  		SELECT a.* FROM USER a LEFT JOIN user_group b ON a.id=b.user_id WHERE b.user_id IS null
+	  	SELECT b.* FROM USER b WHERE NOT EXISTS (SELECT a.group_id FROM user_group a WHERE a.group_id=#{gid} AND b.id=a.user_id) ORDER BY id
 		]]>
 	</select>
 	<select id="getAllIncludedUser" resultMap="BaseResultMap">
   		<![CDATA[
-	  		SELECT a.* FROM USER a LEFT JOIN user_group b ON a.id=b.user_id LEFT JOIN groups c ON b.group_id=c.id WHERE c.id=#{gid}
+	  		SELECT a.* FROM USER a LEFT JOIN user_group b ON a.id=b.user_id LEFT JOIN groups c ON b.group_id=c.id WHERE c.id=#{gid} order by id
 		]]>
 	</select>
 	<insert id="addUserToGroup" >

@@ -65,8 +65,8 @@ public class GroupManagementController {
 		List<GroupBean> groupBean1 = groupService.listByName(name);
         Map<Object,Object> map=new HashMap<>();
         map.put("aaData", groupBean);
-        map.put("iTotalDisplayRecords", groupBean1.size());//一共查询到的记录
-        map.put("iTotalRecords", groupBean.size());//每页显示的记录数
+        map.put("iTotalDisplayRecords", groupBean1.size());
+        map.put("iTotalRecords", groupBean1.size());
         map.put("sEcho", sEcho);
 		return map;
 	}

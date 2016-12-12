@@ -52,6 +52,11 @@ public class IJDBeanServiceImpl implements IJDBeanService{
 		// TODO Auto-generated method stub
 		return this.jdBeanDao.listAll();
 	}
+	@Override
+	public int listCurrentWeekCount() {
+		// TODO Auto-generated method stub
+		return this.jdBeanDao.listCurrentWeekCount();
+	}
 	
 
 }

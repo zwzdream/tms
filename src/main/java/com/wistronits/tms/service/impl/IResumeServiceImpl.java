@@ -19,6 +19,7 @@ import com.github.pagehelper.PageHelper;
 import com.wistronits.tms.dao.IResumeDao;
 import com.wistronits.tms.entity.ImportResourceBean;
 import com.wistronits.tms.entity.ResumeBean;
+import com.wistronits.tms.entity.RsResponse;
 import com.wistronits.tms.service.IResumeService;
 import com.wistronits.tms.util.LuceneIndexer;
 @Service("resumeService")
@@ -94,6 +95,10 @@ public class IResumeServiceImpl implements IResumeService {
 		int count = iResumeDao.getAllImportBeansCount();
 		return count;
 	}
+	 public int getCurrentWeekCount() {
+		return  this.iResumeDao.getCurrentWeekCount();
+	
+	}
 	
 	public int getCurrentPageNum(int offSet, int pageSize){
 		return offSet/pageSize+1;
@@ -162,5 +167,56 @@ public class IResumeServiceImpl implements IResumeService {
 		LuceneIndexer.createIndexer(rDto.toString(), rDto.getId());
 		return true;
 	}
+	@Override
+	public Map<String, Object> getCanJoinResources(int no) {
+		List<ImportResourceBean> resources = new ArrayList<ImportResourceBean>();
+		resources = iResumeDao.haveNotResumes(no);
+		resources.addAll(iResumeDao.haveNotImportBeans(no));
+		Map<String,Object> resRe = new HashMap<String,Object>();
+		resRe.put("resources", resources);
+		return resRe;
+	}
+	@Override
+	public Map<String, Object> getTheBelongResources(int no) {
+		List<ImportResourceBean> resources = new ArrayList<ImportResourceBean>();
+		resources = iResumeDao.haveResumes(no);
+		resources.addAll(iResumeDao.haveImportBeans(no));
+		Map<String,Object> resRe = new HashMap<String,Object>();
+		resRe.put("resources", resources);
+		return resRe;
+	}
+	@Override
+	public int editTheBelongResource(int no, int rid, String type) {
+		int resultCount=0;
+  if(type.equals("add")){
+			resultCount=iResumeDao.editBelongResumeResource(no, rid);
+		} else if(type.equals("import")){
+			resultCount=iResumeDao.editBelongImportResource(no, rid);
+		}
+		return resultCount;
+	}
+	@Override
+	public int addResourceToJD(int no, int rid, String type) {
+		int resultCount=0;
+   if(type.equals("add")){
+		resultCount=iResumeDao.addResumeResourceToJD(no, rid);
+		} else if(type.equals("import")){
+			resultCount=iResumeDao.addImportResourceToJD(no, rid);
+		}
+		return resultCount;
+	}
+	@Override
+	public int deleteResourceFromJD(int no, int rid, String type) {
+		int resultCount=0;
+		   if(type.equals("add")){
+				resultCount=	iResumeDao.deleteResumeResourceFromJD(no, rid);
+				} else if(type.equals("import")){
+				resultCount=	iResumeDao.deleteImportResourceFromJD(no, rid);
+				}
+				return resultCount;
+	}
+	
+	
+	
 
 }

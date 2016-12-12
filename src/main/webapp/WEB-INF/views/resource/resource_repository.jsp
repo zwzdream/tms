@@ -7,33 +7,7 @@ function searchResource(url){
 		$("#rsRepositoryTable").dataTable().fnClearTable();
 		initTable();
 	}
-	/* var keyWord = $('#keyWord').val();  
-	if(keyWord=='') {
-		noty({type:"warning",text: "The keyword is emopty! Please enter it.", layout: "bottom", timeout: 3000});
-	}else{
-		var param = "keyWord="+keyWord;
-		$('#resourceTableDiv').fadeOut().parent().append('<div id="loading" class="center">Loading...<div class="center"></div></div>');
-		$.ajax({
-			type : "post",
-			url : encodeURI(encodeURI(ctx + url)),
-			data : param,
-			dataType : "html",
-			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-			async: false,
-			cache: false,
-			success:function(returnData){
-				$("#resourceTableDiv").html(returnData);
-			},
-			error: function(XMLHttpRequest, textStatus, errorThrown) { 
-				noty({type:"error",text: "Search failed!", layout: "bottom", timeout: 3000});
-	        },
-	        complete: function(XMLHttpRequest, textStatus) { 
-		    	$('#loading').remove();
-				$('#resourceTableDiv').fadeIn();
-				docReady();
-	        }
-		});
-	} */
+
 }
 function initTable(){
 	var keyWord = $('#keyWord').val();
@@ -56,6 +30,7 @@ function initTable(){
     	         {sDefaultContent: ''},
     	         {mData: 'age'},
     	         {mData: 'gender'},
+    	         {mData: 'lastMTime'},
     	         {sDefaultContent: ''}
     	],
     	fnRowCallback: function(nRow, aData, iDisplayIndex) {
@@ -69,13 +44,14 @@ function initTable(){
     		}else{
     			$('td:eq(3)', nRow).html('<span class="label-warning label label-default">Female</span>');
     		}
+    
     		if(aData.type=='add'){
-    			$('td:eq(4)', nRow).html('<a class="btn btn-info" href="#" onclick=ajaxContent(\"/Resource/toEditAdd\","resourceId='+ aData.id +'");>'
+    			$('td:eq(5)', nRow).html('<a class="btn btn-info" href="#" onclick=ajaxContent(\"/Resource/toEditAdd\","resourceId='+ aData.id +'");>'
     	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit</a>&nbsp;'
     	    			+'<a class="btn btn-danger" href="#" onclick=deleteResource(\"/Resource/toDeleteAdd\","resourceId='+ aData.id +'");>'
     	    			+'<i class="glyphicon glyphicon-trash icon-white"></i>Delete</a>');
     		}else if(aData.type=='import'){
-    			$('td:eq(4)', nRow).html('<a class="btn btn-info" href="#" onclick=ajaxContent(\"/Resource/toEditImport\","resourceId='+ aData.id +'");>'
+    			$('td:eq(5)', nRow).html('<a class="btn btn-info" href="#" onclick=ajaxContent(\"/Resource/toEditImport\","resourceId='+ aData.id +'");>'
     	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit</a>&nbsp;'
     	    			+'<a class="btn btn-danger" href="#" onclick=deleteResource(\"/Resource/toDeleteImport\","resourceId='+ aData.id +'");>'
     	    			+'<i class="glyphicon glyphicon-trash icon-white"></i>Delete</a>');
@@ -92,6 +68,7 @@ $(document).ready(function() {
 	initTable();
 });
 function deleteResource(url, data){
+	 if(confirm('Are you sure?')){
 	$('#content').fadeOut().parent().append('<div id="loading" class="center">Loading...<div class="center"></div></div>');
 	$.ajax({
 		type : "post",
@@ -104,6 +81,7 @@ function deleteResource(url, data){
         dataType: "json",
 		success:function(obj){
 			if((obj) && (obj.success)){
+				$("#rsRepositoryTable").dataTable().fnDraw(false);//删除后，刷新表格
 				noty({type:"success",text: "Delete successed!", layout: "bottom", timeout: 3000});
 			}else{
 				noty({type:"error",text: "Delete failed!", layout: "bottom", timeout: 3000});
@@ -118,6 +96,9 @@ function deleteResource(url, data){
 			docReady();
         }
 	}); 
+	 return true;
+  }
+return false;
 }
 </script>
 <form id="splitPage" class="form-horizontal" action="${ctx}/Resource/searchresource" method="POST">

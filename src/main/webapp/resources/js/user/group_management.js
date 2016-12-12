@@ -3,8 +3,13 @@ $(function(){
    initTable();
 });
 function doQry(){
-	   $table.dataTable().fnClearTable(false);
-	   initTable();
+	var groupname = $('#groupname').val();
+	if(groupname=='') {
+		noty({type:"warning",text: "Please enter the groupname that you want to search!", layout: "bottom", timeout: 3000});
+	}else{
+		$table.dataTable().fnClearTable(false);
+		initTable();
+	}
 }
 
 function initTable(){

@@ -1,6 +1,7 @@
 package com.wistronits.tms.entity;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -21,6 +22,7 @@ public class ResumeBean implements Serializable {
 	private String workExp;
 	private String projectExp;
 	private int age;
+	private Date lastMTime;
 	 
 	
 	public String getEducation() {
@@ -123,6 +125,18 @@ public class ResumeBean implements Serializable {
 			}
 		}
 		return age;
+	}
+	public String getLastMTime() {
+		String desc = "";
+		if (this.lastMTime != null) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			desc = sdf.format(this.lastMTime);
+		}
+		return desc;
+		//return lastMTime;
+	}
+	public void setLastMTime(Date lastMTime) {
+		this.lastMTime = lastMTime;
 	}
 	public String toString(){
 		return this.firstName+" "+this.lastName+" "+this.mobile+" "+this.email+" "+this.residency+" "+this.education+" "+this.workExp+" "+this.projectExp;

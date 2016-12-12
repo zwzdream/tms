@@ -20,6 +20,7 @@
 		<result column="education" property="education" jdbcType="VARCHAR" />
 		<result column="workExp" property="workExp" jdbcType="VARCHAR" />
 		<result column="projectExp" property="projectExp" jdbcType="VARCHAR" />
+		<result column="last_m_time" property="lastMTime" jdbcType="DATE"/>
 	</resultMap>
 	<resultMap id="ImportResourceBeanResultMap" type="com.wistronits.tms.entity.ImportResourceBean">
 		<id column="id" property="id" jdbcType="INTEGER" />
@@ -29,6 +30,7 @@
 		<result column="gender" property="gender" jdbcType="BOOLEAN" />
 		<result column="file_path" property="filePath" jdbcType="VARCHAR" />
 		<result column="type" property="type" jdbcType="VARCHAR"/>
+		<result column="last_m_time" property="lastMTime" jdbcType="DATE"/>
 	</resultMap>
 	
 	<resultMap id="ADddResourceBeanResultMap" type="com.wistronits.tms.entity.ImportResourceBean">
@@ -38,33 +40,23 @@
 		<result column="birth" property="birth" jdbcType="DATE" />
 		<result column="gender" property="gender" jdbcType="BOOLEAN" />
 		<result column="type" property="type" jdbcType="VARCHAR"/>
+		<result column="last_m_time" property="lastMTime" jdbcType="DATE"/>
 	</resultMap>
 
 	<insert id="addResume" parameterType="com.wistronits.tms.entity.ResumeBean" useGeneratedKeys="true" keyProperty="id">
-       insert into resume (id,first_name, last_name,birth,gender,mobile,starts,email,residency,education,workExp,projectExp)
+       insert into resume (id,first_name, last_name,birth,gender,mobile,starts,email,residency,education,workExp,projectExp,last_m_time)
      		values (#{id,jdbcType=INTEGER},#{firstName,jdbcType=VARCHAR}, #{lastName,jdbcType=VARCHAR},#{birth,jdbcType=DATE},
      		#{gender,jdbcType=BOOLEAN},#{mobile,jdbcType=VARCHAR},#{starts,jdbcType=DATE},#{email,jdbcType=VARCHAR},#{residency,jdbcType=VARCHAR},
-     		#{education,jdbcType=VARCHAR},#{workExp,jdbcType=VARCHAR},#{projectExp,jdbcType=VARCHAR}
+     		#{education,jdbcType=VARCHAR},#{workExp,jdbcType=VARCHAR},#{projectExp,jdbcType=VARCHAR},#{lastMTime,jdbcType=DATE}
      		)
      </insert>
 
-	<select id="getFileId" resultMap="BaseResultMap">
-  		<![CDATA[
-	  		select * from jd order by uptime desc 
-		]]>
-	</select>
-	
-	<update id="updateStudentById" >
-	<![CDATA[
-	update jd set 
-	]]>	
-	</update>
 	
 	<insert id="insertResource" parameterType="com.wistronits.tms.entity.ImportResourceBean" 
 	useGeneratedKeys="true" keyProperty="id">
-         insert into import_resource (first_name, last_name, birth,gender,file_path)
+         insert into import_resource (first_name, last_name, birth,gender,file_path,last_m_time)
      		values (#{firstName,jdbcType=VARCHAR}, #{lastName,jdbcType=VARCHAR}, #{birth,jdbcType=DATE}, 
-       			#{gender,jdbcType=BOOLEAN},#{filePath,jdbcType=VARCHAR})
+       			#{gender,jdbcType=BOOLEAN},#{filePath,jdbcType=VARCHAR}),#{lastMTime,jdbcType=DATE}
      </insert>
      
      <select id="getAllImportBeans" resultMap="ImportResourceBeanResultMap">
@@ -83,23 +75,23 @@
      </select>
      
      <select id="getAddResourceByIds" resultMap="ADddResourceBeanResultMap">
-     	select id,first_name,last_name,birth,gender,'add' as 'type' from resume where id in 
+     	select id,first_name,last_name,birth,gender,last_m_time,'add' as 'type' from resume where id in 
      	<foreach item="item" index="index" collection="list" open="(" separator="," close=")"> 
      		#{item}
      	</foreach>
      </select>
      
      <select id="getAllBeans" resultMap="ImportResourceBeanResultMap">
-     	select id,first_name,last_name,birth,gender,'import' as 'type' from import_resource 
+     	select id,first_name,last_name,birth,gender,last_m_time,'import' as 'type' from import_resource 
      	UNION ALL
-     	select id,first_name,last_name,birth,gender,'add' as 'type' from resume
+     	select id,first_name,last_name,birth,gender,last_m_time,'add' as 'type' from resume
      </select>
      
      <select id="getAllBeansCount" resultType="int">
      	select count(*) from 
-		(select id,first_name,last_name,birth,gender,'import' as 'type' from import_resource 
+		(select id,first_name,last_name,birth,gender,last_m_time,'import' as 'type' from import_resource 
      	 UNION ALL
-     	 select id,first_name,last_name,birth,gender,'add' as 'type' from resume) temp
+     	 select id,first_name,last_name,birth,gender,last_m_time,'add' as 'type' from resume) temp
      </select>
      
      <delete id="deleteImportResource" parameterType="int">
@@ -117,13 +109,58 @@
      </select>
      <update id="editImportResource" parameterType="com.wistronits.tms.entity.ImportResourceBean" >
 	
-	update import_resource set first_name=#{firstName},last_name=#{lastName},birth=#{birth},gender=#{gender},file_path=#{filePath} where id=#{id} 
+	update import_resource set first_name=#{firstName},last_name=#{lastName},birth=#{birth},gender=#{gender},file_path=#{filePath},last_m_time=#{lastMTime} where id=#{id} 
 
 	</update>
      <update id="editResume" parameterType="com.wistronits.tms.entity.ResumeBean" >
 	
 	update resume set first_name=#{firstName},last_name=#{lastName},birth=#{birth},gender=#{gender},mobile=#{mobile},
-	starts=#{starts},email=#{email},residency=#{residency},workExp=#{workExp},projectExp=#{projectExp} where id=#{id} 
+	starts=#{starts},email=#{email},residency=#{residency},workExp=#{workExp},projectExp=#{projectExp},last_m_time=#{lastMTime} where id=#{id} 
 
 	</update>
+	<select id="getCurrentWeekCount" resultType="int">
+		select count(*) from 
+		(select id from import_resource where last_m_time>DATE_SUB(CURDATE(), INTERVAL 1 WEEK)
+     	 UNION ALL
+     	 select id from resume where last_m_time>DATE_SUB(CURDATE(), INTERVAL 1 WEEK)) temp
+	</select>
+	
+	<select id="haveResumes" resultMap="ImportResourceBeanResultMap">
+     	SELECT a.id,a.first_name,a.last_name,a.birth,a.gender,a.last_m_time,'add' as 'type'
+     	FROM RESUME a LEFT JOIN jd_resume_resource b ON a.id=b.add_id LEFT JOIN jd c ON b.jd_id=c.no WHERE c.no=#{no} ORDER BY id
+     </select>
+	<select id="haveNotResumes" resultMap="ImportResourceBeanResultMap">
+     	 SELECT a.id,a.first_name,a.last_name,a.birth,a.gender,a.last_m_time,'add' AS 'type'
+     	FROM RESUME a WHERE  NOT EXISTS (SELECT b.add_id FROM jd_resume_resource b WHERE b.jd_id=#{no} AND a.id=b.add_id) ORDER BY id 
+     </select>
+	<select id="haveImportBeans" resultMap="ImportResourceBeanResultMap">
+     	SELECT a.id,a.first_name,a.last_name,a.birth,a.gender,a.last_m_time,'import' as 'type'
+     	FROM import_resource a LEFT JOIN jd_resume_resource b ON a.id=b.import_id LEFT JOIN jd c ON b.jd_id=c.no WHERE c.no=#{no} ORDER BY id
+     </select>
+	<select id="haveNotImportBeans" resultMap="ImportResourceBeanResultMap">
+     SELECT a.id,a.first_name,a.last_name,a.birth,a.gender,a.last_m_time,'import' AS 'type'
+     	FROM import_resource a WHERE  NOT EXISTS (SELECT b.import_id FROM jd_resume_resource b WHERE b.jd_id=#{no} AND a.id=b.import_id) ORDER BY id
+     </select>
+     
+     <update id="editBelongResumeResource">	
+	update jd_resume_resource set add_id=#{1} where jd_id=#{0} 
+	</update>
+     <update id="editBelongImportResource">	
+	update jd_resume_resource set import_id=#{1} where jd_id=#{0} 
+	</update>
+	
+	<insert id="addResumeResourceToJD" >
+	  insert into jd_resume_resource(jd_id,add_id) values(#{0},#{1})  
+	</insert>
+	<insert id="addImportResourceToJD" >
+	  insert into jd_resume_resource(jd_id,import_id) values(#{0},#{1})  
+	</insert>
+	
+	 <delete id="deleteImportResourceFromJD">
+     	delete from jd_resume_resource where jd_id=#{0} and import_id=#{1}
+     </delete>
+	 <delete id="deleteResumeResourceFromJD">
+     	delete from jd_resume_resource where jd_id=#{0} and add_id=#{1}
+     </delete>
+	
 </mapper>

@@ -7,10 +7,11 @@ $(function(){
 		
 		beforeMoveToLeft:function(){
 			var userId=$("#id").val();
+			var userName=$("#userName").text();
 			var groupId=$("#multiselect_to").val();
 			$.ajax({
 				url:ctx+"/UserGroup/editTheBelongGroup",
-				data:{groupId:parseInt(groupId[0]),userId:userId},
+				data:{groupId:parseInt(groupId[0]),userId:userId,userName:userName},
 				type:"post",
 				dataType : 'html',
 			    cache:false,
@@ -34,10 +35,12 @@ $(function(){
 		},
 		beforeMoveToRight:function(){
 			 var userId=$("#id").val();
+			 var userName=$("#userName").text();
 			  var groupId=$("#multiselect").val();
+				console.log(userName);
 			  $.ajax({
 					url:ctx+"/UserGroup/editTheBelongGroup",
-					data:{groupId:parseInt(groupId[0]),userId:userId},
+					data:{groupId:parseInt(groupId[0]),userId:userId,userName:userName},
 					type:"post",
 					dataType : 'html',
 				    cache:false,

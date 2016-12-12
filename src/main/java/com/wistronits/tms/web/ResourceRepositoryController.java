@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.wistronits.tms.entity.GroupBean;
 import com.wistronits.tms.entity.ImportResourceBean;
 import com.wistronits.tms.entity.ResumeBean;
 import com.wistronits.tms.entity.RsResponse;
@@ -81,6 +82,7 @@ public class ResourceRepositoryController {
 		resource.setLastName(lastName);
 		resource.setBirth(birthDate);
 		resource.setGender(gender);
+		resource.setLastMTime(new Date());
 		boolean ret = resumeService.importResource(resource,file);
 		if(!ret)
 			return RsResponse.getErrorInstance("import to database failed!");
@@ -166,6 +168,7 @@ public class ResourceRepositoryController {
 		rBean.setEducation(education);
 		rBean.setWorkExp(workExp);
 		rBean.setProjectExp(projectExp);
+		rBean.setLastMTime(new Date());
 		boolean ret = resumeService.addResume(rBean);
 		if(!ret)
 			return RsResponse.getErrorInstance("add to database failed!");
@@ -243,6 +246,7 @@ public class ResourceRepositoryController {
 		resource.setLastName(lastName);
 		resource.setBirth(birthDate);
 		resource.setGender(gender);
+		resource.setLastMTime(new Date());
 		boolean ret = resumeService.editImportResource(resource, file);
 		if(!ret)
 			return RsResponse.getErrorInstance("edit to database failed!");
@@ -301,11 +305,79 @@ public class ResourceRepositoryController {
 		rBean.setEducation(education);
 		rBean.setWorkExp(workExp);
 		rBean.setProjectExp(projectExp);
+		rBean.setLastMTime(new Date());
 		boolean ret = resumeService.editResume(rBean);
 		if(!ret)
 			return RsResponse.getErrorInstance("edit to database failed!");
 		else
 			return RsResponse.BLANKSUCCESS;
 	}
-				
+	
+	@RequestMapping(value = "/getCanJoinResources", method = RequestMethod.POST)
+	public @ResponseBody Map<String,Object> getCanJoinResources(@RequestParam(value = "no") int no) {
+		 
+		return resumeService.getCanJoinResources(no);
+
+	}
+	
+	@RequestMapping(value = "/getTheBelongResources", method = RequestMethod.POST)
+	public @ResponseBody Map<String,Object> getTheBelongResources(@RequestParam(value = "no") int no) {
+		return resumeService.getTheBelongResources(no);
+
+	}
+/*	@SuppressWarnings("rawtypes")
+	@RequestMapping(value = "/editTheBelongResource", method = RequestMethod.POST)
+	public @ResponseBody RsResponse editTheBelongGroup(
+			@RequestParam(value = "jdId") int no,
+			@RequestParam(value = "resourceId") int rid,
+			@RequestParam(value="resourceName")String rName) {
+		String type=rName.substring(rName.indexOf("(")+1, rName.indexOf(")"));
+		
+		int i=resumeService.editTheBelongResource(no, rid,type);
+		if(i==0 ){
+			int j= resumeService.addResourceToJD(no, rid,type);
+			if(j==0){
+				return RsResponse.getErrorInstance("edit to database failed!");
+			}
+		}
+		// ModelAndView view = new ModelAndView("jd/jd_add_resource");
+		// view.addObject("jdNo", no);
+		//return view;
+		 return RsResponse.BLANKSUCCESS;
+	}*/
+	
+	@RequestMapping(value = "/addResourceToJD", method = RequestMethod.POST)
+	public ModelAndView addResourceToJD(	
+			@RequestParam(value = "jdId") int no,
+			@RequestParam(value="jdTitle") String title,
+			@RequestParam(value = "resourceId") int rid,
+			@RequestParam(value="resourceName")String rName) {
+		String type=rName.substring(rName.indexOf("(")+1, rName.indexOf(")"));
+		ModelAndView view = new ModelAndView("jd/jd_add_resource");
+		int resultCount=resumeService.addResourceToJD(no, rid, type);
+		if(resultCount!=0){
+			 view.addObject("jdNo", no);
+			 view.addObject("jdTitle", title);
+				return view;
+		}
+		return view;
+
+	}
+	@RequestMapping(value = "/deleteResourceFromJD", method = RequestMethod.POST)
+	public ModelAndView deleteResourceFromJD(
+			@RequestParam(value = "jdId") int no,
+			@RequestParam(value="jdTitle") String title,
+			@RequestParam(value = "resourceId") int rid,
+			@RequestParam(value="resourceName")String rName) {
+		String type=rName.substring(rName.indexOf("(")+1, rName.indexOf(")"));
+		 ModelAndView view = new ModelAndView("jd/jd_add_resource");
+		 int resultCount=resumeService.deleteResourceFromJD(no, rid, type);
+		 if(resultCount!=0){
+			 view.addObject("jdNo", no);
+			 view.addObject("jdTitle", title);
+				return view;
+		}
+		return view;
+	}
+		
 }

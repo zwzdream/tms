@@ -1,22 +1,23 @@
 $(function(){
 	//取得所有不在该分组下的用户
 
-	getAllNotIncludedUser();
-	getAllIncludedUser();
+	getCanJoinGroups();
+	getTheBelongGroup();
 	$('#multiselect').multiselect( {
 		
 		beforeMoveToLeft:function(){
-			var groupId=$("#id").val();
-			var groupName=$("#groupName").text();
-			var userId=$("#multiselect_to").val();
+			var jdId=$("#id").val();
+			var jdTitle=$("#title").text();
+			var resourceId=$("#multiselect_to").val();
+			var resourceName=$('#multiselect_to option:selected').text();
 			$.ajax({
-				url:ctx+"/UserGroup/removeRole",
-				data:{groupId:groupId,userId:parseInt(userId[0]),groupName:groupName},
+				url:ctx+"/Resource/deleteResourceFromJD",
+				data:{resourceId:parseInt(resourceId[0]),jdId:jdId,resourceName:resourceName,jdTitle:jdTitle},
 				type:"post",
 				dataType : 'html',
 			    cache:false,
 			    success:function(data){
-			    	if(data !=""){
+			    	if(data!=null){
 					noty({type:"success",text: "Edit successed!", layout: "center", timeout: 3000});
 					$('#content').html(data);
 					return true;
@@ -34,17 +35,18 @@ $(function(){
 			 
 		},
 		beforeMoveToRight:function(){
-			 var groupId=$("#id").val();
-			 var groupName=$("#groupName").text();
-			  var userId=$("#multiselect").val();
+			 var jdId=$("#id").val();
+			 var jdTitle=$("#title").text();
+			  var resourceId=$("#multiselect").val();
+			  var resourceName=$('#multiselect option:selected').text();
 			  $.ajax({
-					url:ctx+"/UserGroup/addRole",
-					data:{groupId:groupId,userId:parseInt(userId[0]),groupName:groupName},
+					url:ctx+"/Resource/addResourceToJD",
+					data:{resourceId:parseInt(resourceId[0]),jdId:jdId,resourceName:resourceName,jdTitle:jdTitle},
 					type:"post",
 					dataType : 'html',
 				    cache:false,
 				    success:function(data){
-				    	if(data !=""){
+				    	if(data!=null){
 						noty({type:"success",text: "Edit successed!", layout: "center", timeout: 3000});
 						$('#content').html(data);
 						return true;
@@ -68,22 +70,22 @@ $(function(){
 
 
 
-function getAllNotIncludedUser(){
-	var id=$("#id").val();
+function getCanJoinGroups(){
+	var no=$("#id").val();
 	var option;
 	$.ajax({
-		url:ctx+"/UserGroup/getAllNotIncludedUser",
-		data:{groupId:id},
+		url:ctx+"/Resource/getCanJoinResources",
+		data:{no:no},
 		type:"post",
-		dataType : 'html',
+		dataType : 'json',
 	    cache:false,
 	    success:function(data){
-	    	var json = eval(data);
-	    	$.each(json,function(index, item) {
+	    	var json = data.resources;
+			$.each(json,function(index, item) {
 	    		//循环获取数据
-	    		var userid= json[index].id;
-				var username = json[index].username;
-	    		option += ("<option value='"+userid+"'>"+username+"</option>");
+	    		var rid= json[index].id+"("+json[index].type+")";
+				var rname = json[index].firstName+"-"+json[index].lastName+"("+json[index].type+")";
+	    		option += ("<option value='"+rid+"'>"+rname+"</option>");
 	    	});
 	    	$("#multiselect").html(option);
 	    },
@@ -96,27 +98,28 @@ function getAllNotIncludedUser(){
 	});
 	
 }
-function getAllIncludedUser(){
-	var id=$("#id").val();
+function getTheBelongGroup(){
+	var no=$("#id").val();
 	var option;
 	$.ajax({
-		url:ctx+"/UserGroup/getAllIncludedUser",
-		data:{groupId:id},
+		url:ctx+"/Resource/getTheBelongResources",
+		data:{no:no},
 		type:"post",
 		dataType : 'json',
 		cache:false,
 		success:function(data){
-			var json = eval(data);
+			var json = data.resources;
 			$.each(json,function(index, item) {
-				//循环获取数据
-				var userid= json[index].id;
-				var username = json[index].username;
-				option += ("<option value='"+userid+"'>"+username+"</option>");
-			});
+	    		//循环获取数据
+	    		var rid= json[index].id+"("+json[index].type+")";
+				var rname =json[index].firstName+"-"+json[index].lastName+"("+json[index].type+")";
+	    		option += ("<option value='"+rid+"'>"+rname+"</option>");
+	    	});
+			
 			$("#multiselect_to").html(option);
 		},
 		error:function(XMLHttpRequest, textStatus, errorThrown) {   
-			noty({type:"error",text: "An internal error has occurred. Please contact your system administrator!", layout: "center", timeout: 3000});
+			noty({type:"warning",text: "The user are not yet grouped!,you can assign a group to the user", layout: "center", timeout: 3000});
 		},  
 		async: false
 		

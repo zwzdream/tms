@@ -3,8 +3,13 @@ $(function(){
    initTable();
 });
 function doQry(){
-	$table.dataTable().fnClearTable(false);
-	   initTable();
+	var username= $('#username').val();
+	if(username=='') {
+		noty({type:"warning",text: " Please enter the username that you want to search!", layout: "bottom", timeout: 3000});
+	}else{
+		$table.dataTable().fnClearTable(false);
+		 initTable();
+	}
 }
 function initTable(){
 	var username = $('#username').val();

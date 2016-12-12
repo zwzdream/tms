@@ -28,7 +28,7 @@ function ajaxToLogout(form){
 			        });
 	}
 
-function ajaxToLogin(url, data, callback){
+function ajaxGet(url, data, callback){
 	$('#content').fadeOut().parent().append('<div id="loading" class="center">Loading...<div class="center"></div></div>');
 	$.ajax({
 		type : "get",

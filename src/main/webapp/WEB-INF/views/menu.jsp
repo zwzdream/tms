@@ -7,7 +7,7 @@
             </div>
             <ul class="nav nav-pills nav-stacked main-menu">
                 <li>
-                	<a class="ajax-link" href="${ctx}/Index/home/dashboard">
+                	<a  href="javascript:ajaxContent('/Index/dashboard/init');">
                 		<i class="glyphicon glyphicon-home"></i><span> Dashboard</span>
                 	</a>
                 </li>

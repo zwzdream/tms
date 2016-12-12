@@ -1,5 +1,9 @@
 package com.wistronits.tms.web;
 
+import java.util.ArrayList;
+
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -7,9 +11,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.wistronits.tms.entity.JDBean;
+import com.wistronits.tms.service.IJDBeanService;
+import com.wistronits.tms.service.IResumeService;
+
 @Controller
 @RequestMapping("/Index")
 public class IndexController {
+	@Resource
+	private IJDBeanService jdBeanService;
+	@Resource
+	private IResumeService resumeService;
 
   /**
    * login jsp
@@ -72,6 +84,12 @@ public class IndexController {
    */
   @RequestMapping(value = "/dashboard/init", method = RequestMethod.POST)
   public String dashboard(Model model) {
+	  int jdCount= jdBeanService.listAll().size();
+	 model.addAttribute("jdCount", jdCount);
+	 model.addAttribute("curJDCount", jdBeanService.listCurrentWeekCount());
+	 model.addAttribute("resourceCount", resumeService.getAllBeansCount());
+	 model.addAttribute("curResourceCount", resumeService.getCurrentWeekCount());
+	 
     return "/content";
   }
 

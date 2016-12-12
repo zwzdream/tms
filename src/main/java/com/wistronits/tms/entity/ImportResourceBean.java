@@ -1,5 +1,6 @@
 package com.wistronits.tms.entity;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -14,6 +15,7 @@ public class ImportResourceBean {
 	private String fileName;
 	private int age;
 	private String type;
+	private Date lastMTime;
 	
 	public String getFileName() {
 		return fileName;
@@ -93,5 +95,18 @@ public class ImportResourceBean {
 		}
 		return age;
 	}
+	public String getLastMTime() {
+		String desc = "";
+		if (this.lastMTime != null) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			desc = sdf.format(this.lastMTime);
+		}
+		return desc;
+		//return lastMTime;
+	}
+	public void setLastMTime(Date lastMTime) {
+		this.lastMTime = lastMTime;
+	}
+	
 	
 }

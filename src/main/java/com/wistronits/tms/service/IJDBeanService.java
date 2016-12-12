@@ -14,5 +14,6 @@ public interface IJDBeanService {
 	public JDBean getJD(int no);
 	public void closeJD(int no,Date date);
 	public ArrayList<JDBean> listAll();
+	public int listCurrentWeekCount();
 
 }

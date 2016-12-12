@@ -65,7 +65,8 @@ public class UserManagementController {
 	
 	@RequestMapping(value = "/username/list", method = RequestMethod.GET)
 	@ResponseBody
-	public  Map<Object,Object> list(@RequestParam(value="username") String username,
+	public  Map<Object,Object> list(
+			@RequestParam(value="username") String username,
 			@RequestParam(value="sEcho") String sEcho,
 			@RequestParam(value="iDisplayStart") int offSet,
 			@RequestParam(value="iDisplayLength") int pageSize) {
@@ -74,9 +75,9 @@ public class UserManagementController {
 		List<UserBean> userBean = userService.listByName(username);
 		List<UserBean> userBean1 = userService.listByName(username);
         Map<Object,Object> map=new HashMap<>();
-        map.put("aaData", userBean);
-        map.put("iTotalDisplayRecords", userBean1.size());//一共查询到的记录
-        map.put("iTotalRecords", userBean.size());//每页显示的记录数
+        map.put("aaData", userBean);//数据
+        map.put("iTotalDisplayRecords", userBean1.size());//过滤后总记录数
+        map.put("iTotalRecords", userBean1.size());// 过滤前总记录数
         map.put("sEcho", sEcho);
 		return map;
 	}

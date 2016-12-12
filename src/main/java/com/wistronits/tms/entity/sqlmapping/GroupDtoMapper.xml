@@ -43,15 +43,14 @@
 	
 	<select id="getCanJoinGroups" resultMap="BaseResultMap">
   		<![CDATA[
-	SELECT a.* FROM groups a LEFT JOIN user_group b ON a.id=b.group_id LEFT JOIN USER c 
-	ON b.user_id=c.id WHERE c.id!=#{uid} OR c.id IS null
+	SELECT b.* FROM groups b WHERE NOT EXISTS (SELECT a.group_id FROM user_group a WHERE a.user_id=#{uid} AND b.id=a.group_id) order by id
 
 		]]>
 	</select>
 	<select id="getTheBelongGroup" resultMap="BaseResultMap">
   		<![CDATA[
 	SELECT a.* FROM groups a LEFT JOIN user_group b ON a.id=b.group_id LEFT JOIN USER c 
-	ON b.user_id=c.id WHERE c.id=#{uid}
+	ON b.user_id=c.id WHERE c.id=#{uid} order by id
 
 		]]>
 	</select>

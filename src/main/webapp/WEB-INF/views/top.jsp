@@ -20,8 +20,8 @@
             <ul class="dropdown-menu">
                 <li><a href="#">Profile</a></li>
                 <li class="divider"></li>
-                 <li><a href="javascript:ajaxToLogin('/auth/login');">Login</a></li>
-                <li><a href="javascript:ajaxToLogout(logoutForm);">Logout</a></li>
+                 <li><a  href="javascript:ajaxGet('/auth/login');">Login</a></li>
+                <li><a  href="javascript:ajaxToLogout(logoutForm);">Logout</a></li>
             </ul>
         </div>
         <!-- user dropdown ends -->

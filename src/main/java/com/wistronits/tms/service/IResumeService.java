@@ -17,10 +17,16 @@ public interface IResumeService {
 	public int getAllImportBeansCount();
 	public List<ImportResourceBean> getAllBeans(int offSet, int pageSize);
 	public int getAllBeansCount();
+	public int getCurrentWeekCount();
 	public boolean deleteImportResource(int resourceId);
 	public boolean deleteResume(int resourceId);
 	public ImportResourceBean getImportResourceById(int resourceId);
 	public ResumeBean getResumeById(int resourceId);
 	public Boolean editImportResource(ImportResourceBean resource,MultipartFile file);
 	public Boolean editResume(ResumeBean rDto);
+	public Map<String,Object> getCanJoinResources(int no);
+	public Map<String,Object> getTheBelongResources(int no);
+	public int editTheBelongResource(int no,int rid,String type);
+	public int addResourceToJD(int no,int rid,String type);
+	public int deleteResourceFromJD(int no,int rid,String type);
 }

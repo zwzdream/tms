@@ -8,22 +8,22 @@
 
 <div class="sortable row-fluid">
  	<div class="col-md-6 col-sm-6 col-xs-6">
-        <a data-toggle="tooltip" title="6 new members." class="well top-block" href="#">
+        <a data-toggle="tooltip" title=" ${curJDCount } new members." class="well top-block" href="javascript:ajaxGet('/Index/home/JD');">
             <i class="glyphicon glyphicon-user blue"></i>
 
             <div>JD Count</div>
-            <div>507</div>
-            <span class="notification">6</span>
+            <div>${jdCount }</div>
+            <span class="notification">${curJDCount }</span>
         </a>
     </div>
 
     <div class="col-md-6 col-sm-6 col-xs-6">
-        <a data-toggle="tooltip" title="4 new pro members." class="well top-block" href="#">
+        <a data-toggle="tooltip" title=" ${curResourceCount } new pro members." class="well top-block" href="javascript:ajaxGet('/Index/home/resource');">
             <i class="glyphicon glyphicon-star green"></i>
 
             <div>Resources Count</div>
-            <div>228</div>
-            <span class="notification green">4</span>
+            <div>${resourceCount}</div>
+            <span class="notification green">${curResourceCount }</span>
         </a>
     </div>  
 </div>
