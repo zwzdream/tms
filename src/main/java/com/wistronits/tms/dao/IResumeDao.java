@@ -1,10 +1,9 @@
 package com.wistronits.tms.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.wistronits.tms.entity.GroupBean;
 import com.wistronits.tms.entity.ImportResourceBean;
+import com.wistronits.tms.entity.JDBean;
 import com.wistronits.tms.entity.ResumeBean;
 
 public interface IResumeDao {
@@ -35,5 +34,10 @@ public interface IResumeDao {
 	public int editBelongResumeResource(int no,int rid);
 	public int deleteImportResourceFromJD(int no,int rid);
 	public int deleteResumeResourceFromJD(int no,int rid);
+	public List<JDBean>  getJDsNotInAdd(int rid);
+	public List<JDBean>  getJDsInAdd(int rid);
+	public List<JDBean>  getJDsNotInImport(int rid);
+	public List<JDBean>  getJDsInImport(int rid);
+	
 
 }

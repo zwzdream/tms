@@ -11,13 +11,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.github.pagehelper.PageHelper;
+import com.wistronits.tms.dao.IJDBeanDao;
 import com.wistronits.tms.dao.IResumeDao;
 import com.wistronits.tms.entity.ImportResourceBean;
+import com.wistronits.tms.entity.JDBean;
 import com.wistronits.tms.entity.ResumeBean;
 import com.wistronits.tms.entity.RsResponse;
 import com.wistronits.tms.service.IResumeService;
@@ -27,6 +31,8 @@ public class IResumeServiceImpl implements IResumeService {
 
 	@Autowired
 	private IResumeDao iResumeDao;
+	@Resource
+	private IJDBeanDao jdBeanDao;
 	@Override
 	public Boolean addResume(ResumeBean rDto) {
 		int cnt = iResumeDao.addResume(rDto);
@@ -215,6 +221,32 @@ public class IResumeServiceImpl implements IResumeService {
 				}
 				return resultCount;
 	}
+	@Override
+	public Map<String, Object> getCanJoinJDs(int rid, String type) {
+		List<JDBean> jdList=new ArrayList<JDBean>();
+		if(type.equals("add")){
+			jdList=jdBeanDao.getJDsNotInAdd(rid);
+		} else if(type.equals("import")){
+			jdList=jdBeanDao.getJDsNotInImport(rid);
+		}
+		Map<String,Object> resRe = new HashMap<String,Object>();
+		resRe.put("jdList", jdList);
+		return resRe;
+	}
+	@Override
+	public Map<String, Object> getTheBelongJDs(int rid, String type) {
+		List<JDBean> jdList=new ArrayList<JDBean>();
+		if(type.equals("add")){
+			jdList=jdBeanDao.getJDsInAdd(rid);
+		} else if(type.equals("import")){
+			jdList=jdBeanDao.getJDsInImport(rid);
+		}
+		Map<String,Object> resRe = new HashMap<String,Object>();
+		resRe.put("jdList", jdList);
+		return resRe;
+	}
+	
+	
 	
 	
 	

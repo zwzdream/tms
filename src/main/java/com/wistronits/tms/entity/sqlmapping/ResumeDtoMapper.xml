@@ -125,6 +125,7 @@
      	 select id from resume where last_m_time>DATE_SUB(CURDATE(), INTERVAL 1 WEEK)) temp
 	</select>
 	
+	
 	<select id="haveResumes" resultMap="ImportResourceBeanResultMap">
      	SELECT a.id,a.first_name,a.last_name,a.birth,a.gender,a.last_m_time,'add' as 'type'
      	FROM RESUME a LEFT JOIN jd_resume_resource b ON a.id=b.add_id LEFT JOIN jd c ON b.jd_id=c.no WHERE c.no=#{no} ORDER BY id

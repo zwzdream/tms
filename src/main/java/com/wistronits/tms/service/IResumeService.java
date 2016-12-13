@@ -26,7 +26,10 @@ public interface IResumeService {
 	public Boolean editResume(ResumeBean rDto);
 	public Map<String,Object> getCanJoinResources(int no);
 	public Map<String,Object> getTheBelongResources(int no);
+	public Map<String,Object> getCanJoinJDs(int rid,String type);
+	public Map<String,Object> getTheBelongJDs(int rid,String type);
 	public int editTheBelongResource(int no,int rid,String type);
 	public int addResourceToJD(int no,int rid,String type);
 	public int deleteResourceFromJD(int no,int rid,String type);
+	
 }

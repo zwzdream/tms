@@ -1,18 +1,17 @@
 $(function(){
 	//取得所有不在该分组下的用户
 
-	getCanJoinResources();
-	getTheBelongResources();
+	getCanJoinJDs();
+	getTheBelongJDs();
 	$('#multiselect').multiselect( {
 		
 		beforeMoveToLeft:function(){
-			var jdId=$("#id").val();
-			var jdTitle=$("#title").text();
-			var resourceId=$("#multiselect_to").val();
-			var resourceName=$('#multiselect_to option:selected').text();
+			var resourceId=$("#resourceId").val();
+			var resourceType=$("#resourceType").val();
+			var jdId=$("#multiselect_to").val();
 			$.ajax({
-				url:ctx+"/Resource/deleteResourceFromJD",
-				data:{resourceId:parseInt(resourceId[0]),jdId:jdId,resourceName:resourceName,jdTitle:jdTitle},
+				url:ctx+"/Resource/deleteJDFromResource",
+				data:{jdId:parseInt(jdId[0]),resourceId:resourceId,resourceType:resourceType},
 				type:"post",
 				dataType : 'html',
 			    cache:false,
@@ -35,13 +34,12 @@ $(function(){
 			 
 		},
 		beforeMoveToRight:function(){
-			 var jdId=$("#id").val();
-			 var jdTitle=$("#title").text();
-			  var resourceId=$("#multiselect").val();
-			  var resourceName=$('#multiselect option:selected').text();
+			var resourceId=$("#resourceId").val();
+			var resourceType=$("#resourceType").val();
+			var jdId=$("#multiselect").val();
 			  $.ajax({
-					url:ctx+"/Resource/addResourceToJD",
-					data:{resourceId:parseInt(resourceId[0]),jdId:jdId,resourceName:resourceName,jdTitle:jdTitle},
+					url:ctx+"/Resource/addJDToResource",
+					data:{jdId:parseInt(jdId[0]),resourceId:resourceId,resourceType:resourceType},
 					type:"post",
 					dataType : 'html',
 				    cache:false,
@@ -70,22 +68,23 @@ $(function(){
 
 
 
-function getCanJoinResources(){
-	var no=$("#id").val();
+function getCanJoinJDs(){
+	var resourceId=$("#resourceId").val();
+	var resourceType=$("#resourceType").val();
 	var option;
 	$.ajax({
-		url:ctx+"/Resource/getCanJoinResources",
-		data:{no:no},
+		url:ctx+"/Resource/getCanJoinJDs",
+		data:{resourceId:resourceId,resourceType:resourceType},
 		type:"post",
 		dataType : 'json',
 	    cache:false,
 	    success:function(data){
-	    	var json = data.resources;
+	    	var json = data.jdList;
 			$.each(json,function(index, item) {
 	    		//循环获取数据
-	    		var rid= json[index].id+"("+json[index].type+")";
-				var rname = json[index].firstName+"-"+json[index].lastName+"("+json[index].type+")";
-	    		option += ("<option value='"+rid+"'>"+rname+"</option>");
+	    		var no= json[index].no;
+				var title = json[index].title;
+	    		option += ("<option value='"+no+"'>"+title+"</option>");
 	    	});
 	    	$("#multiselect").html(option);
 	    },
@@ -98,22 +97,23 @@ function getCanJoinResources(){
 	});
 	
 }
-function getTheBelongResources(){
-	var no=$("#id").val();
+function getTheBelongJDs(){
+	var resourceId=$("#resourceId").val();
+	var resourceType=$("#resourceType").val();
 	var option;
 	$.ajax({
-		url:ctx+"/Resource/getTheBelongResources",
-		data:{no:no},
+		url:ctx+"/Resource/getTheBelongJDs",
+		data:{resourceId:resourceId,resourceType:resourceType},
 		type:"post",
 		dataType : 'json',
 		cache:false,
 		success:function(data){
-			var json = data.resources;
+			var json = data.jdList;
 			$.each(json,function(index, item) {
 	    		//循环获取数据
-	    		var rid= json[index].id+"("+json[index].type+")";
-				var rname =json[index].firstName+"-"+json[index].lastName+"("+json[index].type+")";
-	    		option += ("<option value='"+rid+"'>"+rname+"</option>");
+				var no= json[index].no;
+				var title = json[index].title;
+	    		option += ("<option value='"+no+"'>"+title+"</option>");
 	    	});
 			
 			$("#multiselect_to").html(option);

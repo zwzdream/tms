@@ -3,6 +3,7 @@ package com.wistronits.tms.web;
 
 
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,10 +13,10 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,12 +24,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.wistronits.tms.entity.GroupBean;
 import com.wistronits.tms.entity.ImportResourceBean;
 import com.wistronits.tms.entity.ResumeBean;
 import com.wistronits.tms.entity.RsResponse;
-import com.wistronits.tms.entity.UserBean;
 import com.wistronits.tms.service.IResumeService;
+import com.wistronits.tms.util.FileOperate;
 
 @Controller
 @RequestMapping("/Resource")
@@ -51,6 +51,20 @@ public class ResourceRepositoryController {
 
 	    return "/resource/resource_add";
 	  }
+	
+	@RequestMapping(value = "/toEditJD", method = RequestMethod.POST)
+	public ModelAndView toEditJD(
+			@RequestParam(value="resourceId") int resourceId,
+			@RequestParam(value="resourceType") String resourceType) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/resource/resource_edit_jd");
+		mv.addObject("resourceId", resourceId);
+		mv.addObject("resourceType", resourceType);
+		return mv;
+		
+	}
+	
+
 	@RequestMapping(value = "/toimport", method = RequestMethod.POST)
 	public String toImportPage(Model model) {
 		return "/resource/resource_import";
@@ -325,6 +339,19 @@ public class ResourceRepositoryController {
 		return resumeService.getTheBelongResources(no);
 
 	}
+	@RequestMapping(value = "/getCanJoinJDs", method = RequestMethod.POST)
+	public @ResponseBody Map<String,Object> getCanJoinJDs(
+			@RequestParam(value="resourceId") int resourceId,
+			@RequestParam(value="resourceType") String resourceType) {
+		return resumeService.getCanJoinJDs(resourceId,resourceType);
+	}
+	
+	@RequestMapping(value = "/getTheBelongJDs", method = RequestMethod.POST)
+	public @ResponseBody Map<String,Object> getTheBelongJDs(
+			@RequestParam(value="resourceId") int resourceId,
+			@RequestParam(value="resourceType") String resourceType) {
+		return resumeService.getTheBelongJDs(resourceId,resourceType);
+	}
 /*	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "/editTheBelongResource", method = RequestMethod.POST)
 	public @ResponseBody RsResponse editTheBelongGroup(
@@ -376,6 +403,36 @@ public class ResourceRepositoryController {
 			 view.addObject("jdNo", no);
 			 view.addObject("jdTitle", title);
 				return view;
+		}
+		return view;
+	}
+	
+	@RequestMapping(value = "/addJDToResource", method = RequestMethod.POST)
+	public ModelAndView addJDToResource(	
+			@RequestParam(value = "jdId") int no,
+			@RequestParam(value = "resourceId") int rid,
+			@RequestParam(value="resourceType")String rType) {
+		ModelAndView view = new ModelAndView("resource/resource_edit_jd");
+		int resultCount=resumeService.addResourceToJD(no, rid, rType);
+		if(resultCount!=0){
+			view.addObject("resourceId", rid);
+			view.addObject("resourceType", rType);
+			return view;
+		}
+		return view;
+		
+	}
+	@RequestMapping(value = "/deleteJDFromResource", method = RequestMethod.POST)
+	public ModelAndView deleteJDFromResource(
+			@RequestParam(value = "jdId") int no,
+			@RequestParam(value = "resourceId") int rid,
+			@RequestParam(value="resourceType")String rType) {
+		ModelAndView view = new ModelAndView("resource/resource_edit_jd");
+		int resultCount=resumeService.deleteResourceFromJD(no, rid, rType);
+		if(resultCount!=0){
+			view.addObject("resourceId", rid);
+			view.addObject("resourceType", rType);
+			return view;
 		}
 		return view;
 	}

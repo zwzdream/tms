@@ -31,6 +31,7 @@ function initTable(){
     	         {mData: 'age'},
     	         {mData: 'gender'},
     	         {mData: 'lastMTime'},
+    	         {sDefaultContent: ''},
     	         {sDefaultContent: ''}
     	],
     	fnRowCallback: function(nRow, aData, iDisplayIndex) {
@@ -56,6 +57,9 @@ function initTable(){
     	    			+'<a class="btn btn-danger" href="#" onclick=deleteResource(\"/Resource/toDeleteImport\","resourceId='+ aData.id +'");>'
     	    			+'<i class="glyphicon glyphicon-trash icon-white"></i>Delete</a>');
     		}
+    		$('td:eq(6)', nRow).html('<a class="btn btn-success" href="#" onclick=ajaxContent(\"/Resource/toEditJD\","resourceId='+ aData.id +'&resourceType='+ aData.type +'");>'
+	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit JD</a>&nbsp;');
+    		
     		
     		return nRow;
     	},
