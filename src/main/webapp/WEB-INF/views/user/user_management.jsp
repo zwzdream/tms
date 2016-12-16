@@ -7,12 +7,10 @@
 <form id="splitPage" class="form-horizontal" action="#" method="POST">
 	<div>
 		<ul class="breadcrumb">
-	            <li>
-	                <a href="#">Home</a>
-	            </li>
-	            <li>
-	                <a href="#">User Management</a>
-	            </li>
+	             <li>
+                <a href="#"  onclick='ajaxContent("/Index/dashboard/init")'>Home</a>
+            </li>
+
 	    </ul>
 	</div>
 	<div class="row">

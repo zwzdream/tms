@@ -2,7 +2,7 @@
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <div>
 	<ul class="breadcrumb">
-		<li><a href="${ctx}/Index/home">Home</a></li>
+		<li><a href="javascript:ajaxContent('/Index/dashboard/init')">Home</a></li>
 	</ul>
 </div>
 

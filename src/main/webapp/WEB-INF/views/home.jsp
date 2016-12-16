@@ -54,6 +54,9 @@ body {
 	href='${ctx}/resources/ui/charisma/bower_components/chosen/chosen.min.css'
 	rel='stylesheet'>
 <link
+	href='${ctx}/resources/ui/charisma/bower_components/daterangepicker/daterangepicker.css'
+	rel='stylesheet'  media='all'>
+<link
 	href='${ctx}/resources/ui/charisma/bower_components/colorbox/example3/colorbox.css'
 	rel='stylesheet'>
 <link
@@ -80,6 +83,11 @@ body {
 <!-- jQuery -->
 <script
 	src="${ctx}/resources/ui/charisma/bower_components/jquery/jquery.min.js"></script>
+	<!-- inputmask -->
+<script
+	src="${ctx}/resources/ui/charisma/bower_components/jquery/jquery.inputmask.bundle.js"></script>
+<script
+	src="${ctx}/resources/ui/charisma/bower_components/jquery/jquery.inputmask.bundle.min.js"></script>
 
 <!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
@@ -174,6 +182,12 @@ body {
 	<!-- tour plugin -->
 	<script
 		src="${ctx}/resources/ui/charisma/bower_components/bootstrap-tour/build/js/bootstrap-tour.min.js"></script>
+	<!-- Date Range Picker -->
+		<script
+		src="${ctx}/resources/ui/charisma/bower_components/daterangepicker/moment.min.js"></script>
+	<script
+		src="${ctx}/resources/ui/charisma/bower_components/daterangepicker/daterangepicker.js"></script>
+
 	<!-- star rating plugin -->
 	<script src="${ctx}/resources/ui/charisma/js/jquery.raty.min.js"></script>
 	<!-- for iOS style toggle switch -->

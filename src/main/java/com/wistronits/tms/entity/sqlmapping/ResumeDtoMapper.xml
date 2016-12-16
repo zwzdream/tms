@@ -56,7 +56,7 @@
 	useGeneratedKeys="true" keyProperty="id">
          insert into import_resource (first_name, last_name, birth,gender,file_path,last_m_time)
      		values (#{firstName,jdbcType=VARCHAR}, #{lastName,jdbcType=VARCHAR}, #{birth,jdbcType=DATE}, 
-       			#{gender,jdbcType=BOOLEAN},#{filePath,jdbcType=VARCHAR}),#{lastMTime,jdbcType=DATE}
+       			#{gender,jdbcType=BOOLEAN},#{filePath,jdbcType=VARCHAR},#{lastMTime,jdbcType=DATE})
      </insert>
      
      <select id="getAllImportBeans" resultMap="ImportResourceBeanResultMap">

@@ -1,15 +1,17 @@
 <div>
 	<ul class="breadcrumb">
             <li>
-                <a href="#">Home</a>
+                 <a href="javascript:ajaxContent('/Index/dashboard/init')">Home</a>
             </li>
             <li>
-                <a href="#">Import Resource</a>
+                 <a href="javascript:ajaxContent('/Index/resource/init')">Resource Repository</a>
             </li>
     </ul>
 </div>
 <script type="text/javascript">
-
+$(function(){
+	attachCalendarInput();
+});
 function importResource(divId, formId){
 	var form = $("#" + formId)[0];
 	form.action= ctx + '/Resource/importResource';
@@ -72,10 +74,15 @@ function importResource(divId, formId){
                         <input type="text" class="form-control" id="lastName" name="lastName">
                     </div>
                     <br>
-                    <div class="form-inline">
+               <div class="form-inline"> 
+                      <div class="form-group input-calendar">
                         <label for="birth">Date of Birth</label>&nbsp;
-                        <input type="date" class="form-control" id="birth" name="birth">
-                    </div>
+                        <div class="input-group">
+                        <input type="text" class="form-control" id="birth" name="birth"/>
+                        <span class="input-group-addon fa fa-calendar"></span>
+                        </div>
+                        </div>
+                 </div>
                     <br>
                     <div class="form-inline">
                         <label>Gender</label>&nbsp;&nbsp;

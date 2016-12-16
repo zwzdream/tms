@@ -51,6 +51,7 @@ $(document).ready(function () {
         $('#themes i').removeClass('glyphicon glyphicon-ok whitespace').addClass('whitespace');
         $('#themes a[data-value=' + themeName + ']').find('i').removeClass('whitespace').addClass('glyphicon glyphicon-ok');
     }
+    
 
     //ajax menu checkbox
     /*
@@ -143,6 +144,27 @@ $(document).ready(function () {
     //other things to do on document ready, separated for ajax calls
     docReady();
 });
+
+//calendarInput
+function attachCalendarInput(selector){
+	if(selector==undefined){
+		selector='';
+	}
+	$(selector+".input-calendar span.fa-calendar").click(function(){
+		$(this).parent().find("input").click();
+	});
+	$(selector+".input-calendar input").inputmask({
+		alias:"yyyy-mm-dd"
+	}).daterangepicker({
+		singleDatePicker:true,
+		autoUpdateInput:false
+	}).on(
+			"apply.daterangepicker",
+			function(ev,picker){
+				$(this).val(picker.startDate.format("YYYY-MM-DD"));
+				//$(this).closest("form").bootstrapValidator("revalidateField",$(this));
+			});
+}
 
 
 function docReady() {
@@ -311,9 +333,10 @@ function docReady() {
         e.preventDefault();
         $('#myModal').modal('show');
     });
+    
+    
 
-
-    $('#calendar').fullCalendar({
+   $('#calendar').fullCalendar({
         header: {
             left: 'prev,next today',
             center: 'title',

@@ -32,7 +32,7 @@ function initTable(){
     	         {mData: 'gender'},
     	         {mData: 'lastMTime'},
     	         {sDefaultContent: ''},
-    	         {sDefaultContent: ''}
+/*     	         {sDefaultContent: ''} */
     	],
     	fnRowCallback: function(nRow, aData, iDisplayIndex) {
     		var tableSetings = this.fnSettings(); 
@@ -57,8 +57,11 @@ function initTable(){
     	    			+'<a class="btn btn-danger" href="#" onclick=deleteResource(\"/Resource/toDeleteImport\","resourceId='+ aData.id +'");>'
     	    			+'<i class="glyphicon glyphicon-trash icon-white"></i>Delete</a>');
     		}
-    		$('td:eq(6)', nRow).html('<a class="btn btn-success" href="#" onclick=ajaxContent(\"/Resource/toEditJD\","resourceId='+ aData.id +'&resourceType='+ aData.type +'");>'
-	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit JD</a>&nbsp;');
+    	
+  /*   		$('td:eq(6)', nRow).html('<a class="btn btn-success" href="#" onclick=ajaxContent(\"/Resource/toEditJD\","resourceId='+ aData.id +'&resourceType='+ aData.type +'");>'
+	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit JD</a>&nbsp;'
+	    			+'<a class="btn btn-info" href="#" onclick=ajaxContent(\"/Resource/toScan\","resourceId='+ aData.id +'&resourceType='+ aData.type +'");>'
+	    			+'<i class="glyphicon glyphicon-eye-open icon-white"></i>Scan</a>'); */
     		
     		
     		return nRow;
@@ -71,7 +74,10 @@ function initTable(){
 $(document).ready(function() {  
 	initTable();
 });
-function deleteResource(url, data){
+
+
+
+function deleteResource(url, data,callback){
 	 if(confirm('Are you sure?')){
 	$('#content').fadeOut().parent().append('<div id="loading" class="center">Loading...<div class="center"></div></div>');
 	$.ajax({
@@ -86,6 +92,9 @@ function deleteResource(url, data){
 		success:function(obj){
 			if((obj) && (obj.success)){
 				$("#rsRepositoryTable").dataTable().fnDraw(false);//删除后，刷新表格
+				if( callback != null ){
+					callback();
+				}
 				noty({type:"success",text: "Delete successed!", layout: "bottom", timeout: 3000});
 			}else{
 				noty({type:"error",text: "Delete failed!", layout: "bottom", timeout: 3000});
@@ -104,15 +113,19 @@ function deleteResource(url, data){
   }
 return false;
 }
+function editcallback(data){
+	var resourceId=$("#resourceId").val();
+	var resourceType=$("#resourceType").val();
+	resourceId=data.resourceId;
+	resourceType=data.resourceType;
+
+}
 </script>
 <form id="splitPage" class="form-horizontal" action="${ctx}/Resource/searchresource" method="POST">
 	<div>
 		<ul class="breadcrumb">
 	            <li>
-	                <a href="#">Home</a>
-	            </li>
-	            <li>
-	                <a href="#">Resource Repository</a>
+	                 <a href="javascript:ajaxContent('/Index/dashboard/init')">Home</a>
 	            </li>
 	    </ul>
 	</div>

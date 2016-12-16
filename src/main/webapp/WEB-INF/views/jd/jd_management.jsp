@@ -7,11 +7,9 @@
 	<div>
 		<ul class="breadcrumb">
 	            <li>
-	                <a href="#">Home</a>
+	                  <a href="javascript:ajaxContent('/Index/dashboard/init')">Home</a>
 	            </li>
-	            <li>
-	                <a href="#">JD Management</a>
-	            </li>
+	     
 	    </ul>
 	</div>
 	<div class="row">

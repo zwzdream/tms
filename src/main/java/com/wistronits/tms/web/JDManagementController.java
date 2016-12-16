@@ -52,6 +52,7 @@ public class JDManagementController {
 		PageInfo<JDBean> page = new PageInfo<>(jdBeanList);
 		view.addObject("jd", jdBeanService.getJD(no));
 		view.addObject("page", page);
+		view.addObject("jdNo", no);
 		return view;
 	}
 

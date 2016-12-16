@@ -4,11 +4,11 @@
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <div>
 	<ul class="breadcrumb">
-            <li>
-                <a href="#"  onclick='ajaxContent("/Index/user/init")'>Home</a>
+             <li>
+                <a href="#"  onclick='ajaxContent("/Index/dashboard/init")'>Home</a>
             </li>
             <li>
-                User Management Edit</a>
+                <a href="#" onclick='ajaxContent("/Index/user/init")'>User Management </a>
             </li>
     </ul>
 </div>

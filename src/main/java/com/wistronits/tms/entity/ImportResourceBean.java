@@ -98,7 +98,7 @@ public class ImportResourceBean {
 	public String getLastMTime() {
 		String desc = "";
 		if (this.lastMTime != null) {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			desc = sdf.format(this.lastMTime);
 		}
 		return desc;

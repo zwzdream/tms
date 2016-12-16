@@ -8,11 +8,16 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
+import org.apache.xmlbeans.XmlException;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -61,6 +66,40 @@ public class ResourceRepositoryController {
 		mv.addObject("resourceId", resourceId);
 		mv.addObject("resourceType", resourceType);
 		return mv;
+		
+	}
+	
+
+/*	@RequestMapping(value = "/toScanImport", method = RequestMethod.POST)
+	public void toScanImport(HttpServletResponse response,
+			@RequestParam(value="resourceId") int resourceId) throws IOException {
+			ImportResourceBean bean=resumeService.getImportResourceById(resourceId);
+		   FileOperate.downloadFile(response, bean.getFilePath());
+
+		
+	}*/
+	@RequestMapping(value = "/toScanImport", method = RequestMethod.POST)
+	public ResponseEntity<byte[]> toScanImport(
+			@RequestParam(value="resourceId") int resourceId) throws IOException{
+		ResponseEntity<byte[]> res=new ResponseEntity<byte[]>(HttpStatus.OK);
+			ImportResourceBean bean=resumeService.getImportResourceById(resourceId);
+			res= FileOperate.download(bean.getFilePath());
+		    return res;
+		
+	}
+	@RequestMapping(value = "/toScan", method = RequestMethod.POST)
+	public String toScan(
+			@RequestParam(value="resourceId") int resourceId,
+			@RequestParam(value="resourceType") String resourceType) throws IOException {
+        String retrurnString="";
+		if("import".equals(resourceType)){
+			retrurnString="forward:/Resource/toScanImport";
+		}else if("add".equals(resourceType)){
+          		
+			retrurnString="forward:/Resource/toEditAdd";
+           }
+		return retrurnString;
+
 		
 	}
 	
@@ -196,16 +235,23 @@ public class ResourceRepositoryController {
 		ImportResourceBean bean = resumeService.getImportResourceById(resourceId);
 		mv.getModel().put("bean",bean);
 		mv.setViewName("/resource/resource_edit_importrecource");
+		mv.addObject("resourceId", resourceId);
+		mv.addObject("resourceType", "import");
 		return mv;
 	}
-	@RequestMapping(value="/toEditAdd", method=RequestMethod.POST)
+	
+	
+		@RequestMapping(value="/toEditAdd", method=RequestMethod.POST)
 	public ModelAndView toEditAddView(@RequestParam(value="resourceId") int resourceId){
 		ModelAndView mv = new ModelAndView();
 		ResumeBean bean = resumeService.getResumeById(resourceId);
 		mv.getModel().put("bean",bean);
 		mv.setViewName("/resource/resource_add_edit");
+		mv.addObject("resourceId", resourceId);
+		mv.addObject("resourceType", "add");
 		return mv;
 	}
+	
 	@SuppressWarnings("rawtypes")
 	@RequestMapping(value="/toDeleteImport", method=RequestMethod.POST)
 	public @ResponseBody RsResponse toDeleteImport (@RequestParam(value="resourceId") int resourceId){
@@ -376,7 +422,6 @@ public class ResourceRepositoryController {
 	@RequestMapping(value = "/addResourceToJD", method = RequestMethod.POST)
 	public ModelAndView addResourceToJD(	
 			@RequestParam(value = "jdId") int no,
-			@RequestParam(value="jdTitle") String title,
 			@RequestParam(value = "resourceId") int rid,
 			@RequestParam(value="resourceName")String rName) {
 		String type=rName.substring(rName.indexOf("(")+1, rName.indexOf(")"));
@@ -384,8 +429,6 @@ public class ResourceRepositoryController {
 		int resultCount=resumeService.addResourceToJD(no, rid, type);
 		if(resultCount!=0){
 			 view.addObject("jdNo", no);
-			 view.addObject("jdTitle", title);
-				return view;
 		}
 		return view;
 
@@ -393,7 +436,6 @@ public class ResourceRepositoryController {
 	@RequestMapping(value = "/deleteResourceFromJD", method = RequestMethod.POST)
 	public ModelAndView deleteResourceFromJD(
 			@RequestParam(value = "jdId") int no,
-			@RequestParam(value="jdTitle") String title,
 			@RequestParam(value = "resourceId") int rid,
 			@RequestParam(value="resourceName")String rName) {
 		String type=rName.substring(rName.indexOf("(")+1, rName.indexOf(")"));
@@ -401,12 +443,11 @@ public class ResourceRepositoryController {
 		 int resultCount=resumeService.deleteResourceFromJD(no, rid, type);
 		 if(resultCount!=0){
 			 view.addObject("jdNo", no);
-			 view.addObject("jdTitle", title);
-				return view;
 		}
 		return view;
 	}
 	
+
 	@RequestMapping(value = "/addJDToResource", method = RequestMethod.POST)
 	public ModelAndView addJDToResource(	
 			@RequestParam(value = "jdId") int no,
@@ -417,11 +458,15 @@ public class ResourceRepositoryController {
 		if(resultCount!=0){
 			view.addObject("resourceId", rid);
 			view.addObject("resourceType", rType);
-			return view;
+			
 		}
 		return view;
 		
 	}
+
+	
+	
+
 	@RequestMapping(value = "/deleteJDFromResource", method = RequestMethod.POST)
 	public ModelAndView deleteJDFromResource(
 			@RequestParam(value = "jdId") int no,
@@ -432,7 +477,7 @@ public class ResourceRepositoryController {
 		if(resultCount!=0){
 			view.addObject("resourceId", rid);
 			view.addObject("resourceType", rType);
-			return view;
+			
 		}
 		return view;
 	}

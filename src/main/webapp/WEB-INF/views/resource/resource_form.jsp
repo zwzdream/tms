@@ -63,7 +63,8 @@ function addResume(divId, formId,callback){
      <div class="form-group tr-new">
         <label class="col-sm-1 control-label" for="birth">Date&nbsp;of&nbsp;Birth</label>
         <div class="col-sm-4" style="margin-left: 15px;">
-   			<input type="date" class="form-control" id="birth" name="birth" placeholder="Date of Birth" style="height:35px;"></input>
+            
+   			<input type="date" class="input-group date" data-provide="datepicker" id="birth" name="birth" placeholder="Date of Birth" style="height:35px;"></input>
    		</div>
    		<label class="col-sm-1 control-label" for="gender">Gender</label>
        <label class="radio-inline" style="margin-left:15px;">

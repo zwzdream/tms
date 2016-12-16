@@ -3,10 +3,10 @@
 <div>
 	<ul class="breadcrumb">
             <li>
-                <a href="#"  onclick='ajaxContent("/Index/user/init")'>Home</a>
+               <a href="#"  onclick='ajaxContent("/Index/dashboard/init")'>Home</a>
             </li>
             <li>
-                Group Management Edit</a>
+               <a href="#"  onclick='ajaxContent("/Index/group/init")'>Group Management</a>
             </li>
     </ul>
 </div>

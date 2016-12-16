@@ -6,26 +6,11 @@
  <link href='${ctx}/resources/ui/multiselect/css/style.css' rel='stylesheet'>
  <link href='${ctx}/resources/ui/multiselect/lib/google-code-prettify/prettify.css' rel='stylesheet'>
  <script src="${ctx}/resources/js/user/jd_resource.js"></script>
-<div>
-	<ul class="breadcrumb">
-            <li>
-                <a href="#">Home</a>
-            </li>
-            <li>
-                <a href="#">JD Resource Management </a>
-            </li>
-    </ul>
-</div>
-<div class="row-fluid sortable">
- <div class="form-control">
-	 <label class="col-sm-12 control-label" for="title">JD:<span id="title" class="text-success">${jdTitle }</span></label>
-	 <input type="hidden" id="id" name="id" value="${jdNo }">
-</div>
+
+<input type="hidden" id="id" name="id" value="${jdNo }">
 <div class="row">
-	<div class="col-xs-5">
-	 
-		<select name="from" id="multiselect" class="form-control" size="8" multiple="multiple">
-		</select>
+	<div class="col-xs-5"> 
+		<select name="from" id="multiselect" class="form-control" size="8" multiple="multiple"></select>
 		    <div>you can add the above resources</div>
 	</div>
 	
@@ -39,11 +24,9 @@
 	</div>
 	
 	<div class="col-xs-5">
-	
 		<select name="to" id="multiselect_to" class="form-control" size="8" multiple="multiple"></select>
 		<div>The JD have The above resources  </div>
 	</div>
-
-</div>
+	
 </div>
 <!--/row-->

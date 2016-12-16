@@ -1,10 +1,10 @@
 <div>
 	<ul class="breadcrumb">
             <li>
-                <a href="#">Home</a>
+               <a href="#"  onclick='ajaxContent("/Index/dashboard/init")'>Home</a>
             </li>
             <li>
-                <a href="#">Group Management Add</a>
+                 <a href="#"  onclick='ajaxContent("/Index/group/init")'>Group Management</a>
             </li>
     </ul>
 </div>

@@ -7,19 +7,20 @@ $(function(){
 		
 		beforeMoveToLeft:function(){
 			var jdId=$("#id").val();
-			var jdTitle=$("#title").text();
+			//var jdTitle=$("#title").text();
 			var resourceId=$("#multiselect_to").val();
 			var resourceName=$('#multiselect_to option:selected').text();
 			$.ajax({
 				url:ctx+"/Resource/deleteResourceFromJD",
-				data:{resourceId:parseInt(resourceId[0]),jdId:jdId,resourceName:resourceName,jdTitle:jdTitle},
+				data:{resourceId:parseInt(resourceId[0]),jdId:jdId,resourceName:resourceName},
 				type:"post",
 				dataType : 'html',
 			    cache:false,
 			    success:function(data){
 			    	if(data!=null){
 					noty({type:"success",text: "Edit successed!", layout: "center", timeout: 3000});
-					$('#content').html(data);
+					//$('#content').html(data);
+					$('#jd_add_resource').html(data);
 					return true;
 					
 				}
@@ -36,19 +37,20 @@ $(function(){
 		},
 		beforeMoveToRight:function(){
 			 var jdId=$("#id").val();
-			 var jdTitle=$("#title").text();
+			// var jdTitle=$("#title").text();
 			  var resourceId=$("#multiselect").val();
 			  var resourceName=$('#multiselect option:selected').text();
 			  $.ajax({
 					url:ctx+"/Resource/addResourceToJD",
-					data:{resourceId:parseInt(resourceId[0]),jdId:jdId,resourceName:resourceName,jdTitle:jdTitle},
+					data:{resourceId:parseInt(resourceId[0]),jdId:jdId,resourceName:resourceName},
 					type:"post",
 					dataType : 'html',
 				    cache:false,
 				    success:function(data){
 				    	if(data!=null){
 						noty({type:"success",text: "Edit successed!", layout: "center", timeout: 3000});
-						$('#content').html(data);
+						//$('#content').html(data);
+						$('#jd_add_resource').html(data);
 						return true;
 					}
 				    },

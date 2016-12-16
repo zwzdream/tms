@@ -1,10 +1,10 @@
 <div>
 	<ul class="breadcrumb">
             <li>
-                <a href="#">Home</a>
+                  <a href="javascript:ajaxContent('/Index/dashboard/init')">Home</a>
             </li>
             <li>
-                <a href="#">JD Management Edit</a>
+               <a href="javascript:ajaxContent('/Index/JD/init')">JD Management</a>
             </li>
     </ul>
 </div>
@@ -13,12 +13,11 @@
 		<div class="box-inner">
 			<div class="box-header well" data-original-title>
 				<h2>
-					<i class="icon-edit"></i> Edit
+					<i class="glyphicon glyphicon-edit"></i> Edit
 				</h2>
 				<div class="box-icon">
 		            <a href="#" class="btn btn-setting btn-round btn-default"><i class="glyphicon glyphicon-cog"></i></a>
-		            <a href="#" class="btn btn-minimize btn-round btn-default"><i
-		                    class="glyphicon glyphicon-chevron-up"></i></a>
+		            <a href="#" class="btn btn-minimize btn-round btn-default"><i class="glyphicon glyphicon-chevron-up"></i></a>
 		            <a href="#" class="btn btn-close btn-round btn-default"><i class="glyphicon glyphicon-remove"></i></a>
 				</div>
 			</div>
@@ -32,9 +31,29 @@
 					</div>
 				</form>
 			</div>
+		
 		</div>
 		<!--/span-->
+	
 	</div>
+   
+	
 </div>
 <!--/row-->
-<%@ include file="jd_grid.jsp"%>
+ <div  class="row">
+ <div class="box col-md-12">
+  <div class="box-inner">
+          <div class="box-header well" data-original-title="">
+			<h2><i class="glyphicon glyphicon-edit"></i>Add&nbsp;Resource</h2>
+			<div class="box-icon">
+				<a href="#" class="btn btn-minimize btn-round btn-default"><i class="glyphicon glyphicon-chevron-up"></i></a> 
+				<a href="#" class="btn btn-close btn-round btn-default"><i class="glyphicon glyphicon-remove"></i></a>
+			</div>
+		  </div>
+		  <div id="jd_add_resource" class="box-content">
+           <%@ include file="jd_add_resource.jsp"%>
+           </div>
+ </div>
+ </div>
+ </div>
+<%-- <%@ include file="jd_grid.jsp"%> --%>

@@ -67,8 +67,8 @@ function initTable(){
     		}
     		$('td:eq(5)', nRow).html('<a class="btn btn-info" href="#" onclick=ajaxContent(\"/JD/toEdit/\","no='+ aData.no +'");>'
 	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit</a>&nbsp;'
-	    			+'<a class="btn btn-success" href="#" onclick=ajaxContent(\"/JD/toAddResource\","no='+ aData.no +'");>'
-	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Add Resource</a>');
+	    		/*	+'<a class="btn btn-success" href="#" onclick=ajaxContent(\"/JD/toAddResource\","no='+ aData.no +'");>'
+	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Add Resource</a>'*/);
     	},
 
     	fnInitComplete: function(oSettings, json) { 

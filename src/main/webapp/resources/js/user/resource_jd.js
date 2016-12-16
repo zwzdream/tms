@@ -14,11 +14,14 @@ $(function(){
 				data:{jdId:parseInt(jdId[0]),resourceId:resourceId,resourceType:resourceType},
 				type:"post",
 				dataType : 'html',
+				//dataType : 'json',
 			    cache:false,
 			    success:function(data){
 			    	if(data!=null){
 					noty({type:"success",text: "Edit successed!", layout: "center", timeout: 3000});
-					$('#content').html(data);
+					$('#resource_edit_jd').html(data);
+					//$('#content').html(data);
+
 					return true;
 					
 				}
@@ -42,11 +45,14 @@ $(function(){
 					data:{jdId:parseInt(jdId[0]),resourceId:resourceId,resourceType:resourceType},
 					type:"post",
 					dataType : 'html',
+					//dataType : 'json',
 				    cache:false,
 				    success:function(data){
 				    	if(data!=null){
 						noty({type:"success",text: "Edit successed!", layout: "center", timeout: 3000});
-						$('#content').html(data);
+						//$('#content').html(data);
+						$('#resource_edit_jd').html(data);
+
 						return true;
 					}
 				    },

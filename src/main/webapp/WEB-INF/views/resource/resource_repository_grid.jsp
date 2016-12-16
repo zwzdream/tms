@@ -27,7 +27,7 @@
 						        <th>Gender</th>
 						        <th>LastMTime</th>
 						        <th>Actions</th>
-						        <th>JD Operation</th>
+						<!--         <th>JD Operation</th> -->
 						    </tr>
 						    </thead>
 				    </table>

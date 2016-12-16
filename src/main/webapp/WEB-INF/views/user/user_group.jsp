@@ -8,12 +8,13 @@
  <script src="${ctx}/resources/js/user/user_group.js"></script>
 <div>
 	<ul class="breadcrumb">
-            <li>
-                <a href="#">Home</a>
+              <li>
+                <a href="#"  onclick='ajaxContent("/Index/dashboard/init")'>Home</a>
             </li>
             <li>
-                <a href="#">Group User Management </a>
+                <a href="#" onclick='ajaxContent("/Index/user/init")'>User Management </a>
             </li>
+
     </ul>
 </div>
 <div class="row-fluid sortable">

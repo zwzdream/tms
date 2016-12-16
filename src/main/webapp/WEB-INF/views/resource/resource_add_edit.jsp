@@ -13,6 +13,7 @@
 </div>
 <script type="text/javascript">
 $(function(){
+	attachCalendarInput();
 	var gender = '${bean.gender}';
 	gender?$(':radio[name=gender][value=true]').attr('checked',true):$(':radio[name=gender][value=false]').attr('checked',true);
 	var birth = '${bean.birth}';
@@ -59,16 +60,15 @@ function updateResume(divId, formId){
 </script>
 <div class="row-fluid sortable">
 	<div class="box span12">
-		<div class="box-header well" data-original-title>
+		<div class="box-header well" data-original-title="">
 			<h2>
-				<i class="icon-edit"></i>Resume&nbsp;Info
+				<i class="glyphicon glyphicon-edit"></i>Resume&nbsp;Info
 			</h2>
 			<div class="box-icon">
-				<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a> 
-				<a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
+				<a href="#" class="btn btn-minimize btn-round btn-default"><i class="glyphicon glyphicon-chevron-up"></i></a> 
+				<a href="#" class="btn btn-close btn-round btn-default"><i class="glyphicon glyphicon-remove"></i></a>
 			</div>
 		</div>
-		
 		<div class="box-content">
 			<form class="form-horizontal" id="editResume" method="POST">
 			<input type="hidden"  id="id" name="id" value="${bean.id}">
@@ -83,10 +83,12 @@ function updateResume(divId, formId){
         </div>
     </div>
      <div class="form-group tr-new">
-        <label class="col-sm-1 control-label" for="birth">Date&nbsp;of&nbsp;Birth</label>
-        <div class="col-sm-4" style="margin-left: 15px;">
-   			<input type="date" class="form-control" id="birth" name="birth"  style="height:35px;"></input>
-   		</div>
+         <div class=" input-calendar">     
+            <label class="col-sm-1 control-label" for="birth">Date&nbsp;of&nbsp;Birth</label>
+                       <div class="col-sm-4" >
+                        <input type="text" class="form-control" id="birth" name="birth"/>
+                        </div>
+         </div>
    		<label class="col-sm-1 control-label" for="gender">Gender</label>
        <label class="radio-inline" style="margin-left:15px;">
 		  <input type="radio" id="inlineRadio1" name="gender"  value="true">Male
@@ -100,10 +102,12 @@ function updateResume(divId, formId){
         <div class="col-sm-4" style="margin-left: 15px;">
         	<input type="tel" class="form-control" id="mobile" name="mobile" value="${bean.mobile}" style="height:35px;">
         </div>
-        <label class="col-sm-1 control-label" for="starts">Work&nbsp;Starts</label>
-        <div class="col-sm-4">
-        	<input type="date" class="form-control" id="starts" name="starts"  style="height:35px;">
-   		</div>
+           <div class="form-group tr-new input-calendar">
+                 <label class="col-sm-1 control-label" for="starts">Work&nbsp;Starts</label>&nbsp;
+                       <div class="col-sm-4" ">
+                        <input type="text" class="form-control" id="starts" name="starts"/>
+                        </div>
+         </div>
     </div>					                    
     <div class="form-group tr-new">
         <label class="col-sm-1 control-label" for="email">Email</label>
@@ -141,7 +145,24 @@ function updateResume(divId, formId){
 				</div>
 			</form>
 		</div>
+	
 	</div>
 	<!--/span-->
 </div>
 <!--/row-->
+<div  class="row">
+ <div class="box col-md-12">
+  <div class="box-inner">
+          <div class="box-header well" data-original-title="">
+			<h2><i class="glyphicon glyphicon-edit"></i>Add&nbsp;Resource</h2>
+			<div class="box-icon">
+				<a href="#" class="btn btn-minimize btn-round btn-default"><i class="glyphicon glyphicon-chevron-up"></i></a> 
+				<a href="#" class="btn btn-close btn-round btn-default"><i class="glyphicon glyphicon-remove"></i></a>
+			</div>
+		  </div>
+		  <div id="resource_edit_jd" class="box-content">
+           <%@ include file="resource_edit_jd.jsp"%>
+           </div>
+ </div>
+ </div>
+ </div>

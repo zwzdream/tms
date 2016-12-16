@@ -1,12 +1,11 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:set var="ctx" value="${pageContext.request.contextPath}" />
+
 <div>
 	<ul class="breadcrumb">
             <li>
-                <a href="#"  onclick='ajaxContent("/Index/user/init")'>Home</a>
+                <a href="#"  onclick='ajaxContent("/Index/dashboard/init")'>Home</a>
             </li>
             <li>
-                <a href="#" onclick='ajaxContent("/User/toAdd");'>User Management Add</a>
+                <a href="#" onclick='ajaxContent("/Index/user/init")'>User Management </a>
             </li>
     </ul>
 </div>
