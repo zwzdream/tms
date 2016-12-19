@@ -78,6 +78,7 @@ public class ResourceRepositoryController {
 
 		
 	}*/
+	
 	@RequestMapping(value = "/toScanImport", method = RequestMethod.POST)
 	public ResponseEntity<byte[]> toScanImport(
 			@RequestParam(value="resourceId") int resourceId) throws IOException{

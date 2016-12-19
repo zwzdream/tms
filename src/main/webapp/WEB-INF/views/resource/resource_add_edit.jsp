@@ -1,13 +1,10 @@
 <div>
 	<ul class="breadcrumb">
             <li>
-                <a href="#">Home</a>
+               <a href="javascript:ajaxContent('/Index/dashboard/init')">Home</a>
             </li>
             <li>
-                <a href="#">Resource Repository</a>
-            </li>
-            <li>
-                <a href="#">Resume Add</a>
+                <a href="javascript:ajaxContent('/Index/resource/init')">Resource Repository</a>
             </li>
     </ul>
 </div>

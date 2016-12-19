@@ -32,7 +32,7 @@ function initTable(){
     	         {mData: 'gender'},
     	         {mData: 'lastMTime'},
     	         {sDefaultContent: ''},
-/*     	         {sDefaultContent: ''} */
+     	     /*     {sDefaultContent: ''}  */
     	],
     	fnRowCallback: function(nRow, aData, iDisplayIndex) {
     		var tableSetings = this.fnSettings(); 
@@ -58,10 +58,10 @@ function initTable(){
     	    			+'<i class="glyphicon glyphicon-trash icon-white"></i>Delete</a>');
     		}
     	
-  /*   		$('td:eq(6)', nRow).html('<a class="btn btn-success" href="#" onclick=ajaxContent(\"/Resource/toEditJD\","resourceId='+ aData.id +'&resourceType='+ aData.type +'");>'
+     		/* $('td:eq(6)', nRow).html('<a class="btn btn-success" href="#" onclick=ajaxContent(\"/Resource/toEditJD\","resourceId='+ aData.id +'&resourceType='+ aData.type +'");>'
 	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit JD</a>&nbsp;'
 	    			+'<a class="btn btn-info" href="#" onclick=ajaxContent(\"/Resource/toScan\","resourceId='+ aData.id +'&resourceType='+ aData.type +'");>'
-	    			+'<i class="glyphicon glyphicon-eye-open icon-white"></i>Scan</a>'); */
+	    			+'<i class="glyphicon glyphicon-eye-open icon-white"></i>Scan</a>');  */
     		
     		
     		return nRow;
@@ -112,13 +112,6 @@ function deleteResource(url, data,callback){
 	 return true;
   }
 return false;
-}
-function editcallback(data){
-	var resourceId=$("#resourceId").val();
-	var resourceType=$("#resourceType").val();
-	resourceId=data.resourceId;
-	resourceType=data.resourceType;
-
 }
 </script>
 <form id="splitPage" class="form-horizontal" action="${ctx}/Resource/searchresource" method="POST">

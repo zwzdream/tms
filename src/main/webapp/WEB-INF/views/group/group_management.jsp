@@ -74,7 +74,7 @@
 						        <th>GroupName</th>
 						        <th>Remarks</th>
 						        <th>Operate</th>
-						        <th>User Setting</th>
+						     <!--    <th>User Setting</th> -->
 						    </tr>
 						    </thead>
 				 

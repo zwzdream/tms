@@ -47,15 +47,15 @@ function initTable(){
     		{mData:'permission'},
     		{mData:'date'},
     		{sDefaultContent: ''},
-    		{sDefaultContent: ''}
+    		/*{sDefaultContent: ''}*/
     	],
     	fnRowCallback: function(nRow, aData, iDisplayIndex) {
     		$('td:eq(7)', nRow).html('<a class="btn btn-info" href="#" onclick="edit(\''+ aData.id + '\')";>'
 	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit</a>&nbsp;'
 	    			+'<a class="btn btn-danger" href="#" onclick="del(\''+ aData.id + '\')";>'
 	    			+'<i class="glyphicon glyphicon-trash icon-white"></i>Delete</a>');
-    		$('td:eq(8)',nRow).html('<a class="btn btn-info" onclick="editGroup(\''+aData.id+'\')";>'
-    				+'<i class="glyphicon glyphicon-edit "></i>Edit</a>');
+    	/*	$('td:eq(8)',nRow).html('<a class="btn btn-info" onclick="editGroup(\''+aData.id+'\')";>'
+    				+'<i class="glyphicon glyphicon-edit "></i>Edit</a>');*/
     	},
 
     	fnInitComplete: function(oSettings, json) { 

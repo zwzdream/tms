@@ -79,7 +79,7 @@
 						        <th>Permission</th>
 						        <th>Date</th>
 						        <th>Operate</th>
-						        <th>Group Setting</th>
+						       <!--  <th>Group Setting</th> -->
 						    </tr>
 						    </thead>
 				 

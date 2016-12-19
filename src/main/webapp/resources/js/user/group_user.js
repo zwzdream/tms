@@ -18,7 +18,8 @@ $(function(){
 			    success:function(data){
 			    	if(data !=""){
 					noty({type:"success",text: "Edit successed!", layout: "center", timeout: 3000});
-					$('#content').html(data);
+					$('#group_user').html(data);
+					//$('#content').html(data);
 					return true;
 					
 				}
@@ -46,7 +47,8 @@ $(function(){
 				    success:function(data){
 				    	if(data !=""){
 						noty({type:"success",text: "Edit successed!", layout: "center", timeout: 3000});
-						$('#content').html(data);
+						$('#group_user').html(data);
+						//$('#content').html(data);
 						return true;
 					}
 				    },
