@@ -15,7 +15,6 @@
 				var birthArr = new Date(birth).toLocaleDateString().split('/');////toLocaleDateString
 				var birthStr = birthArr.join("-");
 				$('#birth').attr('value', birthStr);
-				//console.log(birthStr);
 				//var filePath = '${bean.filePath }';
 				//var fileName = filePath.split('\\');
 				//console.log(filePath );
@@ -125,6 +124,7 @@
 						</label>
 						<p class="help-block">Please upload your resume.</p>
 					</div>
+					
 					<button type="button" class="btn btn-default"
 						onclick="updateResource('content','editResource')">Submit</button>
 				</form>
@@ -151,9 +151,30 @@
 						class="glyphicon glyphicon-remove"></i></a>
 				</div>
 			</div>
+			<div  class="box-content">
+				<div><%@ include file="document_view.jsp"%></div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--/row-->
+<div class="row">
+	<div class="box col-md-12">
+		<div class="box-inner">
+			<div class="box-header well" data-original-title="">
+				<h2>
+					<i class="glyphicon glyphicon-edit"></i>View
+				</h2>
+				<div class="box-icon">
+					<a href="#" class="btn btn-minimize btn-round btn-default"><i
+						class="glyphicon glyphicon-chevron-up"></i></a> <a href="#"
+						class="btn btn-close btn-round btn-default"><i
+						class="glyphicon glyphicon-remove"></i></a>
+				</div>
+			</div>
 			<div id="resource_edit_jd" class="box-content">
 				<%@ include file="resource_edit_jd.jsp"%>
 			</div>
 		</div>
 	</div>
-</div>
+</div><!--/row-->

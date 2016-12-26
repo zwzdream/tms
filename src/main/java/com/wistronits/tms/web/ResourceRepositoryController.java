@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sun.star.lib.uno.environments.remote.IReceiver;
 import com.wistronits.tms.entity.ImportResourceBean;
 import com.wistronits.tms.entity.ResumeBean;
 import com.wistronits.tms.entity.RsResponse;
@@ -79,7 +80,7 @@ public class ResourceRepositoryController {
 		
 	}*/
 	
-	@RequestMapping(value = "/toScanImport", method = RequestMethod.POST)
+	@RequestMapping(value = "/toScanImport")
 	public ResponseEntity<byte[]> toScanImport(
 			@RequestParam(value="resourceId") int resourceId) throws IOException{
 		ResponseEntity<byte[]> res=new ResponseEntity<byte[]>(HttpStatus.OK);
@@ -88,7 +89,7 @@ public class ResourceRepositoryController {
 		    return res;
 		
 	}
-	@RequestMapping(value = "/toScan", method = RequestMethod.POST)
+	@RequestMapping(value = "/toScan")
 	public String toScan(
 			@RequestParam(value="resourceId") int resourceId,
 			@RequestParam(value="resourceType") String resourceType) throws IOException {
@@ -103,7 +104,7 @@ public class ResourceRepositoryController {
 
 		
 	}
-	
+
 
 	@RequestMapping(value = "/toimport", method = RequestMethod.POST)
 	public String toImportPage(Model model) {
@@ -234,10 +235,13 @@ public class ResourceRepositoryController {
 	public ModelAndView toEditImportView(@RequestParam(value="resourceId") int resourceId){
 		ModelAndView mv = new ModelAndView();
 		ImportResourceBean bean = resumeService.getImportResourceById(resourceId);
-		mv.getModel().put("bean",bean);
+		String filePath=resumeService.transferToswf(bean.getFilePath());
+		mv.addObject("bean",bean);
 		mv.setViewName("/resource/resource_edit_importrecource");
 		mv.addObject("resourceId", resourceId);
 		mv.addObject("resourceType", "import");
+		mv.addObject("filePath",filePath);
+		
 		return mv;
 	}
 	

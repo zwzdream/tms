@@ -40,7 +40,7 @@ import org.apache.xmlbeans.XmlException;
 
 public class LuceneIndexer {
 	
-	public static String UPLOAD_FOLDER_PATH = "D:/uploadFiles";
+	public static String UPLOAD_FOLDER_PATH = "D:/saveFiles";
 	public static String LUCENE_INDEX_FOLDER_PATH = "D:/luceneIndex";
 	
 	@SuppressWarnings("deprecation")

@@ -31,5 +31,6 @@ public interface IResumeService {
 	public int editTheBelongResource(int no,int rid,String type);
 	public int addResourceToJD(int no,int rid,String type);
 	public int deleteResourceFromJD(int no,int rid,String type);
+	public String transferToswf(String filePath);
 	
 }

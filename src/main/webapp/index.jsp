@@ -8,6 +8,6 @@
 <body>
 	<script type="text/javascript">
 		window.location.href = "${ctx}/Index/home/page";
-	</script>
+	</script> 
 </body>
 </html>

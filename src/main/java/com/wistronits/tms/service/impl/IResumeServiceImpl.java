@@ -2,10 +2,6 @@ package com.wistronits.tms.service.impl;
 
 import java.io.File;
 import java.io.IOException;
-
-
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,9 +19,9 @@ import com.wistronits.tms.dao.IResumeDao;
 import com.wistronits.tms.entity.ImportResourceBean;
 import com.wistronits.tms.entity.JDBean;
 import com.wistronits.tms.entity.ResumeBean;
-import com.wistronits.tms.entity.RsResponse;
 import com.wistronits.tms.service.IResumeService;
 import com.wistronits.tms.util.LuceneIndexer;
+import com.wistronits.tms.util.ViewOfficeOnline;
 @Service("resumeService")
 public class IResumeServiceImpl implements IResumeService {
 
@@ -47,6 +43,8 @@ public class IResumeServiceImpl implements IResumeService {
 		try {
 			File localFile = uploadFile(file);
 			resource.setFilePath(localFile.getAbsolutePath());
+			System.out.println(localFile.getAbsolutePath());
+			System.out.println(localFile);
 			int cnt =  iResumeDao.insertResource(resource);
 			if(cnt<=0){
 				return false;
@@ -245,6 +243,29 @@ public class IResumeServiceImpl implements IResumeService {
 		resRe.put("jdList", jdList);
 		return resRe;
 	}
+	@Override
+	public String transferToswf(String filePath) {
+		String fileString=ViewOfficeOnline.toTransferString(filePath);
+		String fileName=fileString.substring(0, fileString.lastIndexOf("."));
+		String casefile1=fileName+".swf";
+		String casefile2=fileName+".pdf";
+		File file1=new File(casefile1);
+		File file2=new File(casefile2);
+		if(!file1.exists()){
+			if(!file2.exists()){
+				ViewOfficeOnline.setFileString(fileString,fileName);
+				ViewOfficeOnline.office2pdf();
+				 ViewOfficeOnline.pdf2swf();
+			}else{
+			ViewOfficeOnline.setFileString(fileName);
+			 ViewOfficeOnline.pdf2swf();
+			}
+		}
+	
+		 return fileName.substring(fileName.lastIndexOf("/")+1);
+	}
+	
+
 	
 	
 	
