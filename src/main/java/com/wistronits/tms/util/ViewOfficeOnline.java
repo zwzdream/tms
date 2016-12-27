@@ -2,6 +2,7 @@ package com.wistronits.tms.util;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStreamReader;
 
 import org.junit.Test;
@@ -50,11 +51,13 @@ public class ViewOfficeOnline {
 			DocumentConverter converter=new OpenOfficeDocumentConverter(connection);
 			if(resFile.exists()){
 				if(!pdfFile.exists()){//convert
-					converter.convert(resFile,pdfFile);  
+					converter.convert(resFile,pdfFile); 
 					 System.out.println("****office文件已经成功转换为pdf文件****"); 
 				}else {
 					 System.out.println("****office文件已经转换为pdf文件，不需要再进行转化****");  
 				}
+			}else{
+				System.out.println("office文件不存在，请仔细核对！");
 			}
 			//close the connection
 			 connection.disconnect();
@@ -78,10 +81,10 @@ public class ViewOfficeOnline {
 		String swfTools_Home="D:/Program Files/swfTools/";//swfTools的安装目录
 		Process pro=null;
 		try {
-		String command=swfTools_Home+"pdf2swf.exe "+pdfFile.getPath()+" -o"+swfFile.getPath() + " -T 9 -f";  
+		String command=swfTools_Home+"pdf2swf.exe "+pdfFile.getPath()+" -o"+swfFile.getPath() + " -T 9 -f"+" -G -s poly2bitmap";  
 			if(pdfFile.exists()){
 				if(!swfFile.exists()){//convert
-					pro = Runtime.getRuntime().exec(command);//调用swfTools
+					pro = Runtime.getRuntime().exec(command,null,new File("d:/saveFiles"));//调用swfTools
 					BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(pro.getInputStream()));
 					while(bufferedReader.readLine()!=null);
 					try {  
@@ -115,10 +118,23 @@ public class ViewOfficeOnline {
 	}
 	
 	@Test
-	public void topdf(){
-		ViewOfficeOnline.setFileString("D:/saveFiles/sqlTest.txt","D:/saveFiles/sqlTest");
+	public void officetopdf(){
+		/**
+		 * 03JavaScript.ppt可以转为03JavaScript.pef，但是02CSS.ppt不行，猜测02CSS.ppt是office2007及以上版本
+		 *
+		 */
+		//ViewOfficeOnline.setFileString("D:/saveFiles/03JavaScript.ppt","D:/saveFiles/03JavaScript");
+		ViewOfficeOnline.setFileString("D:/saveFiles/git.doc","D:/saveFiles/git");
+		//ViewOfficeOnline.setFileString("D:/saveFiles/Daily.xls","D:/saveFiles/Daily");
+		//ViewOfficeOnline.setFileString("D:/saveFiles/sqlTest.txt","D:/saveFiles/sqlTest");
        office2pdf();
        pdf2swf();
+	}
+	
+	@Test
+	public void pdftopdf(){
+		ViewOfficeOnline.setFileString("D:/saveFiles/03JavaScript");
+		pdf2swf();
 	}
 
 }
