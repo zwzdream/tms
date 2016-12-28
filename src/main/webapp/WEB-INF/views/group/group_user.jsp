@@ -17,10 +17,10 @@
     </ul>
 </div>
 <div class="row-fluid sortable">
- <div class="form-control">
-	 <label class="col-sm-12 control-label" for="groupName">GroupName:<span id="groupName" class="text-success">${groupName}</span></label>
-	 <input type="hidden" id="id" name="id" value="${groupId }">
-</div>
+<%--  <div class="form-control">
+	 <label class="col-sm-12 control-label" for="groupName">GroupName:<span id="groupName" class="text-success">${groupName}</span></label> 	 
+</div> --%>
+<input type="hidden" id="id" name="id" value="${groupId }">
 <div class="row">
 	<div class="col-xs-5">
 	 
@@ -30,7 +30,7 @@
 	</div>
 	
 	<div class="col-xs-2">
-	<div>operations</div>
+	<div style="text-align: center"><b>operations</b></div>
 	     <br>
 		<button type="button" id="multiselect_rightSelected" class="btn btn-block"><i class="glyphicon glyphicon-chevron-right"></i></button>
 		<br>

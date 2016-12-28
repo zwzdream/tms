@@ -2,7 +2,6 @@ package com.wistronits.tms.util;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStreamReader;
 
 import org.junit.Test;
@@ -123,10 +122,10 @@ public class ViewOfficeOnline {
 		 * 03JavaScript.ppt可以转为03JavaScript.pef，但是02CSS.ppt不行，猜测02CSS.ppt是office2007及以上版本
 		 *
 		 */
-		//ViewOfficeOnline.setFileString("D:/saveFiles/03JavaScript.ppt","D:/saveFiles/03JavaScript");
-		ViewOfficeOnline.setFileString("D:/saveFiles/git.doc","D:/saveFiles/git");
+		ViewOfficeOnline.setFileString("D:/saveFiles/03JavaScript.ppt","D:/saveFiles/03JavaScript");
+		//ViewOfficeOnline.setFileString("D:/saveFiles/git.doc","D:/saveFiles/git");
 		//ViewOfficeOnline.setFileString("D:/saveFiles/Daily.xls","D:/saveFiles/Daily");
-		//ViewOfficeOnline.setFileString("D:/saveFiles/sqlTest.txt","D:/saveFiles/sqlTest");
+		//ViewOfficeOnline.setFileString("D:/saveFiles/tms.txt","D:/saveFiles/tms");
        office2pdf();
        pdf2swf();
 	}

@@ -4,7 +4,7 @@ function searchResource(url){
 	if(keyWord=='') {
 		noty({type:"warning",text: "The keyword is emopty! Please enter it.", layout: "bottom", timeout: 3000});
 	}else{
-		$("#rsRepositoryTable").dataTable().fnClearTable();
+		$("#rsRepositoryTable").dataTable().fnClearTable(false);
 		initTable();
 	}
 
@@ -14,7 +14,8 @@ function initTable(){
 	$('#rsRepositoryTable').DataTable({
     	searching: false,
     	iDisplayLength: 2,//pagesize
-    	bLengthChange: false,
+    	aLengthMenu: [2, 5, 8, 10],
+    	bLengthChange: true,
     	processing: true,
     	serverSide: true,
     	destroy: true,
@@ -22,7 +23,16 @@ function initTable(){
     	sDom: "<'row'<'col-md-6'l><'col-md-6'f>r>t<'row'<'col-md-12'i><'col-md-12 center-block'p>>",
         sPaginationType: "bootstrap",
         oLanguage: {
-            "sLengthMenu": "_MENU_ records per page"
+        	"sProcessing":"Loading......",
+        	"sLengthMenu":" _MENU_ records per page",
+            "sZeroRecords":"NO Records for Table!",
+            "sSearch":"Search",
+            "oPaginate" : {
+                "sFirst" : "First",
+                "sPrevious" : "Previous",
+                "sNext" : "Next",
+                "sLast" : "Last"
+            }
         },
     	sAjaxSource: ctx+'/Resource/searchresource?keyWord='+keyWord, //to server url
     	aoColumns: [
@@ -139,7 +149,7 @@ return false;
 				<div class="box-content">
 					<fieldset>
 					  	<div class="form-group">
-							<label class="col-sm-1 control-label" for="keyWord">KeyWord</label>
+							<label class="col-sm-2 control-label" for="keyWord">KeyWord</label>
 						  	<div class="col-sm-3">
 							  	<input class="form-control" type="text" name="keyWord" id="keyWord" value='' maxlength="20" >
 						  	</div>	

@@ -14,7 +14,9 @@ import java.util.Map;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
+import org.apache.lucene.document.FieldType;
 import org.apache.lucene.index.DirectoryReader;
+import org.apache.lucene.index.IndexOptions;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
@@ -31,6 +33,7 @@ import org.apache.lucene.store.NoLockFactory;
 import org.apache.pdfbox.pdfparser.PDFParser;
 import org.apache.pdfbox.util.PDFTextStripper;
 import org.apache.poi.POIXMLDocument;
+import org.apache.poi.hslf.extractor.PowerPointExtractor;
 import org.apache.poi.hwpf.extractor.WordExtractor;
 import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
 import org.apache.poi.xssf.extractor.XSSFExcelExtractor;
@@ -60,24 +63,17 @@ public class LuceneIndexer {
 			writer = new IndexWriter(directory,writerConfig);
 			
 			if(srcFile.isFile()){
-				System.out.println("id:"+id);
-				System.out.println("File "+ srcFile.getCanonicalPath() + "  creating the index....");
-				
 				doc = new Document();
-				String content = null;
-				String filePath = srcFile.getAbsolutePath();
-				if (filePath.endsWith(".txt") || filePath.endsWith(".xml")){
-					content = FileReaderAll(srcFile.getCanonicalPath(), "utf-8");
-				}else if (filePath.endsWith(".doc") || filePath.endsWith(".docx")) {
-					content = WordFileReader(srcFile.getCanonicalPath());
-				}else if (filePath.endsWith(".xls") || filePath.endsWith(".xlsx")) {
-					content = ExcelFileReader(srcFile.getCanonicalPath());
-				}else if (filePath.endsWith(".pdf")) {
-					content = PdfboxFileReader(srcFile.getCanonicalPath());
-				}
+				String content = readOfficeContent(srcFile);
+				 FieldType type = new FieldType();    
+				 type.setIndexOptions(IndexOptions.DOCS);    
+				 type.setTokenized(false);    
+				 type.setStored(true); 
+				 String idString=String.valueOf(id);
 				doc.add(new Field("content",content,Field.Store.NO,Field.Index.ANALYZED));
-				doc.add(new Field("id",String.valueOf(id),Field.Store.YES,Field.Index.NO));
+				doc.add(new Field("id",idString,Field.Store.YES,Field.Index.NO));
 				doc.add(new Field("type","import",Field.Store.YES,Field.Index.NO));
+				doc.add(new Field("identifier",idString+"import",type));
 				writer.addDocument(doc);
 				
 				System.out.println("Create index successfully!");
@@ -132,8 +128,6 @@ public class LuceneIndexer {
 			System.out.println("matched files count in page:"+docs.length);
 			for (ScoreDoc scoreDoc : docs) {
 				Document doc = seacher.doc(scoreDoc.doc);
-				System.out.println("id:" + doc.get("id"));
-				System.out.println("type:" + doc.get("type"));
 				if("add".equals(doc.get("type"))){
 					addList.add(Integer.parseInt(doc.get("id")));
 				}else if("import".equals(doc.get("type"))){
@@ -221,6 +215,19 @@ public class LuceneIndexer {
 		 p.getPDDocument().close();
 		 return content.toString().trim();
 	 }
+	 /**
+	  * PPt extractor
+	  * @param fileName
+	  * @param path
+	  * @return
+	  * @throws Exception
+	  */
+	 public static String PptFileReader(String filePath) throws Exception {
+
+		 FileInputStream fis = new FileInputStream(filePath);
+		 PowerPointExtractor extractor=new PowerPointExtractor(fis);
+		 return extractor.getText();
+	 }
 
 	 /**
 	  * word extractor
@@ -279,13 +286,16 @@ public class LuceneIndexer {
 			writer = new IndexWriter(directory,writerConfig);
 			
 			if(!content.isEmpty()){
-				System.out.println("id:"+id);
-				System.out.println("creating the index for manual add resource....");
-				
 				doc = new Document();
+				 FieldType type = new FieldType();    
+				 type.setIndexOptions(IndexOptions.DOCS);    
+				 type.setTokenized(false);    
+				 type.setStored(true); 
+				 String idString=String.valueOf(id);
 				doc.add(new Field("content",content,Field.Store.NO,Field.Index.ANALYZED));
-				doc.add(new Field("id",String.valueOf(id),Field.Store.YES,Field.Index.NO));
+				doc.add(new Field("id",idString,Field.Store.YES,Field.Index.NO));
 				doc.add(new Field("type","add",Field.Store.YES,Field.Index.NO));
+				doc.add(new Field("identifier",idString+"add",type));
 				writer.addDocument(doc);
 				
 				System.out.println("Create index successfully for manual add resource!");
@@ -303,7 +313,52 @@ public class LuceneIndexer {
 		}
 	}
 
-	public static void deleteIndex(int resourceId) {
+	public static void deleteIndex(String type,int resourceId) {
+		Directory directory = null;
+		IndexWriter writer = null;
+		File indexDir = new File(LUCENE_INDEX_FOLDER_PATH);
+		if(!indexDir.exists() && !indexDir.isDirectory()){
+			indexDir.mkdir();
+		}
+		try {
+			directory = FSDirectory.open(indexDir.toPath(),NoLockFactory.INSTANCE);
+			IndexWriterConfig writerConfig = new IndexWriterConfig(new StandardAnalyzer());
+			writer = new IndexWriter(directory,writerConfig);
+			writer.deleteDocuments(new Term("identifier",String.valueOf(resourceId)+type));
+			writer.commit();
+			System.out.println("delete index successfully!");		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(writer!=null)
+				try {
+					writer.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+		}
+	}
+	
+	
+	public static String readOfficeContent(File srcFile) throws IOException, Exception{
+		String content=null;
+		String filePath = srcFile.getAbsolutePath();
+		if (filePath.endsWith(".txt") || filePath.endsWith(".xml")){
+			content = FileReaderAll(srcFile.getCanonicalPath(), "utf-8");
+		}else if (filePath.endsWith(".doc") || filePath.endsWith(".docx")) {
+			content = WordFileReader(srcFile.getCanonicalPath());
+		}else if (filePath.endsWith(".xls") || filePath.endsWith(".xlsx")) {
+			content = ExcelFileReader(srcFile.getCanonicalPath());
+		}else if (filePath.endsWith(".ppt") || filePath.endsWith(".pptx")) {
+			content = PptFileReader(srcFile.getCanonicalPath());
+		}else if (filePath.endsWith(".pdf")) {
+			content = PdfboxFileReader(srcFile.getCanonicalPath());
+		}
+		return content;
+		
+	}
+	
+/*	public static void deleteIndex(int resourceId) {
 		Directory directory = null;
 		IndexWriter writer = null;
 		File indexDir = new File(LUCENE_INDEX_FOLDER_PATH);
@@ -328,4 +383,4 @@ public class LuceneIndexer {
 				}
 		}
 	}
-}
+*/}

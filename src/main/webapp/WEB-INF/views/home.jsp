@@ -42,6 +42,7 @@ body {
 	padding: 9px 0;
 }
 </style>
+<link href='${ctx}/resources/ui/charisma/bower_components/datatables/media/css/jquery.dataTables.css' rel='stylesheet'>
 <link href="${ctx}/resources/ui/charisma/css/charisma-app.css"
 	rel="stylesheet">
 <link

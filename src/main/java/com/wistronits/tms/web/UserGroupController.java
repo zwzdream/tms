@@ -1,6 +1,7 @@
 package com.wistronits.tms.web;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.annotation.Resource;
 
@@ -40,6 +41,8 @@ import com.wistronits.tms.service.IUserService;
 			@RequestParam(value = "groupId") int gid,
 			@RequestParam(value="groupName" )String groupName) {
 		userService.addUserToGroup(uid, gid);
+		int root=userService.getHighestRoot(uid);//数值越小(0除外)，权限越大，以后可根据需求更改
+		userService.updateRoot(uid, root, new Date());
 		ModelAndView view = new ModelAndView("/group/group_user");
 		 view.addObject("groupId", gid);
 		 view.addObject("groupName", groupName);
@@ -51,6 +54,8 @@ import com.wistronits.tms.service.IUserService;
 			@RequestParam(value = "groupId") int gid,
 			@RequestParam(value="groupName" )String groupName) {
 		 userService.removeUserToGroup(uid, gid);
+		 int root=userService.getHighestRoot(uid);//0不为任何组的id，当用户被所有组里清空后，用户变为无阻用户，可根据以后需求更改
+		 userService.updateRoot(uid, root, new Date());
 		 ModelAndView view = new ModelAndView("/group/group_user");
 		 view.addObject("groupId", gid);
 		 view.addObject("groupName", groupName);
@@ -77,6 +82,7 @@ import com.wistronits.tms.service.IUserService;
 		if(i==0 ){
 			 userService.addUserToGroup(uid, gid);
 		}
+		userService.updateRoot(uid, gid, new Date());
 		 ModelAndView view = new ModelAndView("/user/user_group");
 		 view.addObject("userId", uid);
 		 view.addObject("userName", userName);

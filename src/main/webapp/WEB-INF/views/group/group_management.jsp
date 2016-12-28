@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
-    <link href='${ctx}/resources/ui/charisma/bower_components/datatables/media/css/jquery.dataTables.css' rel='stylesheet'>
 <script src="${ctx}/resources/js/user/group_management.js"></script>
 
 <form id="splitPage" class="form-horizontal" action="#" method="POST">
@@ -29,7 +28,7 @@
 				<div class="box-content">
 					<fieldset>
 					  	<div class="form-group">
-							<label class="col-sm-1 control-label" for="name">Group Name</label>
+							<label class="col-sm-2 control-label" for="name">GroupName</label>
 						  	<div class="col-sm-3">
 							  	<input id="groupname" class="form-control" type="text" name="groupname"  maxlength="20" >
 						  	</div>	

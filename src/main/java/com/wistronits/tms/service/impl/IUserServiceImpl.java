@@ -1,6 +1,7 @@
 package com.wistronits.tms.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.annotation.Resource;
 
@@ -27,6 +28,11 @@ public class IUserServiceImpl implements IUserService {
 	@Override
 	public void editUser(UserBean userBean) {
 		this.userDao.editUser(userBean);
+	}
+	
+	@Override
+	public void updateRoot(int uid,int gid,Date date){
+		this.userDao.updateRoot(uid, gid, date);
 	}
 
 	@Override
@@ -56,6 +62,11 @@ public class IUserServiceImpl implements IUserService {
 	@Override
 	public void removeUserToGroup(int uid, int gid) {
       this.userDao.removeUserToGroup(uid, gid);		
+	}
+
+	@Override
+	public int getHighestRoot(int id) {
+		return this.userDao.getHighestRoot(id);
 	}
 
 }

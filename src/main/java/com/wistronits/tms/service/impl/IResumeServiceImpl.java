@@ -44,7 +44,6 @@ public class IResumeServiceImpl implements IResumeService {
 			File localFile = uploadFile(file);
 			resource.setFilePath(localFile.getAbsolutePath());
 			System.out.println(localFile.getAbsolutePath());
-			System.out.println(localFile);
 			int cnt =  iResumeDao.insertResource(resource);
 			if(cnt<=0){
 				return false;
@@ -124,7 +123,7 @@ public class IResumeServiceImpl implements IResumeService {
 		if(count!=1){
 			return false;
 		}
-		LuceneIndexer.deleteIndex(resourceId);
+		LuceneIndexer.deleteIndex("import",resourceId);
 		return true;
 	}
 	@Override
@@ -133,7 +132,7 @@ public class IResumeServiceImpl implements IResumeService {
 		if(count!=1){
 			return false;
 		}
-		LuceneIndexer.deleteIndex(resourceId);
+		LuceneIndexer.deleteIndex("add",resourceId);
 		return true;
 	}
 	@Override
@@ -153,7 +152,8 @@ public class IResumeServiceImpl implements IResumeService {
 			if(cnt<=0){
 				return false;
 			}
-			LuceneIndexer.deleteIndex(resource.getId());
+			//String filePath=ViewOfficeOnline.toTransferString(resource.getFilePath());
+			LuceneIndexer.deleteIndex("import",resource.getId());
 			LuceneIndexer.createIndexer(localFile, resource.getId());
 		} catch (IllegalStateException | IOException e) {
 			e.printStackTrace();
@@ -167,7 +167,8 @@ public class IResumeServiceImpl implements IResumeService {
 		if(cnt<=0){
 			return false;
 		}
-		LuceneIndexer.deleteIndex(rDto.getId());
+		// ResumeBean resumeBean =iResumeDao.getResumeById(rDto.getId());
+		LuceneIndexer.deleteIndex("add",rDto.getId());
 		LuceneIndexer.createIndexer(rDto.toString(), rDto.getId());
 		return true;
 	}

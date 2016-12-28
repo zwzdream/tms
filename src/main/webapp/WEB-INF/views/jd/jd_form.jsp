@@ -86,13 +86,13 @@
        	<div class="col-sm-5">
         	<input type="text" class="form-control" id="duration" name="duration" placeholder="Duration" style="height:35px;">
         </div>
-        <label class="col-sm-1 control-label" for="payrate">Pay Rate</label>
+        <label class="col-sm-1 control-label" for="payrate">PayRate</label>
         <div class="col-sm-5">
         	<input type="text" class="form-control" id="payrate" name="payrate" placeholder="PayRate" style="height:35px;">
    		</div>
     </div>
     <div class="form-group tr-new">
-        <label class="col-sm-1 control-label" for="keyword">Key word</label>
+        <label class="col-sm-1 control-label" for="keyword">KeyWord</label>
         <div class="col-sm-11">
         	<input type="text" class="form-control" id="keyword" name="keyword" placeholder="Key word" style="height:35px;"></input>
    		</div>

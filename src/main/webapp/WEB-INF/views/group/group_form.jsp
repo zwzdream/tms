@@ -53,12 +53,11 @@
         <div class="col-sm-5">
    			<input type="text" class="form-control" id="name" name="name" placeholder="GroupName" style="height:35px;"></input>
    		</div>
-    </div>		
-    <div class="form-group tr-new">
-        <label class="col-sm-1 control-label" for="status">Remarks</label>
+   		  <label class="col-sm-1 control-label" for="status">Remarks</label>
         <div class="col-sm-5">
         	<input type="text" class="form-control" id="remark" name="remark" placeholder="Remarks" style="height:35px;"></input>
    		</div>
-    </div>					                    
+    </div>		
+				                    
 				
 </fieldset>

@@ -59,9 +59,7 @@
         <div class="col-sm-5">
    			<input type="text" class="form-control" id="username" name="username" placeholder="UserName" style="height:35px;"></input>
    		</div>
-    </div>		
-    <div class="form-group tr-new">
-        <label class="col-sm-1 control-label" for="status">Password</label>
+   		    <label class="col-sm-1 control-label" for="status">Password</label>
         <div class="col-sm-5">
         	<input type="text" class="form-control" id="password" name="password" placeholder="Password" style="height:35px;">
    		</div>
@@ -71,13 +69,11 @@
         <div class="col-sm-5">
 			<input type="text" class="form-control" id="mail" name="mail" placeholder="Mail" style="height:35px;"></input>							        	
     	</div>
-    </div>					                    
-    <div class="form-group tr-new">
-        <label class="col-sm-1 control-label" for="payrate">Telphone</label>
+    	   <label class="col-sm-1 control-label" for="payrate">Telphone</label>
         <div class="col-sm-5">
         	<input type="text" class="form-control" id="telphone" name="telphone" placeholder="Telphone" style="height:35px;">
    		</div>
-    </div>
+    </div>					                    
     <div class="form-group tr-new">
         <label class="col-sm-1 control-label" for="Permission">Permission</label>
         <div class="col-sm-5">

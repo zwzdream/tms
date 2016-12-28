@@ -58,13 +58,12 @@
         <div class="col-sm-5">
          	<input type="number" class="form-control" id="id" name="id" value="${group.id }" style="height:35px;" readonly>
         </div>
-  </div>
-     <div class="form-group tr-new">
-        <label class="col-sm-1 control-label" for="title">Group Name</label>
+                <label class="col-sm-1 control-label" for="title">Group Name</label>
         <div class="col-sm-5">
    			<input type="text" class="form-control" id="name" name="name" value="${group.name }" style="height:35px;"></input>
    		</div>
-    </div>		
+  </div>
+	
     <div class="form-group tr-new">
         <label class="col-sm-1 control-label" for="status">Remarks</label>
         <div class="col-sm-5">
