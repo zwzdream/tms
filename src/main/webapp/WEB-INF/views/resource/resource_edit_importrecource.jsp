@@ -6,7 +6,9 @@
 </div>
 <script type="text/javascript">
 	$(document).ready(
+			
 			function() {
+				attachCalendarInput();
 				var gender = '${bean.gender}';
 				gender ? $(':radio[name=gender][value=true]').attr('checked',
 						true) : $(':radio[name=gender][value=false]').attr(
@@ -100,16 +102,21 @@
 					</div>
 					<br>
 					<div class="form-inline">
-						<label for="lastName">Last Name</label>&nbsp; <input type="text"
-							class="form-control" id="lastName" name="lastName"
-							value="${bean.lastName}">
-					</div>
+                        <label for="lastName">Last Name</label>&nbsp;
+                        <input type="text" class="form-control" id="lastName" name="lastName" value="${bean.lastName}">
+                    </div>
+                    <br>
+					  <div class="form-inline"> 
+                      <div class="form-group input-calendar">
+                        <label for="birth">Date of Birth</label>&nbsp;
+                        <div class="input-group">
+                        <input type="text" class="form-control" id="birth" name="birth"/>
+                        <span class="input-group-addon fa fa-calendar"></span>
+                        </div>
+                        </div>
+                 </div>
 					<br>
-					<div class="form-inline">
-						<label for="birth">Date of Birth</label>&nbsp; <input type="date"
-							class="form-control" id="birth" name="birth">
-					</div>
-					<br>
+		
 					<div class="form-inline">
 						<label>Gender</label>&nbsp;&nbsp; <input type="radio"
 							name="gender" id="gender1" value="true"> Male

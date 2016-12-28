@@ -154,7 +154,7 @@ function attachCalendarInput(selector){
 		$(this).parent().find("input").click();
 	});
 	$(selector+".input-calendar input").inputmask({
-		alias:"yyyy-mm-dd"
+	//	alias:"yyyy-mm-dd"
 	}).daterangepicker({
 		singleDatePicker:true,
 		autoUpdateInput:false
