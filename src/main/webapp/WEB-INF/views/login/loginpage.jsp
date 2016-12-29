@@ -7,7 +7,17 @@
 %>
 <link href="<%=basePath %>/resources/ui/charisma/css/charisma-app.css" rel="stylesheet">
 <link id="bs-css" href="<%=basePath %>/resources/ui/charisma/css/cerulean/bootstrap.min.css"	rel="stylesheet">
+    <script>
+
+   window.onload=setValue;
+   function setValue(){
+     var error=document.getElementById("login-error");
+	 if(error.innerText!=""){
+	   error.className="alert alert-danger";
+   }
+   }
    
+  </script>  
      <div class="well col-md-5 center login-box"> 
           <div class="alert alert-info">
                 Please login with your UserName and Password.
@@ -32,7 +42,7 @@
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
             <p class="center col-md-5">
 					<button type="submit" class="btn btn-primary">Login</button>
-					 <div id="login-error" style="color: RED">${error}</div>  
+					 <div id="login-error" >${error}</div>  
 		    </p>
           
         </fieldset>
