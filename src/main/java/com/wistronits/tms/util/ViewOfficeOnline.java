@@ -117,21 +117,21 @@ public class ViewOfficeOnline {
 	}
 	
 	@Test
-	public void officetopdf(){
+	public void officetoswf(){
 		/**
 		 * 03JavaScript.ppt可以转为03JavaScript.pef，但是02CSS.ppt不行，猜测02CSS.ppt是office2007及以上版本
 		 *
 		 */
-		ViewOfficeOnline.setFileString("D:/saveFiles/03JavaScript.ppt","D:/saveFiles/03JavaScript");
+		//ViewOfficeOnline.setFileString("D:/saveFiles/03JavaScript.ppt","D:/saveFiles/03JavaScript");
 		//ViewOfficeOnline.setFileString("D:/saveFiles/git.doc","D:/saveFiles/git");
 		//ViewOfficeOnline.setFileString("D:/saveFiles/Daily.xls","D:/saveFiles/Daily");
-		//ViewOfficeOnline.setFileString("D:/saveFiles/tms.txt","D:/saveFiles/tms");
+		ViewOfficeOnline.setFileString("D:/saveFiles/tms.txt","D:/saveFiles/tms");
        office2pdf();
        pdf2swf();
 	}
 	
 	@Test
-	public void pdftopdf(){
+	public void pdftoswf(){
 		ViewOfficeOnline.setFileString("D:/saveFiles/03JavaScript");
 		pdf2swf();
 	}

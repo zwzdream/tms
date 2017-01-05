@@ -18,12 +18,12 @@
 	<beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<beans:property name="url"
-			value="jdbc:mysql://localhost:3306/zekee?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false" />
+			value="jdbc:mysql://10.5.106.2:3306/zekee?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false" />
 		<beans:property name="username">
-			<beans:value>root</beans:value>
+			<beans:value>zekee</beans:value>
 		</beans:property>
 		<beans:property name="password">
-			<beans:value>123456</beans:value>
+			<beans:value>wh123456!</beans:value>
 		</beans:property>
 		<beans:property name="maxActive">
 			<beans:value>20</beans:value>
