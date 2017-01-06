@@ -16,6 +16,7 @@ import com.artofsolving.jodconverter.openoffice.converter.OpenOfficeDocumentConv
  *
  */
 public class ViewOfficeOnline {
+	private static final int environment=1;// 环境 1：windows 2:linux 3:mac os
 	private static File resFile;
 	private static File swfFile;
 	private static File pdfFile;
@@ -36,10 +37,15 @@ public class ViewOfficeOnline {
 	 * 转为PDF
 	 * @param resourcePath
 	 */
+	@SuppressWarnings("unused")
 	public static void office2pdf(){
+		if(environment==1){
+			
+		
 		String OpenOffice_Home="C:/Program Files (x86)/OpenOffice 4/";//OpenOffice的安装目录
 		Process pro=null;
 		try {
+			if(environment==1){
 		    //启动OpenOffice的服务
 		    String command=OpenOffice_Home+"program/soffice.exe -headless -accept=\"socket,host=127.0.0.1,port=8100;urp;\"";
 			pro = Runtime.getRuntime().exec(command);
@@ -62,27 +68,37 @@ public class ViewOfficeOnline {
 			 connection.disconnect();
 			 //close process of OpenOffice service
 			 pro.destroy();
+			}else if(environment==2){
+				
+			}else if(environment==3){
+				
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("****office文件转换为pdf文件失败****");
 		}   finally{	if(pro.isAlive()){
 			 pro.destroy();
-		}
-		}
+		         }
+		  }
 		
 	}
+		
+ }
 	/**
 	 * 
 	 * @return success:0
 	 */
 	
+	@SuppressWarnings("unused")
 	public static void pdf2swf(){
 		String swfTools_Home="D:/Program Files/swfTools/";//swfTools的安装目录
 		Process pro=null;
 		try {
-		String command=swfTools_Home+"pdf2swf.exe "+pdfFile.getPath()+" -o"+swfFile.getPath() + " -T 9 -f"+" -G -s poly2bitmap";  
+		
 			if(pdfFile.exists()){
 				if(!swfFile.exists()){//convert
+				if (environment == 1) {// windows环境处理  
+					String command=swfTools_Home+"pdf2swf.exe "+pdfFile.getPath()+" -o"+swfFile.getPath() + " -T 9 -f"+" -G -s poly2bitmap";  
 					pro = Runtime.getRuntime().exec(command,null,new File("d:/saveFiles"));//调用swfTools
 					BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(pro.getInputStream()));
 					while(bufferedReader.readLine()!=null);
@@ -94,6 +110,27 @@ public class ViewOfficeOnline {
 			        } 
 					pro.destroy();
 					 System.out.println("****pdf文件已经成功转换为swf文件****");  
+				}else if (environment == 2) {// linux环境处理  
+					 try {  
+						 String command="pdf2swf " + pdfFile.getPath()  + " -o " + swfFile.getPath() + " -T 9";
+                         pro = Runtime.getRuntime().exec(command,null,new File("d:/saveFiles"));  
+                     	BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(pro.getInputStream()));
+    					while(bufferedReader.readLine()!=null);
+    					try {  
+    			            pro.waitFor();  
+    			        } catch (InterruptedException e) {  
+    			            // TODO Auto-generated catch block  
+    			            e.printStackTrace();  
+    			        } 
+    					pro.destroy();
+    					 System.out.println("****pdf文件已经成功转换为swf文件****");
+                    } catch (Exception e) {  
+                         e.printStackTrace();  
+                         throw e;  
+                    }  
+				}else if(environment==3){//mac环境处理
+					
+				}
 				}else {
 					 System.out.println("****pdf文件已经转换为swf文件，不需要再进行转化****");  
 				}

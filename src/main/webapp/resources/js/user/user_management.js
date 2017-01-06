@@ -14,6 +14,7 @@ function doQry(){
 function initTable(){
 	var username = $('#username').val();
 	$table.DataTable({
+		
     	searching: false,
     	iDisplayLength: 5,//pagesize
     	aLengthMenu: [5, 10, 15, 20],
@@ -21,9 +22,12 @@ function initTable(){
     	bProcessing: true,
     	bServerSide: true,
     	destroy: true,
+    	bFilter:false,
+    	bSort:false,
     	bPaginate: true,
     	sDom: "<'row'<'col-md-6'l><'col-md-6'f>r>t<'row'<'col-md-12'i><'col-md-12 center-block'p>>",
-        sPaginationType: "bootstrap",
+       // sPaginationType: "bootstrap",
+        sDom: '<"top"f>rt<"bottom"ip><"clear">',
         oLanguage: {
         	"sProcessing":"Loading......",
         	"sLengthMenu":" _MENU_ records per page",
@@ -35,6 +39,7 @@ function initTable(){
                 "sNext" : "Next",
                 "sLast" : "Last"
             }
+            
         },
     	sAjaxSource: ctx+'/User/username/list?username='+username, //'GET'to server url
         //"ajax": { "url": ctx+'/User/username/list?username='+username, "type": "POST" },
@@ -59,7 +64,7 @@ function initTable(){
     	},
 
     	fnInitComplete: function(oSettings, json) { 
-            //
+            //.
         }
     });
 }

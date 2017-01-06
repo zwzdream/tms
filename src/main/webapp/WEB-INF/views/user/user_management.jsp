@@ -66,7 +66,7 @@
 							<i class="glyphicon glyphicon-remove"></i></a>
 					</div>
 				</div>
-				<div class="box-content">
+				<div class="box-content" >
 				 <table id="dataTable" class="table table-striped table-bordered bootstrap-datatable responsive" >
 				 	    <thead>
 						    <tr>

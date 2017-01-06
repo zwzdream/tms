@@ -20,7 +20,7 @@
         ===
     -->
 <meta charset="utf-8">
-<title>Free HTML5 Bootstrap Admin Template</title>
+<title>TMSWeb</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description"
 	content="Charisma, a fully featured, responsive, HTML5, Bootstrap admin template.">

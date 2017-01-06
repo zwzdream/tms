@@ -78,23 +78,23 @@ function addResume(divId, formId,callback){
 		<div class="box-content">
 			<form class="form-horizontal" id="addResume" method="POST">
 				<div class="form-group tr-new">
-        <label class="col-sm-1 control-label" for="firstNmae">First&nbsp;Name&nbsp;</label>
-        <div class="col-sm-4 input-group-sm" style="margin-left: 13px;">
+        <label class="col-sm-2 control-label" for="firstNmae">First&nbsp;Name&nbsp;</label>
+        <div class="col-sm-4 input-group-sm" >
          	<input type="text" class="form-control" id="firstName" name="firstName" placeholder="FirstNmae" style="height:35px;">
         </div>
-        <label class="col-sm-1 control-label" for="lastName">Last&nbsp;Name&nbsp;</label>
-        <div class="col-sm-4">
+        <label class="col-sm-2 control-label" for="lastName">Last&nbsp;Name&nbsp;</label>
+        <div class="col-sm-4" >
          	<input type="text" class="form-control" id="lastName" name="lastName" placeholder="LastName" style="height:35px;">
         </div>
     </div>
       <!--    <div class="form-group tr-new">     
                   <div class="form-group tr-new input-calendar">
-                        <label class="col-sm-1" for="birth">Date of Birth</label>&nbsp;
+                        <label class="col-sm-2" for="birth">Date of Birth</label>&nbsp;
                         <input type="text" class="form-control" id="birth" name="birth"/>
                        </div>
                  </div>
            <div class="col-sm-4">
-   	<label class="col-sm-1 control-label" for="gender">Gender</label>
+   	<label class="col-sm-2 control-label" for="gender">Gender</label>
        <label class="radio-inline" style="margin-left:15px;">
 		  <input type="radio" id="inlineRadio1" name="gender"  value="true">Male
 		</label>
@@ -106,13 +106,13 @@ function addResume(divId, formId,callback){
     <div class="form-group tr-new">
     
           <div class=" input-calendar">     
-            <label class="col-sm-1 control-label" for="birth">Date&nbsp;of&nbsp;Birth</label>
+            <label class="col-sm-2 control-label" for="birth">Date&nbsp;of&nbsp;Birth</label>
                        <div class="col-sm-4" >
                         <input type="text" class="form-control" id="birth" name="birth"/>
                         </div>
          </div>
 
-   		<label class="col-sm-1 control-label" for="gender">Gender</label>
+   		<label class="col-sm-2 control-label" for="gender">Gender</label>
        <label class="radio-inline" style="margin-left:15px;">
 		  <input type="radio" id="inlineRadio1" name="gender"  value="true">Male
 		</label>
@@ -124,51 +124,51 @@ function addResume(divId, formId,callback){
    		
 		
     <div class="form-group tr-new">
-        <label class="col-sm-1 control-label" for="mobile">Mobile</label>
-        <div class="col-sm-4" style="margin-left: 15px;">
+        <label class="col-sm-2 control-label" for="mobile">Mobile</label>
+        <div class="col-sm-4" >
         	<input type="tel" class="form-control" id="mobile" name="mobile" placeholder="Mobile" style="height:35px;">
         </div>
-      <!--   <label class="col-sm-1 control-label" for="starts">Work&nbsp;Starts</label>
+      <!--   <label class="col-sm-2 control-label" for="starts">Work&nbsp;Starts</label>
         <div class="col-sm-4">
         	<input type="date" class="form-control" id="starts" name="starts" placeholder="Work Starts" style="height:35px;">
    		</div> -->
-          <div class="form-group tr-new input-calendar">
-                 <label class="col-sm-1 control-label" for="starts">Work&nbsp;Starts</label>&nbsp;
-                       <div class="col-sm-4" ">
-                        <input type="text" class="form-control" id="starts" name="starts"/>
+          <div class="input-calendar">
+                 <label class="col-sm-2 control-label" for="starts">Work&nbsp;Starts</label>
+                       <div class="col-sm-4" >
+                        <input type="text" class="form-control" id="starts" name="starts" />
                         </div>
          </div>
 
     </div>					                    
     <div class="form-group tr-new">
-        <label class="col-sm-1 control-label" for="email">Email</label>
-        <div class="col-sm-4" style="margin-left: 15px;">
+        <label class="col-sm-2 control-label" for="email">Email</label>
+        <div class="col-sm-4" >
 			<input type="email" class="form-control" id="email" name="email" placeholder="Email" style="height:35px;"></input>							        	
     	</div>
  
     </div>					                    
     <div class="form-group tr-new">
-        <label class="col-sm-1 control-label" for="residency">Residency</label>
-       	<div class="col-sm-4" style="margin-left: 15px;">
+        <label class="col-sm-2 control-label" for="residency">Residency</label>
+       	<div class="col-sm-4" >
         	<input type="text" class="form-control" id="residency" name="residency" placeholder="Residency" style="height:35px;">
         </div>
 
     </div>
     <div class="form-group tr-new">
-        <label class="col-sm-1 control-label" for="education" style="color:red;">Education</label>
-        <div class="col-sm-9" style="margin-left: 15px;">
+        <label class="col-sm-2 control-label" for="education" style="color:red;">Education</label>
+        <div class="col-sm-9" >
         	<textarea  class="form-control" id="education" name="education" style="height:85px;"></textarea>
         </div>
     </div>	
     <div class="form-group tr-new">
-        <label class="col-sm-1 control-label" for="workExp" style="color:red;">Work Experience</label>
-        <div class="col-sm-9" style="margin-left: 15px;">
+        <label class="col-sm-2 control-label" for="workExp" style="color:red;">Work&nbsp;Experience</label>
+        <div class="col-sm-9" >
        		<textarea class="form-control" id="workExp" name="workExp"  style="height:85px;"></textarea> 
         </div>
     </div>			                    				                    				                    		                   
     <div class="form-group tr-new">
-        <label class="col-sm-1 control-label" for="projectExp" style="color:red;">Project Experience</label>
-        <div class="col-sm-9" style="margin-left: 15px;">
+        <label class="col-sm-2 control-label" for="projectExp" style="color:red;">Project&nbsp; Experience</label>
+        <div class="col-sm-9" >
 			<textarea class="form-control" id="projectExp" name="projectExp"  style="height:85px;"></textarea>							            
         </div>
     </div>
