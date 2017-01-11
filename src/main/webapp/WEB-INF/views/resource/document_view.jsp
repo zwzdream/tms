@@ -24,7 +24,7 @@ body {
 <div class="container">
 <div style="/* position: absolute; */left: 50px; top: 10px;">
 	<a id="viewerPlaceHolder"
-		style="width: 820px; height: 650px; display: block"></a>
+		style="width: 80%; height: 750px; display: block"></a>
 
 	<script type="text/javascript"> 
 	var rfilePath='${ctx}'+'\/file/'+'${filePath}'+'.swf';

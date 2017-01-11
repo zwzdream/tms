@@ -151,6 +151,56 @@ public class LuceneIndexer {
 		return result;
 	}
 	
+	public static Map<String, Object> seacherAll(String workKey){
+		Directory directory = null; 
+		IndexReader reader = null;
+		List<Integer> addList = new ArrayList<Integer>();
+		List<Integer> importList = new ArrayList<Integer>();
+		Map<String, Object> result = new HashMap<String,Object>();
+		try {
+			File indexDir = new File(LUCENE_INDEX_FOLDER_PATH);
+			if(!indexDir.exists() && !indexDir.isDirectory()){
+				indexDir.mkdir();
+			}
+			
+			directory = FSDirectory.open(indexDir.toPath());
+			reader = DirectoryReader.open(directory);
+			IndexSearcher seacher = new IndexSearcher(reader);
+			
+			
+			QueryParser parser = new QueryParser("content", new StandardAnalyzer());
+			Query query = parser.parse(workKey);
+			
+			TopDocs tds = seacher.search(query, seacher.count(query));
+			ScoreDoc[] docs = tds.scoreDocs;
+			
+			/*System.out.println("matched files count:"+tds.totalHits);
+			System.out.println("matched files count in page:"+docs.length);*/
+			for (ScoreDoc scoreDoc : docs) {
+				Document doc = seacher.doc(scoreDoc.doc);
+				if("add".equals(doc.get("type"))){
+					addList.add(Integer.parseInt(doc.get("id")));
+				}else if("import".equals(doc.get("type"))){
+					importList.add(Integer.parseInt(doc.get("id")));
+				}
+			}
+			result.put("count", tds.totalHits);
+			result.put("importList", importList);
+			result.put("addList", addList);
+		} catch (IOException | ParseException e) {
+			e.printStackTrace();
+		}finally{
+			if(reader!=null){
+				try {
+					reader.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return result;
+	}
+	
 	/**
 	 * search by page
 	 * @param searcher

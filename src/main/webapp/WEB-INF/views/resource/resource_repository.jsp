@@ -22,7 +22,7 @@ function initTable(){
     	bFilter:false,
     	bSort:false,
     	bPaginate: true,
-    	sDom: "<'row'<'col-md-6'l><'col-md-6'f>r>t<'row'<'col-md-12'i><'col-md-12 center-block'p>>",
+    	//sDom: "<'row'<'col-md-6'l><'col-md-6'f>r>t<'row'<'col-md-12'i><'col-md-12 center-block'p>>",
        // sPaginationType: "bootstrap",
        sDom: '<"top"f>rt<"bottom"ip><"clear">',
         oLanguage: {
@@ -37,7 +37,7 @@ function initTable(){
                 "sLast" : "Last"
             }
         },
-    	sAjaxSource: ctx+'/Resource/searchresource?keyWord='+keyWord, //to server url
+    	sAjaxSource: ctx+'/Resource/searchresource?keyWord='+keyWord, //'Get'to server url
     	aoColumns: [
 				 {sDefaultContent: ''},
     	         {sDefaultContent: ''},

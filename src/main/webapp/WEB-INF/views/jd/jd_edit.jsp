@@ -51,7 +51,8 @@
 			</div>
 		  </div>
 		  <div id="jd_add_resource" class="box-content">
-           <%@ include file="jd_add_resource.jsp"%>
+         <%@ include file="jd_add_resource_table.jsp"%> 
+          <%--  <%@ include file="jd_add_resource.jsp"%>  --%>
            </div>
  </div>
  </div>

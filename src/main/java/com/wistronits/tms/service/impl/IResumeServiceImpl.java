@@ -93,6 +93,38 @@ public class IResumeServiceImpl implements IResumeService {
 		ret.put("count", count);
 		return ret;
 	}
+	
+	@Override
+	public Map<String,Object> searchCanJoinResource(String keyWord,int no) {
+		List<ImportResourceBean> beans = new ArrayList<ImportResourceBean>();
+		Map<String,Object> resultMap= LuceneIndexer.seacherAll(keyWord);
+		@SuppressWarnings("unchecked")
+		List<Integer> addListIds = (List<Integer>) resultMap.get("addList");
+		@SuppressWarnings("unchecked")
+		List<Integer> importListIds = (List<Integer>) resultMap.get("importList");
+		int count = (int) resultMap.get("count");
+		Map<String,Object> mapList=new HashMap<String,Object>();
+		List<Integer> haveAddIds=iResumeDao.getAddIdsByNo(no);
+		List<Integer> haveImportIds=iResumeDao.getImportIdsByNo(no);
+		addListIds.removeAll(haveAddIds);
+		importListIds.removeAll(haveImportIds);
+		mapList.put("addList", addListIds);
+		mapList.put("importList", importListIds);
+		/*if(!importListIds.isEmpty()){
+			beans = iResumeDao.getImportResourceByIds(importListIds);
+		}
+		if(!addListIds.isEmpty()){
+			beans.addAll(iResumeDao.getAddResourceByIds(addListIds));
+		}*/
+		if((!addListIds.isEmpty()) ||(!importListIds.isEmpty()) ){
+			beans=iResumeDao.getBeansByIds(mapList);
+		}
+		Map<String,Object> ret = new HashMap<String,Object>();
+		ret.put("list", beans);
+		ret.put("count", count);
+		return ret;
+	}
+	
 	@Override
 	public int getAllImportBeansCount() {
 		int count = iResumeDao.getAllImportBeansCount();
@@ -112,6 +144,8 @@ public class IResumeServiceImpl implements IResumeService {
 		List<ImportResourceBean> importBeans = iResumeDao.getAllBeans();
 		return importBeans;
 	}
+	
+
 	@Override
 	public int getAllBeansCount() {
 		int count = iResumeDao.getAllBeansCount();
@@ -173,21 +207,26 @@ public class IResumeServiceImpl implements IResumeService {
 		return true;
 	}
 	@Override
-	public Map<String, Object> getCanJoinResources(int no) {
+	public Map<String, Object> getCanJoinResources(int offSet, int pageSize,int no) {
 		List<ImportResourceBean> resources = new ArrayList<ImportResourceBean>();
-		resources = iResumeDao.haveNotResumes(no);
-		resources.addAll(iResumeDao.haveNotImportBeans(no));
+		PageHelper.startPage(getCurrentPageNum(offSet,pageSize), pageSize);
+		List<ImportResourceBean> returnResources = iResumeDao.haveNotBeans(no);
+		resources= iResumeDao.haveNotBeans(no);
 		Map<String,Object> resRe = new HashMap<String,Object>();
-		resRe.put("resources", resources);
+		resRe.put("resources", returnResources);
+		resRe.put("count", resources.size());
+		
 		return resRe;
 	}
 	@Override
-	public Map<String, Object> getTheBelongResources(int no) {
+	public Map<String, Object> getTheBelongResources(int offSet,int pageSize,int no) {
 		List<ImportResourceBean> resources = new ArrayList<ImportResourceBean>();
-		resources = iResumeDao.haveResumes(no);
-		resources.addAll(iResumeDao.haveImportBeans(no));
+		PageHelper.startPage(getCurrentPageNum(offSet,pageSize), pageSize);
+		List<ImportResourceBean> returnResources = iResumeDao.haveBeans(no);
+		resources = iResumeDao.haveBeans(no);
 		Map<String,Object> resRe = new HashMap<String,Object>();
-		resRe.put("resources", resources);
+		resRe.put("resources", returnResources);
+		resRe.put("count", resources.size());
 		return resRe;
 	}
 	@Override
@@ -265,6 +304,7 @@ public class IResumeServiceImpl implements IResumeService {
 	
 		 return fileName.substring(fileName.lastIndexOf("/")+1);
 	}
+
 	
 
 	

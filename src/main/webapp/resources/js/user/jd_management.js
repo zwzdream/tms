@@ -22,10 +22,10 @@ function initTable(){
     	bProcessing: true,
     	bServerSide: true,
     	destroy: true,
-    	bFilter:false,
+    	bFilter:true,
     	bSort:false,
     	bPaginate: true,
-    	sDom: "<'row'<'col-md-6'l><'col-md-6'f>r>t<'row'<'col-md-12'i><'col-md-12 center-block'p>>",
+    	//sDom: "<'row'<'col-md-6'l><'col-md-6'f>r>t<'row'<'col-md-12'i><'col-md-12 center-block'p>>",
        // sPaginationType: "bootstrap",
     	sDom: '<"top"f>rt<"bottom"ip><"clear">',
         oLanguage: {
@@ -40,7 +40,7 @@ function initTable(){
                 "sLast" : "Last"
             }
         },
-    	sAjaxSource:ctx + '/JD/keyword/listPage', //'GET'to server url
+    	sAjaxSource:ctx + '/JD/keyword/listPage', //'POST'to server url
     	sServerMethod:"POST",
     	 fnServerParams:function(aoData){
          	aoData.push(

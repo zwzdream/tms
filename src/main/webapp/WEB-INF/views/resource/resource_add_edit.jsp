@@ -1,11 +1,28 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div>
 	<ul class="breadcrumb">
+	<c:if test="${not empty resourceId}">
             <li>
                <a href="javascript:ajaxContent('/Index/dashboard/init')">Home</a>
             </li>
             <li>
                 <a href="javascript:ajaxContent('/Index/resource/init')">Resource Repository</a>
             </li>
+     </c:if>
+	<c:if test="${not empty jdNo}">
+            <li>
+                  <a href="javascript:ajaxContent('/Index/dashboard/init')">Home</a>
+            </li>
+            <li>
+               <a href="javascript:ajaxContent('/Index/JD/init')">JD Management</a>
+            </li>
+            <li>
+               <a href="javascript:ajaxContent('/JD/toEdit','no=${jdNo}')">JD Edit</a>
+            </li>
+       
+            
+     </c:if>
     </ul>
 </div>
 <script type="text/javascript">
@@ -136,10 +153,16 @@ function updateResume(divId, formId){
 			<textarea class="form-control" id="projectExp" name="projectExp"  style="height:85px;"> ${bean.projectExp}</textarea>							            
         </div>
     </div>
-   
+   <c:if test="${not empty resourceId}">
 				<div class="form-actions" style="text-align:center;">
 					<button class="btn btn-primary" type="button" onclick="updateResume('content','editResume');">Submit</button>
 				</div>
+	</c:if>
+   <c:if test="${not empty jdNo}">
+				<div class="form-actions" style="text-align:center;">
+					<button class="btn btn-primary" type="button" onclick="addTheResource('${bean.id}','${jdNo}','add');">ADD</button>
+				</div>
+	</c:if>
 			</form>
 		</div>
 	
@@ -147,6 +170,7 @@ function updateResume(divId, formId){
 	<!--/span-->
 </div>
 <!--/row-->
+<c:if test="${not empty resourceId}">
 <div  class="row">
  <div class="box col-md-12">
   <div class="box-inner">
@@ -163,3 +187,4 @@ function updateResume(divId, formId){
  </div>
  </div>
  </div>
+</c:if>

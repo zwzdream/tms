@@ -1,7 +1,24 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div>
 	<ul class="breadcrumb">
+	<c:if test="${not empty resourceId}">
 		<li>  <a href="javascript:ajaxContent('/Index/dashboard/init')">Home</a></li>
 		<li>  <a href="javascript:ajaxContent('/Index/resource/init')">Resource Repository</a></li>
+	</c:if>
+		<c:if test="${not empty jdNo}">
+            <li>
+                  <a href="javascript:ajaxContent('/Index/dashboard/init')">Home</a>
+            </li>
+            <li>
+               <a href="javascript:ajaxContent('/Index/JD/init')">JD Management</a>
+            </li>
+            <li>
+               <a href="javascript:ajaxContent('/JD/toEdit','no=${jdNo}')">JD Edit</a>
+            </li>
+       
+            
+     </c:if>
 	</ul>
 </div>
 <script type="text/javascript">
@@ -76,6 +93,7 @@
 	}
 </script>
 <div class="row">
+ <c:if test="${not empty resourceId}">
 	<div class="box col-md-12">
 		<div class="box-inner">
 			<div class="box-header well" data-original-title="">
@@ -131,9 +149,12 @@
 						</label>
 						<p class="help-block">Please upload your resume.</p>
 					</div>
-					
+				
 					<button type="button" class="btn btn-default"
 						onclick="updateResource('content','editResource')">Submit</button>
+				
+					
+
 				</form>
 
 			</div>
@@ -141,7 +162,7 @@
 
 	</div>
 	<!--/span-->
-
+	</c:if>
 </div>
 <!--/row-->
 <div class="row">
@@ -158,13 +179,22 @@
 						class="glyphicon glyphicon-remove"></i></a>
 				</div>
 			</div>
-			<div  class="box-content">
+			<div  class="box-content ">
 				<div><%@ include file="document_view.jsp"%></div>
+	 <c:if test="${not empty jdNo}">
+				<div class="form-actions" style="text-align:center;">
+					<button class="btn btn-primary" type="button" onclick="addTheResource('${bean.id}','${jdNo}','import');">ADD</button>
+				</div>
+	   </c:if>
 			</div>
+	  
 		</div>
+
 	</div>
+	
 </div>
 <!--/row-->
+<c:if test="${not empty resourceId}">
 <div class="row">
 	<div class="box col-md-12">
 		<div class="box-inner">
@@ -185,3 +215,4 @@
 		</div>
 	</div>
 </div><!--/row-->
+</c:if>

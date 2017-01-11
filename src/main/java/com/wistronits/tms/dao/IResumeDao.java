@@ -1,6 +1,7 @@
 package com.wistronits.tms.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.wistronits.tms.entity.ImportResourceBean;
 import com.wistronits.tms.entity.JDBean;
@@ -16,6 +17,7 @@ public interface IResumeDao {
 	public int getAllImportBeansCount();
 	public List<ImportResourceBean> getAddResourceByIds(List<Integer> ids);
 	public List<ImportResourceBean> getAllBeans();
+	public List<ImportResourceBean> getBeansByIds(Map<String, Object> mapList);
 	public int getAllBeansCount();
 	public int getCurrentWeekCount();
 	public int deleteImportResource(int resourceId);
@@ -24,10 +26,12 @@ public interface IResumeDao {
 	public ResumeBean getResumeById(int resourceId);
 	public int editImportResource(ImportResourceBean resource);
 	public int editResume(ResumeBean rDto);
-	public List<ImportResourceBean> haveResumes(int no);
-	public List<ImportResourceBean> haveImportBeans(int no);
-	public List<ImportResourceBean> haveNotResumes(int no);
-	public List<ImportResourceBean> haveNotImportBeans(int no);
+/*	public List<ImportResourceBean> haveResumes(int no);
+	public List<ImportResourceBean> haveImportBeans(int no);*/
+	public List<ImportResourceBean> haveBeans(int no);
+/*	public List<ImportResourceBean> haveNotResumes(int no);
+	public List<ImportResourceBean> haveNotImportBeans(int no);*/
+	public List<ImportResourceBean> haveNotBeans(int no);
 	public int editBelongImportResource(int no,int rid);
 	public int addImportResourceToJD(int no,int rid);
 	public int addResumeResourceToJD(int no,int rid);
@@ -38,6 +42,9 @@ public interface IResumeDao {
 	public List<JDBean>  getJDsInAdd(int rid);
 	public List<JDBean>  getJDsNotInImport(int rid);
 	public List<JDBean>  getJDsInImport(int rid);
+	public List<Integer>  getAddIdsByNo(int no);
+	public List<Integer>  getImportIdsByNo(int no);
+	
 	
 
 }

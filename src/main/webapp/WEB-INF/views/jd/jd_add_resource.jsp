@@ -28,5 +28,8 @@
 		<div>The JD have The above resources  </div>
 	</div>
 	
+	
+	
 </div>
 <!--/row-->
+<!-- <div><button class="btn btn-primary" type="button" onclick="test();">Test</button></div> -->

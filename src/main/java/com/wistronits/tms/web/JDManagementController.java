@@ -47,11 +47,11 @@ public class JDManagementController {
 	@RequestMapping(value = "/toEdit", method = RequestMethod.POST)
 	public ModelAndView toEdit(int no) {
 		ModelAndView view = new ModelAndView("/jd/jd_edit");
-		PageHelper.startPage(1, 5);
+/*		PageHelper.startPage(1, 5);
 		List<JDBean> jdBeanList = jdBeanService.listAll();
 		PageInfo<JDBean> page = new PageInfo<>(jdBeanList);
+		view.addObject("page", page);*/
 		view.addObject("jd", jdBeanService.getJD(no));
-		view.addObject("page", page);
 		view.addObject("jdNo", no);
 		return view;
 	}

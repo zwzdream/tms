@@ -24,13 +24,15 @@ public interface IResumeService {
 	public ResumeBean getResumeById(int resourceId);
 	public Boolean editImportResource(ImportResourceBean resource,MultipartFile file);
 	public Boolean editResume(ResumeBean rDto);
-	public Map<String,Object> getCanJoinResources(int no);
-	public Map<String,Object> getTheBelongResources(int no);
+	public Map<String,Object> getCanJoinResources(int offSet, int pageSize,int no);
+	public Map<String,Object> getTheBelongResources(int offSet, int pageSize,int no);
 	public Map<String,Object> getCanJoinJDs(int rid,String type);
 	public Map<String,Object> getTheBelongJDs(int rid,String type);
 	public int editTheBelongResource(int no,int rid,String type);
 	public int addResourceToJD(int no,int rid,String type);
 	public int deleteResourceFromJD(int no,int rid,String type);
 	public String transferToswf(String filePath);
+	public Map<String, Object> searchCanJoinResource(String keyWord,int no);
+
 	
 }

@@ -166,6 +166,31 @@ public class ResourceRepositoryController {
 		return rs;
 	}
 	
+	/*@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/searchCanJoinResource", method = RequestMethod.POST)
+	public @ResponseBody RsResponse<ImportResourceBean> searchCanJoinResource(
+			@RequestParam(value="keyWord") String keyWord,
+			@RequestParam(value="sEcho") String sEcho,
+			@RequestParam(value="iDisplayStart") int offSet,
+			@RequestParam(value="iDisplayLength") int pageSize){
+		RsResponse<ImportResourceBean> rs = new RsResponse<ImportResourceBean>();
+		List<ImportResourceBean> importBeans = new ArrayList<ImportResourceBean>();
+		int count = 0;
+		if(keyWord.isEmpty()){
+			importBeans = resumeService.getAllBeans(offSet,pageSize);
+			count = resumeService.getAllBeansCount();
+		}else{
+			Map<String,Object> map = resumeService.searchResource(keyWord,offSet,pageSize);
+			importBeans = (List<ImportResourceBean>) map.get("list");
+			count = (int) map.get("count");
+		}
+		rs.setAaData(importBeans);
+		rs.setiTotalDisplayRecords(count);  
+		rs.setiTotalRecords(count);
+		rs.setsEcho(sEcho);
+		return rs;
+	}*/
+	
 	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "/addResume", method = RequestMethod.POST)
 	public @ResponseBody RsResponse addResume(
@@ -240,7 +265,7 @@ public class ResourceRepositoryController {
 	}
 	
 	
-		@RequestMapping(value="/toEditAdd", method=RequestMethod.POST)
+	@RequestMapping(value="/toEditAdd", method=RequestMethod.POST)
 	public ModelAndView toEditAddView(@RequestParam(value="resourceId") int resourceId){
 		ModelAndView mv = new ModelAndView();
 		ResumeBean bean = resumeService.getResumeById(resourceId);
@@ -248,6 +273,29 @@ public class ResourceRepositoryController {
 		mv.setViewName("/resource/resource_add_edit");
 		mv.addObject("resourceId", resourceId);
 		mv.addObject("resourceType", "add");
+		return mv;
+	}
+	
+	@RequestMapping(value="/toEditAddFromJD", method=RequestMethod.POST)
+	public ModelAndView toEditAddFromJD(@RequestParam(value="resourceId") int resourceId,@RequestParam(value="no") int no){
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/resource/resource_add_edit");
+		ResumeBean bean = resumeService.getResumeById(resourceId);
+		mv.addObject("bean",bean);
+		mv.addObject("jdNo",no);
+		mv.setViewName("/resource/resource_add_edit");
+		return mv;
+	}
+	
+	@RequestMapping(value="/toEditImportFromJD", method=RequestMethod.POST)
+	public ModelAndView toEditImportFromJD(@RequestParam(value="resourceId") int resourceId,@RequestParam(value="no") int no){
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/resource/resource_edit_importrecource");
+		ImportResourceBean bean = resumeService.getImportResourceById(resourceId);
+		String filePath=resumeService.transferToswf(bean.getFilePath());
+		mv.addObject("bean",bean);
+		mv.addObject("jdNo",no);
+		mv.addObject("filePath",filePath);
 		return mv;
 	}
 	
@@ -372,24 +420,77 @@ public class ResourceRepositoryController {
 			return RsResponse.BLANKSUCCESS;
 	}
 	
-	@RequestMapping(value = "/getCanJoinResources", method = RequestMethod.POST)
+/*	@RequestMapping(value = "/getCanJoinResources", method = RequestMethod.POST)
 	public @ResponseBody Map<String,Object> getCanJoinResources(@RequestParam(value = "no") int no) {
 		 
 		return resumeService.getCanJoinResources(no);
 
+	}*/
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/listCanJoinResources", method = RequestMethod.POST)
+	public @ResponseBody RsResponse<ImportResourceBean> listCanJoinResources(
+			@RequestParam(value="no") int no,
+			@RequestParam(value="keyWord") String keyWord,
+			@RequestParam(value="sEcho") String sEcho,
+			@RequestParam(value="iDisplayStart") int offSet,
+			@RequestParam(value="iDisplayLength") int pageSize){
+		RsResponse<ImportResourceBean> rs = new RsResponse<ImportResourceBean>();
+		List<ImportResourceBean> importBeans = new ArrayList<ImportResourceBean>();
+		int count = 0;
+		//int total = resumeService.getAllBeansCount();
+		if(keyWord.isEmpty()){
+			Map<String,Object> map =resumeService.getCanJoinResources(offSet,pageSize,no);
+			importBeans = (List<ImportResourceBean>) map.get("resources");
+			count = (int) map.get("count");
+		}else{
+			Map<String,Object> map = resumeService.searchCanJoinResource(keyWord,no);
+			importBeans = (List<ImportResourceBean>) map.get("list");
+			count = (int) map.get("count");
+		}
+		rs.setAaData(importBeans);
+		rs.setiTotalDisplayRecords(count);  
+		rs.setiTotalRecords(count);
+		rs.setsEcho(sEcho);
+		return rs;
 	}
 	
-	@RequestMapping(value = "/getTheBelongResources", method = RequestMethod.POST)
+/*	@RequestMapping(value = "/getTheBelongResources", method = RequestMethod.POST)
 	public @ResponseBody Map<String,Object> getTheBelongResources(@RequestParam(value = "no") int no) {
 		return resumeService.getTheBelongResources(no);
 
+	}*/
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/listTheBelongResources", method = RequestMethod.POST)
+	public @ResponseBody RsResponse<ImportResourceBean> listTheBelongResources(
+			@RequestParam(value="no") int no,
+			@RequestParam(value="sEcho") String sEcho,
+			@RequestParam(value="iDisplayStart") int offSet,
+			@RequestParam(value="iDisplayLength") int pageSize){
+		RsResponse<ImportResourceBean> rs = new RsResponse<ImportResourceBean>();
+		List<ImportResourceBean> importBeans = new ArrayList<ImportResourceBean>();
+		int count = 0;
+		
+		Map<String,Object> map =resumeService.getTheBelongResources(offSet,pageSize,no);
+		importBeans = (List<ImportResourceBean>) map.get("resources");
+		count = (int) map.get("count");
+
+		rs.setAaData(importBeans);
+		rs.setiTotalDisplayRecords(count);  
+		rs.setiTotalRecords(count);
+		rs.setsEcho(sEcho);
+		return rs;
 	}
+	
 	@RequestMapping(value = "/getCanJoinJDs", method = RequestMethod.POST)
 	public @ResponseBody Map<String,Object> getCanJoinJDs(
 			@RequestParam(value="resourceId") int resourceId,
 			@RequestParam(value="resourceType") String resourceType) {
 		return resumeService.getCanJoinJDs(resourceId,resourceType);
 	}
+	
+
 	
 	@RequestMapping(value = "/getTheBelongJDs", method = RequestMethod.POST)
 	public @ResponseBody Map<String,Object> getTheBelongJDs(
@@ -417,6 +518,20 @@ public class ResourceRepositoryController {
 		//return view;
 		 return RsResponse.BLANKSUCCESS;
 	}*/
+	
+	@RequestMapping(value = "/addTheResourceToJD", method = RequestMethod.POST)
+	public ModelAndView addTheResourceToJD(	
+			@RequestParam(value = "jdId") int no,
+			@RequestParam(value = "rId") int rid,
+			@RequestParam(value="rType")String type) {
+		ModelAndView view = new ModelAndView("jd/jd_edit");
+		int resultCount=resumeService.addResourceToJD(no, rid, type);
+		if(resultCount!=0){
+			view.addObject("jdNo", no);
+		}
+		return view;
+		
+	}
 	
 	@RequestMapping(value = "/addResourceToJD", method = RequestMethod.POST)
 	public ModelAndView addResourceToJD(	

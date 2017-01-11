@@ -82,9 +82,29 @@
      </select>
      
      <select id="getAllBeans" resultMap="ImportResourceBeanResultMap">
-     	select id,first_name,last_name,birth,gender,last_m_time,'import' as 'type' from import_resource 
+     	select id,first_name,last_name,birth,gender,last_m_time,'import' as 'type' from import_resource
      	UNION ALL
-     	select id,first_name,last_name,birth,gender,last_m_time,'add' as 'type' from resume
+     	select id,first_name,last_name,birth,gender,last_m_time,'add' as 'type' from resume 
+     </select>
+     
+     <select id="getBeansByIds" parameterType="Map" resultMap="ImportResourceBeanResultMap">
+     	<if test="importList!=null and importList.size()!=0">
+     	select id,first_name,last_name,birth,gender,'import' as 'type' from import_resource  where id in
+     	<foreach item="importItem" index="importIndex" collection="importList" open="(" separator="," close=")"> 
+     		#{importItem}
+     	</foreach>
+     	</if>
+     	<if test="addList!=null and addList.size()!=0 and importList!=null and importList.size()!=0">
+     	UNION ALL
+     	</if>
+     	
+     	<if test="addList!=null and addList.size()!=0">
+     	select id,first_name,last_name,birth,gender,'add' as 'type' from resume where id in
+     	<foreach item="addItem" index="addIndex" collection="addList" open="(" separator="," close=")"> 
+     		#{addItem}
+     	</foreach>
+     	</if>
+     
      </select>
      
      <select id="getAllBeansCount" resultType="int">
@@ -126,7 +146,7 @@
 	</select>
 	
 	
-	<select id="haveResumes" resultMap="ImportResourceBeanResultMap">
+<!-- 	<select id="haveResumes" resultMap="ImportResourceBeanResultMap">
      	SELECT a.id,a.first_name,a.last_name,a.birth,a.gender,a.last_m_time,'add' as 'type'
      	FROM RESUME a LEFT JOIN jd_resume_resource b ON a.id=b.add_id LEFT JOIN jd c ON b.jd_id=c.no WHERE c.no=#{no} ORDER BY id
      </select>
@@ -134,13 +154,30 @@
      	 SELECT a.id,a.first_name,a.last_name,a.birth,a.gender,a.last_m_time,'add' AS 'type'
      	FROM RESUME a WHERE  NOT EXISTS (SELECT b.add_id FROM jd_resume_resource b WHERE b.jd_id=#{no} AND a.id=b.add_id) ORDER BY id 
      </select>
+     
 	<select id="haveImportBeans" resultMap="ImportResourceBeanResultMap">
      	SELECT a.id,a.first_name,a.last_name,a.birth,a.gender,a.last_m_time,'import' as 'type'
      	FROM import_resource a LEFT JOIN jd_resume_resource b ON a.id=b.import_id LEFT JOIN jd c ON b.jd_id=c.no WHERE c.no=#{no} ORDER BY id
      </select>
 	<select id="haveNotImportBeans" resultMap="ImportResourceBeanResultMap">
+	
      SELECT a.id,a.first_name,a.last_name,a.birth,a.gender,a.last_m_time,'import' AS 'type'
      	FROM import_resource a WHERE  NOT EXISTS (SELECT b.import_id FROM jd_resume_resource b WHERE b.jd_id=#{no} AND a.id=b.import_id) ORDER BY id
+     </select> -->
+     
+     <select id="haveBeans" resultMap="ImportResourceBeanResultMap">
+        SELECT a.id,a.first_name,a.last_name,a.birth,a.gender,a.last_m_time,'add' as 'type'
+     	FROM RESUME a LEFT JOIN jd_resume_resource b ON a.id=b.add_id LEFT JOIN jd c ON b.jd_id=c.no WHERE c.no=#{no} 
+     	UNION ALL
+     	SELECT a.id,a.first_name,a.last_name,a.birth,a.gender,a.last_m_time,'import' as 'type'
+     	FROM import_resource a LEFT JOIN jd_resume_resource b ON a.id=b.import_id LEFT JOIN jd c ON b.jd_id=c.no WHERE c.no=#{no} 
+     </select>
+	<select id="haveNotBeans" resultMap="ImportResourceBeanResultMap">
+		SELECT a.id,a.first_name,a.last_name,a.birth,a.gender,a.last_m_time,'add' AS 'type'
+     	FROM RESUME a WHERE  NOT EXISTS (SELECT b.add_id FROM jd_resume_resource b WHERE b.jd_id=#{no} AND a.id=b.add_id) 
+     	UNION ALL
+        SELECT a.id,a.first_name,a.last_name,a.birth,a.gender,a.last_m_time,'import' AS 'type'
+     	FROM import_resource a WHERE  NOT EXISTS (SELECT b.import_id FROM jd_resume_resource b WHERE b.jd_id=#{no} AND a.id=b.import_id) 
      </select>
      
      <update id="editBelongResumeResource">	
@@ -163,5 +200,11 @@
 	 <delete id="deleteResumeResourceFromJD">
      	delete from jd_resume_resource where jd_id=#{0} and add_id=#{1}
      </delete>
-	
+     
+     <select id="getAddIdsByNo" resultType="int">
+     SELECT add_id FROM jd_resume_resource WHERE add_id IS NOT NULL AND jd_id=#{no}
+	</select>
+     <select id="getImportIdsByNo" resultType="int">
+     SELECT import_id FROM jd_resume_resource WHERE import_id IS NOT NULL  AND jd_id=#{no}
+	</select>
 </mapper>
