@@ -34,7 +34,7 @@
 
 		<!-- 登录界面 -->
 		<form-login login-page="/auth/login"  login-processing-url="/j_spring_security_check " 
-		username-parameter="j_username"	 password-parameter="j_password"
+		username-parameter="j_username"	 password-parameter="j_password" always-use-default-target="true"
 		 default-target-url="/Index/home/page"  authentication-failure-url="/auth/login?error=true"  />
 		<logout  invalidate-session="true"   logout-url="/auth/logout" logout-success-url="/auth/login"/>
 		 <remember-me key="myAppKey" user-service-ref="userDetailService" remember-me-parameter="remember-me"/>		
