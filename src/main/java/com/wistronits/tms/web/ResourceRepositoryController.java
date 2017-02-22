@@ -286,6 +286,16 @@ public class ResourceRepositoryController {
 		mv.setViewName("/resource/resource_add_edit");
 		return mv;
 	}
+	@RequestMapping(value="/toEditAddFromJD2", method=RequestMethod.POST)
+	public ModelAndView toEditAddFromJD2(@RequestParam(value="resourceId") int resourceId,@RequestParam(value="no") int no){
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/resource/resource_add_edit");
+		ResumeBean bean = resumeService.getResumeById(resourceId);
+		mv.addObject("bean",bean);
+		mv.addObject("jdNo2",no);
+		mv.setViewName("/resource/resource_add_edit");
+		return mv;
+	}
 	
 	@RequestMapping(value="/toEditImportFromJD", method=RequestMethod.POST)
 	public ModelAndView toEditImportFromJD(@RequestParam(value="resourceId") int resourceId,@RequestParam(value="no") int no){
@@ -295,6 +305,17 @@ public class ResourceRepositoryController {
 		String filePath=resumeService.transferToswf(bean.getFilePath());
 		mv.addObject("bean",bean);
 		mv.addObject("jdNo",no);
+		mv.addObject("filePath",filePath);
+		return mv;
+	}
+	@RequestMapping(value="/toEditImportFromJD2", method=RequestMethod.POST)
+	public ModelAndView toEditImportFromJD2(@RequestParam(value="resourceId") int resourceId,@RequestParam(value="no") int no){
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/resource/resource_edit_importrecource");
+		ImportResourceBean bean = resumeService.getImportResourceById(resourceId);
+		String filePath=resumeService.transferToswf(bean.getFilePath());
+		mv.addObject("bean",bean);
+		mv.addObject("jdNo2",no);
 		mv.addObject("filePath",filePath);
 		return mv;
 	}
@@ -547,6 +568,7 @@ public class ResourceRepositoryController {
 		return view;
 
 	}
+	
 	@RequestMapping(value = "/deleteResourceFromJD", method = RequestMethod.POST)
 	public ModelAndView deleteResourceFromJD(
 			@RequestParam(value = "jdId") int no,
@@ -557,6 +579,19 @@ public class ResourceRepositoryController {
 		 int resultCount=resumeService.deleteResourceFromJD(no, rid, type);
 		 if(resultCount!=0){
 			 view.addObject("jdNo", no);
+		}
+		return view;
+	}
+	
+	@RequestMapping(value = "/deleteTheResourceFromJD", method = RequestMethod.POST)
+	public ModelAndView deleteTheResourceFromJD(
+			@RequestParam(value = "jdId") int no,
+			@RequestParam(value = "rId") int rid,
+			@RequestParam(value="rType")String type) {
+		ModelAndView view = new ModelAndView("jd/jd_edit");
+		int resultCount=resumeService.deleteResourceFromJD(no, rid, type);
+		if(resultCount!=0){
+			view.addObject("jdNo", no);
 		}
 		return view;
 	}

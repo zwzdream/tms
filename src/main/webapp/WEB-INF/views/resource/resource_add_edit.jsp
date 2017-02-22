@@ -23,6 +23,19 @@
        
             
      </c:if>
+	<c:if test="${not empty jdNo2}">
+            <li>
+                  <a href="javascript:ajaxContent('/Index/dashboard/init')">Home</a>
+            </li>
+            <li>
+               <a href="javascript:ajaxContent('/Index/JD/init')">JD Management</a>
+            </li>
+            <li>
+               <a href="javascript:ajaxContent('/JD/toEdit','no=${jdNo2}')">JD Edit</a>
+            </li>
+       
+            
+     </c:if>
     </ul>
 </div>
 <script type="text/javascript">
@@ -158,11 +171,19 @@ function updateResume(divId, formId){
 					<button class="btn btn-primary" type="button" onclick="updateResume('content','editResume');">Submit</button>
 				</div>
 	</c:if>
+	
    <c:if test="${not empty jdNo}">
 				<div class="form-actions" style="text-align:center;">
 					<button class="btn btn-primary" type="button" onclick="addTheResource('${bean.id}','${jdNo}','add');">ADD</button>
 				</div>
 	</c:if>
+	
+   <c:if test="${not empty jdNo2}">
+				<div class="form-actions" style="text-align:center;">
+					<button class="btn btn-primary" type="button" onclick="removeTheResource('${bean.id}','${jdNo2}','add');">REMOVE</button>
+				</div>
+	</c:if>
+
 			</form>
 		</div>
 	

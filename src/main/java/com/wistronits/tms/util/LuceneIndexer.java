@@ -170,8 +170,10 @@ public class LuceneIndexer {
 			
 			QueryParser parser = new QueryParser("content", new StandardAnalyzer());
 			Query query = parser.parse(workKey);
+		
+			int c=seacher.count(query)>0?seacher.count(query):1;
+			TopDocs tds = seacher.search(query,c );
 			
-			TopDocs tds = seacher.search(query, seacher.count(query));
 			ScoreDoc[] docs = tds.scoreDocs;
 			
 			/*System.out.println("matched files count:"+tds.totalHits);
@@ -188,7 +190,8 @@ public class LuceneIndexer {
 			result.put("importList", importList);
 			result.put("addList", addList);
 		} catch (IOException | ParseException e) {
-			e.printStackTrace();
+
+
 		}finally{
 			if(reader!=null){
 				try {

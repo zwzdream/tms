@@ -19,6 +19,20 @@
        
             
      </c:if>
+     
+		<c:if test="${not empty jdNo2}">
+            <li>
+                  <a href="javascript:ajaxContent('/Index/dashboard/init')">Home</a>
+            </li>
+            <li>
+               <a href="javascript:ajaxContent('/Index/JD/init')">JD Management</a>
+            </li>
+            <li>
+               <a href="javascript:ajaxContent('/JD/toEdit','no=${jdNo2}')">JD Edit</a>
+            </li>
+       
+            
+     </c:if>
 	</ul>
 </div>
 <script type="text/javascript">
@@ -186,6 +200,13 @@
 					<button class="btn btn-primary" type="button" onclick="addTheResource('${bean.id}','${jdNo}','import');">ADD</button>
 				</div>
 	   </c:if>
+	   
+	 <c:if test="${not empty jdNo2}">
+				<div class="form-actions" style="text-align:center;">
+					<button class="btn btn-primary" type="button" onclick="removeTheResource('${bean.id}','${jdNo2}','import');">REMOVE</button>
+				</div>
+	   </c:if>
+
 			</div>
 	  
 		</div>

@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div>
 	<ul class="breadcrumb">
             <li>
@@ -8,6 +9,8 @@
             </li>
     </ul>
 </div>
+
+<c:if test="${not empty jd}">
 <div class="row">
 	<div class="box col-md-12">
 		<div class="box-inner">
@@ -40,6 +43,8 @@
 	
 </div>
 <!--/row-->
+</c:if>
+
  <div  class="row">
  <div class="box col-md-12">
   <div class="box-inner">

@@ -8,7 +8,7 @@
 	<!-- Static resources -->
 <!-- <http pattern="/Index/home/page" security="none">
 </http> -->
-	<http auto-config="true" use-expressions="true"   ><!-- entry-point-ref="authenticationEntryPoint"  -->
+	<http auto-config="true" use-expressions="true"  entry-point-ref="authenticationEntryPoint" ><!-- entry-point-ref="authenticationEntryPoint"(未起作用，原因不明)  -->
 		<http-basic />
 
 		<access-denied-handler ref="customAccessDeniedHandler"/>
@@ -45,9 +45,9 @@
 </session-management>
 </http>
    <!-- 未登录的切入点 --> 
-   	<!--  <beans:bean id="authenticationEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+   	  <beans:bean id="authenticationEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
         <beans:constructor-arg name="loginFormUrl" value="/auth/login" />     
-    </beans:bean>  -->  
+    </beans:bean>    
 
     
    

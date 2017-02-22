@@ -71,7 +71,7 @@ function listCanJoinResources(){
     		}else if(aData.type=='import'){
     			$('td:eq(1)', nRow).html("import");	
     		}
-    		console.log(aData.type);
+    		//console.log(aData.type);
     		$('td:eq(2)', nRow).html(aData.firstName+' '+aData.lastName);
     		if(aData.gender){
     			$('td:eq(4)', nRow).html('<span class="label-success label label-default">Male</span>');
@@ -152,10 +152,10 @@ function listTheBelongResources(){
     			$('td:eq(4)', nRow).html('<span class="label-warning label label-default">Female</span>');
     		}
     		if(aData.type=='add'){
-    			$('td:eq(5)', nRow).html('<a class="btn btn-info" href="#" onclick=ajaxContent(\"/Resource/toEditAdd\","resourceId='+ aData.id +'");>'
+    			$('td:eq(5)', nRow).html('<a class="btn btn-info" href="#" onclick=ajaxContent(\"/Resource/toEditAddFromJD2\","resourceId='+ aData.id+'&no='+no+'");>'
     	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit</a>&nbsp;');
     		}else if(aData.type=='import'){
-    			$('td:eq(5)', nRow).html('<a class="btn btn-info" href="#" onclick=ajaxContent(\"/Resource/toEditImport\","resourceId='+ aData.id +'");>'
+    			$('td:eq(5)', nRow).html('<a class="btn btn-info" href="#" onclick=ajaxContent(\"/Resource/toEditImportFromJD2\","resourceId='+ aData.id+'&no='+no+'");>'
     	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit</a>&nbsp;');
     		}
     		
@@ -177,18 +177,41 @@ function addTheResource(rId,no,rType){
 		    cache:false,
 		    success:function(data){
 		    	if(data!=null){
-				noty({type:"success",text: "Edit successed!", layout: "center", timeout: 3000});
+				noty({type:"success",text: "Add successed!", layout: "center", timeout: 3000});
 				$('#content').html(data);
 				//$('#jd_add_resource').html(data);
 				return true;
 			}
 		    },
 		    error:function(XMLHttpRequest, textStatus, errorThrown) {   
-		    	noty({type:"error",text: "Edit failed!", layout: "center", timeout: 3000});
+		    	noty({type:"error",text: "Add failed!", layout: "center", timeout: 3000});
 		    	return false;
 		    	},  
 		    async: false
 		});
+}
+
+function removeTheResource(rId,no,rType){
+	$.ajax({
+		url:ctx+"/Resource/deleteTheResourceFromJD",
+		data:{rId:rId,jdId:no,rType:rType},
+		type:"post",
+		dataType : 'html',
+		cache:false,
+		success:function(data){
+			if(data!=null){
+				noty({type:"success",text: "Remove successed!", layout: "center", timeout: 3000});
+				$('#content').html(data);
+				//$('#jd_add_resource').html(data);
+				return true;
+			}
+		},
+		error:function(XMLHttpRequest, textStatus, errorThrown) {   
+			noty({type:"error",text: "Remove failed!", layout: "center", timeout: 3000});
+			return false;
+		},  
+		async: false
+	});
 }
 
 
