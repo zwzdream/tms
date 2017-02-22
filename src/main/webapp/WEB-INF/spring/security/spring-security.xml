@@ -8,17 +8,19 @@
 	<!-- Static resources -->
 <!-- <http pattern="/Index/home/page" security="none">
 </http> -->
-	<http auto-config="true" use-expressions="true"  >
+	<http auto-config="true" use-expressions="true"   ><!-- entry-point-ref="authenticationEntryPoint"  -->
 		<http-basic />
-		 
+
 		<access-denied-handler ref="customAccessDeniedHandler"/>
 <!-- 		<access-denied-handler error-page="/auth/denied"/> -->
-		<intercept-url pattern="/Index/home/page" access="permitAll"/>  
-			    <intercept-url pattern="/Index/dashboard/init" access="permitAll"/> 
+		  
 		<intercept-url pattern="/auth/login" access="permitAll"/>  
-		<intercept-url pattern="/auth/logout" access="permitAll"/>  
+		<intercept-url pattern="/auth/logout" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/>  
 		
-		<intercept-url pattern="/Index/home/dashboard" access="permitAll"/>
+		<intercept-url pattern="/Index/home/page" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/>  
+	    <intercept-url pattern="/Index/dashboard/init" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/> 
+	    
+		 <intercept-url pattern="/Index/home/dashboard" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/> 
         <intercept-url pattern="/Index/home/JD" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/>   
         <intercept-url pattern="/Index/home/user" access="hasRole('ROLE_ADMIN')"/>  
         <intercept-url pattern="/Index/home/resource" access="hasRole('ROLE_ADMIN')"/>  
@@ -34,17 +36,22 @@
 		<form-login login-page="/auth/login"  login-processing-url="/j_spring_security_check " 
 		username-parameter="j_username"	 password-parameter="j_password"
 		 default-target-url="/Index/home/page"  authentication-failure-url="/auth/login?error=true"  />
-		 <remember-me key="myAppKey" user-service-ref="userDetailService"/>
-		<logout  invalidate-session="true"   logout-url="/auth/logout"/>
+		<logout  invalidate-session="true"   logout-url="/auth/logout" logout-success-url="/auth/login"/>
+		 <remember-me key="myAppKey" user-service-ref="userDetailService" remember-me-parameter="remember-me"/>		
 <!-- 配置会话超时时跳转的页面，tomcat默认30分钟过时 -->
 <session-management invalid-session-url="/auth/login">
   <!-- false这个会导致前一个登陆失效 true阻止第二次登陆 -->
   <concurrency-control max-sessions="1" error-if-maximum-exceeded="false"/>
 </session-management>
 </http>
-<!-- 	 <beans:bean id="authenticationProcessingFilterEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
-        <beans:property name="loginFormUrl" value="/auth/login"></beans:property>
-    </beans:bean>  -->
+   <!-- 未登录的切入点 --> 
+   	<!--  <beans:bean id="authenticationEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+        <beans:constructor-arg name="loginFormUrl" value="/auth/login" />     
+    </beans:bean>  -->  
+
+    
+   
+   
 	
  <beans:bean id="customAccessDeniedHandler" class="com.wistronits.tms.service.CustomAccessDeniedHandler">  
 </beans:bean>  
@@ -52,7 +59,7 @@
 	<beans:bean id="userDetailService" class="com.wistronits.tms.service.CustomUserDetailsServiceImpl"></beans:bean> 
 
 	<!-- 自定义权限管理，使用自己的user-service, user不能设置相同的name-->
-	<authentication-manager>
+	<authentication-manager erase-credentials="false">
 		<authentication-provider user-service-ref="userDetailService">
 	<!-- 	    <password-encoder ref="passwordEncoder">
 		    <salt-source user-property="username"/>
@@ -64,5 +71,5 @@
     <!-- 对密码进行MD5编码 -->  
     <beans:bean class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" id="passwordEncoder"></beans:bean> 
 
- <beans:bean id="requestDataValueProcessor" class="org.springframework.security.web.servlet.support.csrf.CsrfRequestDataValueProcessor" /> 
+  <beans:bean id="requestDataValueProcessor" class="org.springframework.security.web.servlet.support.csrf.CsrfRequestDataValueProcessor" />  
 </beans:beans>

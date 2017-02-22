@@ -2,7 +2,7 @@ function ajaxToLogout(form){
 		 var formData = new FormData(form);
 		  form.action= ctx + '/auth/logout';
 		  form.method = "post";	
-			  $('#content').fadeOut().parent().append('<div id="loading" class="center">Loading...<div class="center"></div></div>');
+			  $('#whole').fadeOut().parent().append('<div id="loading" class="center">Loading...<div class="center"></div></div>');
 			  $.ajax({
 					type : "post",
 					url : form.action,
@@ -14,7 +14,7 @@ function ajaxToLogout(form){
 			        dataType : 'html',
 			        success:function(data){
 						if(data !=""){
-							$('#content').html(data);
+							$('#whole').html(data);
 						}
 					},
 					error: function(XMLHttpRequest, textStatus, errorThrown) { 
@@ -22,7 +22,7 @@ function ajaxToLogout(form){
 			        },
 			        complete: function(XMLHttpRequest, textStatus) { 
 				    	$('#loading').remove();
-						$('#content').fadeIn();
+						$('#whole').fadeIn();
 						docReady();
 			        }
 			        });

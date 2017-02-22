@@ -15,7 +15,7 @@ function doQry(){
 function initTable(){
 	var groupname = $('#groupname').val();
 	$table.DataTable({
-    	searching: false,
+    	searching: true,
     	iDisplayLength: 5,//pagesize
     	aLengthMenu: [5, 10, 15, 20],
     	bLengthChange: true,//是否允许选择分页

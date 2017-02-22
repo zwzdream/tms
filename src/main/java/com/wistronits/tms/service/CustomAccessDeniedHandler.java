@@ -29,9 +29,9 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 	            response.setContentType("text/plain");
 	            StringBuffer callString=new StringBuffer("you have no access!<hr>");
 	            String href="/auth/login";
-	            callString.append("<a href='javascript:ajaxGet(\""+href+"\");'>Switch Identity </a>"+"or");
-	            href="/Index/dashboard/init";
-	            callString.append("<a href='javascript:ajaxContent(\""+href+"\");'>Return Home</a>");
+	            callString.append("<a href='javascript:ajaxGet(\""+href+"\");'>Switch Identity </a>");
+	            //href="/Index/dashboard/init";
+	           // callString.append("or"+"<a href='javascript:ajaxContent(\""+href+"\");'>Return Login</a>");
 	            response.getWriter().write(callString.toString());
 	            response.getWriter().close();
 	        }

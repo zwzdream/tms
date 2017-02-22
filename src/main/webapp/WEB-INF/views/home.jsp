@@ -104,6 +104,7 @@ body {
 </head>
 
 <body>
+  <div id="whole">
 	<%@ include file="top.jsp"%>
 	<div class="ch-container">
 		<div class="row">
@@ -154,7 +155,7 @@ body {
 
 	</div>
 	<!--/.fluid-container-->
-
+</div>
 	<!-- external javascript -->
 
 	<script

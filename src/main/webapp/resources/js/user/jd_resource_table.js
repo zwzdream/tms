@@ -23,15 +23,15 @@ function listCanJoinResources(){
 	var no=$("#id").val();
 	var keyWord = $('#keyWord').val();
 	$joinTable.DataTable({
-    	searching: true,
+    	searching: false,
     	iDisplayLength: 5,//pagesize
     	aLengthMenu: [5, 10, 15, 20],
     	bLengthChange: true,//是否允许选择分页
     	bProcessing: true,
     	bServerSide: true,
     	destroy: true,
-    	bFilter:true,
-    	bSort:true,
+    	bFilter:false,
+    	bSort:false,
     	bPaginate: true,
        // sPaginationType: "bootstrap",
     	sDom: '<"top"f>rt<"bottom"ip><"clear">',
@@ -98,15 +98,15 @@ function listTheBelongResources(){
 	var no=$("#id").val();
 	var keyword = $('#keyword').val();
 	$belongTable.DataTable({
-    	searching: true,
+    	searching: false,//去掉搜索框
     	iDisplayLength: 5,//pagesize
     	aLengthMenu: [5, 10, 15, 20],
     	bLengthChange: true,//是否允许选择分页
     	bProcessing: true,
     	bServerSide: true,
     	destroy: true,
-    	bFilter:true,
-    	bSort:true,
+    	bFilter:false,
+    	bSort:false,
     	bPaginate: true,
        // sPaginationType: "bootstrap",
     	sDom: '<"top"f>rt<"bottom"ip><"clear">',

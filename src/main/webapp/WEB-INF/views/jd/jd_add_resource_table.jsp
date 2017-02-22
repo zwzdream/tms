@@ -15,6 +15,7 @@
     	</div>
 				<div class="box-content">
 				    <table id="joinTable" class="table table-striped table-bordered bootstrap-datatable responsive" >
+				    <caption>The table shows the resources that can be added to the jd</caption>
 						    <thead>
 						    <tr>
 						        <th>#</th>
@@ -33,6 +34,7 @@
 
 				<div class="box-content">
 				    <table id="belongTable" class="table table-striped table-bordered bootstrap-datatable responsive" >
+				      <caption>The table shows the resources that already belong to the jd</caption>
 						    <thead>
 						    <tr>
 						    	<th>#</th>

@@ -9,18 +9,18 @@
             <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="index.html"> <img alt="Charisma Logo" src="${ctx}/resources/ui/charisma/img/logo20.png" class="hidden-xs"/>
-            <span>Charisma</span></a>
+            <span>TMS</span></a>
 
         <!-- user dropdown starts -->
         <div class="btn-group pull-right">
             <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                <i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs"> admin</span>
+                <i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs"> ${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username} </span>
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-                <li><a href="#">Profile</a></li>
-                <li class="divider"></li>
-                 <li><a  href="javascript:ajaxGet('/auth/login');">Login</a></li>
+              <!--   <li><a href="#">Profile</a></li>
+                <li class="divider"></li> -->
+                <!--  <li><a  href="javascript:ajaxGet('/auth/login');">Login</a></li> -->
                 <li><a  href="javascript:ajaxToLogout(logoutForm);">Logout</a></li>
             </ul>
         </div>
@@ -30,6 +30,7 @@
 	    </form>
 
         <!-- theme selector starts -->
+        <!-- 
         <div class="btn-group pull-right theme-container animated tada">
             <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                 <i class="glyphicon glyphicon-tint"></i><span
@@ -56,10 +57,12 @@
                 <li><a data-value="united" href="#"><i class="whitespace"></i> United</a></li>
            		<li><a data-value="yeti" href="#"><i class="whitespace"></i> Yeti</a></li>                
             </ul>
-        </div>
+        </div> 
+        -->
         <!-- theme selector ends -->
 
-        <ul class="collapse navbar-collapse nav navbar-nav top-menu">
+       <!--  
+       <ul class="collapse navbar-collapse nav navbar-nav top-menu">
             <li><a href="#"><i class="glyphicon glyphicon-globe"></i> Visit Site</a></li>
             <li class="dropdown">
                 <a href="#" data-toggle="dropdown"><i class="glyphicon glyphicon-star"></i> Dropdown <span
@@ -80,7 +83,8 @@
                            type="text">
                 </form>
             </li>
-        </ul>
+        </ul> 
+        -->
 
     </div>
 </div>

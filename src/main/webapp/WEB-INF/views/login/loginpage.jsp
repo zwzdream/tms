@@ -37,7 +37,7 @@
 						 <input id="j_password" class="form-control"  name="j_password" type="password" placeholder="Password" />  
 				</div>
 		<p class="center col-md-5">
-		<input type="checkbox" name="_spring_security_remember_me">两周之内不必登陆
+		<input type="checkbox" name="remember_me" value="true" />两周之内不必登陆
 		</p>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
             <p class="center col-md-5">

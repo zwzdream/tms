@@ -46,7 +46,7 @@ public class ViewOfficeOnline {
 		Process pro=null;
 		try {
 			if(environment==1){
-		    //启动OpenOffice的服务
+		    //Start the OpenOffice service
 		    String command=OpenOffice_Home+"program/soffice.exe -headless -accept=\"socket,host=127.0.0.1,port=8100;urp;\"";
 			pro = Runtime.getRuntime().exec(command);
 			//connect to an OpenOffice instance running on port 8100
@@ -57,12 +57,12 @@ public class ViewOfficeOnline {
 			if(resFile.exists()){
 				if(!pdfFile.exists()){//convert
 					converter.convert(resFile,pdfFile); 
-					 System.out.println("****office文件已经成功转换为pdf文件****"); 
+					 System.out.println("****Office file has been successfully converted to PDF files!****"); 
 				}else {
-					 System.out.println("****office文件已经转换为pdf文件，不需要再进行转化****");  
+					 System.out.println("****Office files have been converted to PDF file, don't need to convert again!****");  
 				}
 			}else{
-				System.out.println("office文件不存在，请仔细核对！");
+				System.out.println("***Office file does not exist, please check carefully!***");
 			}
 			//close the connection
 			 connection.disconnect();
@@ -75,13 +75,13 @@ public class ViewOfficeOnline {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("****office文件转换为pdf文件失败****");
+			System.out.println("****An office file failed to convert a PDF file!****");
 		}   finally{	if(pro.isAlive()){
 			 pro.destroy();
 		         }
 		  }
-		
-	}
+	        }
+	
 		
  }
 	/**
@@ -109,7 +109,7 @@ public class ViewOfficeOnline {
 			            e.printStackTrace();  
 			        } 
 					pro.destroy();
-					 System.out.println("****pdf文件已经成功转换为swf文件****");  
+					 System.out.println("****A PDF file has been successfully converted to a SWF file!****");  
 				}else if (environment == 2) {// linux环境处理  
 					 try {  
 						 String command="pdf2swf " + pdfFile.getPath()  + " -o " + swfFile.getPath() + " -T 9";
@@ -123,7 +123,7 @@ public class ViewOfficeOnline {
     			            e.printStackTrace();  
     			        } 
     					pro.destroy();
-    					 System.out.println("****pdf文件已经成功转换为swf文件****");
+    					 System.out.println("****A PDF file has been successfully converted to a SWF file!****");
                     } catch (Exception e) {  
                          e.printStackTrace();  
                          throw e;  
@@ -132,13 +132,13 @@ public class ViewOfficeOnline {
 					
 				}
 				}else {
-					 System.out.println("****pdf文件已经转换为swf文件，不需要再进行转化****");  
+					 System.out.println("****A PDF file has been successfully converted to A SWF file!****");  
 				}
 				}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("****pdf文件转换为swf文件失败****");
+			System.out.println("****An pdf file failed to convert a SWF file!****");
 		} finally{	
 		/*	if(pdfFile.exists()){
 			if(pdfFile.delete()){
