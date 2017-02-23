@@ -17,13 +17,13 @@ function initTable(){
 	var keyword = $('#keyword').val();
 	$table.DataTable({
     	searching: false,
-    	iDisplayLength: 5,//pagesize
+    	iDisplayLength: 10,//pagesize
     	aLengthMenu: [5, 10, 15, 20],
     	bLengthChange: true,//是否允许选择分页
     	bProcessing: true,
     	bServerSide: true,
     	destroy: true,
-    	bFilter:true,
+    	bFilter:false,
     	bSort:false,
     	bPaginate: true,
     	//sDom: "<'row'<'col-md-6'l><'col-md-6'f>r>t<'row'<'col-md-12'i><'col-md-12 center-block'p>>",

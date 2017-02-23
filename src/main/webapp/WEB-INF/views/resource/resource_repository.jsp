@@ -21,7 +21,7 @@ function initTable(){
 	var keyWord = $('#keyWord').val();
 	$('#rsRepositoryTable').DataTable({
     	searching: false,
-    	iDisplayLength: 5,//pagesize
+    	iDisplayLength: 10,//pagesize
     	aLengthMenu: [2, 5, 8, 10],
     	bLengthChange: true,
     	processing: true,
@@ -164,8 +164,21 @@ return false;
 						  	<div class="col-sm-3">
 							  	<input class="form-control" type="text" name="keyWord" id="keyWord" value='' maxlength="20" >
 						  	</div>	
+						  	
+						  	<div class="form-actions" >
+					  		 <!--   <div style="float:right;"> -->
+								<button type="button" class="btn btn-primary" onclick="searchResource('/Resource/searchresource');">Search</button>
+								&nbsp;&nbsp;&nbsp;
+					  			<button type="button" class="btn" onclick="ajaxContent('/Resource/toAdd.html');">Add</button>
+								&nbsp;&nbsp;&nbsp;
+								<button type="button" class="btn" onclick="ajaxContent('/Resource/toimport');">Import</button>
+								&nbsp;&nbsp;&nbsp;
+								<button type="reset" class="btn">Clear</button>
+					  		<!--   </div> -->
+					      	</div> 
+					  	
 					  	</div>
-					  	<div class="form-actions" >
+					<!--   	<div class="form-actions" >
 					  		<div style="float:right;">
 								<button type="button" class="btn btn-primary" onclick="searchResource('/Resource/searchresource');">Search</button>
 								&nbsp;&nbsp;&nbsp;
@@ -175,7 +188,7 @@ return false;
 								&nbsp;&nbsp;&nbsp;
 								<button type="reset" class="btn">Clear</button>
 					  		</div>
-					  	</div>
+					  	</div> -->
 					</fieldset>
 				</div>
 			</div>

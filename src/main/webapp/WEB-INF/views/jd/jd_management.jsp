@@ -32,9 +32,9 @@
 						  	<div class="col-sm-3">
 							  	<input id="keyword" class="form-control" type="text" name="keyword" value='' maxlength="20" >
 						  	</div>	
-					  	</div>
-					  	<div class="form-actions" >
-					  		<div style="float:right;">
+						<div class="form-actions" >
+						  	<!-- <div style="float:right;padding-right: 18px"> -->
+						  	<div>
 								<button type="button" class="btn btn-primary" onclick='doQry();'>Search</button>
 								&nbsp;&nbsp;&nbsp;
 					  			<button type="button" class="btn" onclick='ajaxContent("/JD/toAdd.html");'>Add</button>
@@ -42,6 +42,16 @@
 								<button type="reset" class="btn">Clear</button>
 					  		</div>
 					  	</div>
+					  	</div>
+				<!-- 	  	<div class="form-actions" >
+					  		<div style="float:right;">
+								<button type="button" class="btn btn-primary" onclick='doQry();'>Search</button>
+								&nbsp;&nbsp;&nbsp;
+					  			<button type="button" class="btn" onclick='ajaxContent("/JD/toAdd.html");'>Add</button>
+								&nbsp;&nbsp;&nbsp;
+								<button type="reset" class="btn">Clear</button>
+					  		</div>
+					  	</div> -->
 					</fieldset>
 				</div>
 			</div>

@@ -32,15 +32,23 @@
 						  	<div class="col-sm-3">
 							  	<input id="groupname" class="form-control" type="text" name="groupname"  maxlength="20" >
 						  	</div>	
+						  		<div class="form-actions" >
+					  		
+								<button id="button" type="button" class="btn btn-primary" onclick='doQry();'>Search</button>
+					  			<button type="button" class="btn" onclick='ajaxContent("/Group/toAdd");'>Add</button>
+								&nbsp;&nbsp;&nbsp;
+								<button type="reset" class="btn">Clear</button>
+					  		
 					  	</div>
-					  	<div class="form-actions" >
+					  	</div>
+					  <!-- 	<div class="form-actions" >
 					  		<div style="float:right;">
 								<button id="button" type="button" class="btn btn-primary" onclick='doQry();'>Search</button>
 					  			<button type="button" class="btn" onclick='ajaxContent("/Group/toAdd");'>Add</button>
 								&nbsp;&nbsp;&nbsp;
 								<button type="reset" class="btn">Clear</button>
 					  		</div>
-					  	</div>
+					  	</div> -->
 					</fieldset>
 				</div>
 			</div>

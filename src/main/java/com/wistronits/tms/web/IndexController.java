@@ -54,6 +54,12 @@ public class IndexController {
 
     if (!StringUtils.isEmpty(targetAction)) {
       if ("dashboard".equals(targetAction)) {
+    	  int jdCount= jdBeanService.listAll().size();
+    		 model.addAttribute("jdCount", jdCount);
+    		 model.addAttribute("curJDCount", jdBeanService.listCurrentWeekCount());
+    		 model.addAttribute("resourceCount", resumeService.getAllBeansCount());
+    		 model.addAttribute("curResourceCount", resumeService.getCurrentWeekCount());
+    		 
         return "/content";
       } else if ("JD".equals(targetAction)) {
         return "/jd/jd_management";

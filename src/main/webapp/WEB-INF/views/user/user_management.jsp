@@ -27,22 +27,30 @@
 					</div>
 				</div>
 				<div class="box-content">
-					<fieldset>
+			<!-- 		<fieldset> -->
 					  	<div class="form-group">
 							<label class="col-sm-2 control-label" for="name">UserName</label>
 						  	<div class="col-sm-3">
 							  	<input id="username" class="form-control" type="text" name="username"  maxlength="20" >
 						  	</div>	
+						  	
+						  <div>
+								<button id="button" type="button" class="btn btn-primary" onclick='doQry();'>Search</button>
+					  			<button type="button" class="btn" onclick='ajaxContent("/User/toAdd");'>Add</button>
+								&nbsp;&nbsp;&nbsp;
+								<button type="reset" class="btn">Clear</button>
 					  	</div>
-					  	<div class="form-actions" >
+					  		
+					  	</div>
+					<!--   	<div class="form-actions" >
 					  		<div style="float:right;">
 								<button id="button" type="button" class="btn btn-primary" onclick='doQry();'>Search</button>
 					  			<button type="button" class="btn" onclick='ajaxContent("/User/toAdd");'>Add</button>
 								&nbsp;&nbsp;&nbsp;
 								<button type="reset" class="btn">Clear</button>
 					  		</div>
-					  	</div>
-					</fieldset>
+					  	</div> -->
+			<!-- 		</fieldset> -->
 				</div>
 			</div>
 		</div><!--/span-->

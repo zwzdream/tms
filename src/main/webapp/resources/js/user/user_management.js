@@ -17,7 +17,7 @@ function initTable(){
 	$table.DataTable({
 		
     	searching: false,
-    	iDisplayLength: 5,//pagesize
+    	iDisplayLength: 10,//pagesize
     	aLengthMenu: [5, 10, 15, 20],
     	bLengthChange: true,//是否允许选择分页
     	bProcessing: true,
