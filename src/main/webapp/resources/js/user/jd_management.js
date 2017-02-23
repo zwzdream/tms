@@ -3,9 +3,10 @@ $(function(){
    initTable();
 });
 function doQry(){
-	var keyWord = $('#keyWord').val();
-	if(keyWord=='') {
-		noty({type:"warning",text: "The keyword is emopty! Please enter it.", layout: "bottom", timeout: 3000});
+	var keyword = $('#keyword').val();
+	if(keyword=='') {
+		noty({type:"warning",text: "The keyword is empty! Please enter a keyword to accurately query.", layout: "bottom", timeout: 3000});
+		initTable();
 	}else{
 		$table.dataTable().fnClearTable(false);
 		initTable();
@@ -68,7 +69,7 @@ function initTable(){
     		}else if(aData.status==0){
     			$('td:eq(4)', nRow).html('<span class="label-error label label-default">Close</span>');
     		}
-    		$('td:eq(5)', nRow).html('<a class="btn btn-info" href="#" onclick=ajaxContent(\"/JD/toEdit/\","no='+ aData.no +'");>'
+    		$('td:eq(5)', nRow).html('<a  href="#" onclick=ajaxContent(\"/JD/toEdit/\","no='+ aData.no +'");>'
 	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit</a>&nbsp;'
 	    		/*	+'<a class="btn btn-success" href="#" onclick=ajaxContent(\"/JD/toAddResource\","no='+ aData.no +'");>'
 	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Add Resource</a>'*/);

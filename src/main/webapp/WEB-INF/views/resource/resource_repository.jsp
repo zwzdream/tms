@@ -1,14 +1,22 @@
 <script type="text/javascript">
-function searchResource(url){
+/* function searchResource(url){
+
+		$("#rsRepositoryTable").dataTable().fnClearTable(false);
+		initTable();
+
+
+} */
+ function searchResource(url){
 	var keyWord = $('#keyWord').val();
 	if(keyWord=='') {
-		noty({type:"warning",text: "The keyword is emopty! Please enter it.", layout: "bottom", timeout: 3000});
+		noty({type:"warning",text: "The keyword is emopty! Please enter a keyword to accurately query.", layout: "bottom", timeout: 3000});
+		initTable();
 	}else{
 		$("#rsRepositoryTable").dataTable().fnClearTable(false);
 		initTable();
 	}
 
-}
+} 
 function initTable(){
 	var keyWord = $('#keyWord').val();
 	$('#rsRepositoryTable').DataTable({
@@ -22,7 +30,7 @@ function initTable(){
     	bFilter:false,
     	bSort:false,
     	bPaginate: true,
-    	//sDom: "<'row'<'col-md-6'l><'col-md-6'f>r>t<'row'<'col-md-12'i><'col-md-12 center-block'p>>",
+    	//sDom: "<'row'<'col-md-6'><'col-md-6'f>r>t<'row'<'col-md-12'i><'col-md-12 center-block'p>>",
        // sPaginationType: "bootstrap",
        sDom: '<"top"f>rt<"bottom"ip><"clear">',
         oLanguage: {
@@ -60,14 +68,14 @@ function initTable(){
     		}
     
     		if(aData.type=='add'){
-    			$('td:eq(5)', nRow).html('<a class="btn btn-info" href="#" onclick=ajaxContent(\"/Resource/toEditAdd\","resourceId='+ aData.id +'");>'
+    			$('td:eq(5)', nRow).html('<a  href="#" onclick=ajaxContent(\"/Resource/toEditAdd\","resourceId='+ aData.id +'");>'
     	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit</a>&nbsp;'
-    	    			+'<a class="btn btn-danger" href="#" onclick=deleteResource(\"/Resource/toDeleteAdd\","resourceId='+ aData.id +'");>'
+    	    			+'<a  href="#" onclick=deleteResource(\"/Resource/toDeleteAdd\","resourceId='+ aData.id +'");>'
     	    			+'<i class="glyphicon glyphicon-trash icon-white"></i>Delete</a>');
     		}else if(aData.type=='import'){
-    			$('td:eq(5)', nRow).html('<a class="btn btn-info" href="#" onclick=ajaxContent(\"/Resource/toEditImport\","resourceId='+ aData.id +'");>'
+    			$('td:eq(5)', nRow).html('<a   href="#" onclick=ajaxContent(\"/Resource/toEditImport\","resourceId='+ aData.id +'");>'
     	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit</a>&nbsp;'
-    	    			+'<a class="btn btn-danger" href="#" onclick=deleteResource(\"/Resource/toDeleteImport\","resourceId='+ aData.id +'");>'
+    	    			+'<a  href="#" onclick=deleteResource(\"/Resource/toDeleteImport\","resourceId='+ aData.id +'");>'
     	    			+'<i class="glyphicon glyphicon-trash icon-white"></i>Delete</a>');
     		}
     	

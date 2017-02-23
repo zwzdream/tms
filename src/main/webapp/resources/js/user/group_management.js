@@ -5,7 +5,8 @@ $(function(){
 function doQry(){
 	var groupname = $('#groupname').val();
 	if(groupname=='') {
-		noty({type:"warning",text: "Please enter the groupname that you want to search!", layout: "bottom", timeout: 3000});
+		noty({type:"warning",text: "Please enter the groupname that you want to search accurately!", layout: "bottom", timeout: 3000});
+		initTable();
 	}else{
 		$table.dataTable().fnClearTable(false);
 		initTable();
@@ -50,9 +51,9 @@ function initTable(){
     		/*{sDefaultContent: ''}*/
     	],
     	fnRowCallback: function(nRow, aData, iDisplayIndex) {
-    		$('td:eq(3)', nRow).html('<a class="btn btn-info" href="#" onclick="edit(\''+ aData.id + '\')";>'
+    		$('td:eq(3)', nRow).html('<a  href="#" onclick="edit(\''+ aData.id + '\')";>'
 	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit</a>&nbsp;'
-	    			+'<a class="btn btn-danger" href="#" onclick="del(\''+ aData.id + '\')";>'
+	    			+'<a  href="#" onclick="del(\''+ aData.id + '\')";>'
 	    			+'<i class="glyphicon glyphicon-trash icon-white"></i>Delete</a>');
     	/*	$('td:eq(4)', nRow).html('<a class="btn btn-info" href="#" onclick="editUser(\''+ aData.id + '\')";>'
     				+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit</a>')*/

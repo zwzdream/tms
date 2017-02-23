@@ -9,7 +9,8 @@ $(function(){
 function searchCanJoinResource(url){
 	var keyWord = $('#keyWord').val();
 	if(keyWord=='') {
-		noty({type:"warning",text: "The keyword is emopty! Please enter it.", layout: "bottom", timeout: 3000});
+		noty({type:"warning",text: "The keyword is empty! Please enter it.", layout: "bottom", timeout: 3000});
+		listCanJoinResources();
 	}else{
 		$joinTable.dataTable().fnClearTable(false);
 		listCanJoinResources();
@@ -79,10 +80,10 @@ function listCanJoinResources(){
     			$('td:eq(4)', nRow).html('<span class="label-warning label label-default">Female</span>');
     		}
     		if(aData.type=='add'){
-    			$('td:eq(5)', nRow).html('<a class="btn btn-info" href="#" onclick=ajaxContent(\"/Resource/toEditAddFromJD\","resourceId='+ aData.id+'&no='+no+'");>'
+    			$('td:eq(5)', nRow).html('<a  href="#" onclick=ajaxContent(\"/Resource/toEditAddFromJD\","resourceId='+ aData.id+'&no='+no+'");>'
     	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit</a>&nbsp;');
     		}else if(aData.type=='import'){
-    			$('td:eq(5)', nRow).html('<a class="btn btn-info" href="#" onclick=ajaxContent(\"/Resource/toEditImportFromJD\","resourceId='+ aData.id+'&no='+no+'");>'
+    			$('td:eq(5)', nRow).html('<a  href="#" onclick=ajaxContent(\"/Resource/toEditImportFromJD\","resourceId='+ aData.id+'&no='+no+'");>'
     	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit</a>&nbsp;');
     		}
     		
@@ -152,10 +153,10 @@ function listTheBelongResources(){
     			$('td:eq(4)', nRow).html('<span class="label-warning label label-default">Female</span>');
     		}
     		if(aData.type=='add'){
-    			$('td:eq(5)', nRow).html('<a class="btn btn-info" href="#" onclick=ajaxContent(\"/Resource/toEditAddFromJD2\","resourceId='+ aData.id+'&no='+no+'");>'
+    			$('td:eq(5)', nRow).html('<a  href="#" onclick=ajaxContent(\"/Resource/toEditAddFromJD2\","resourceId='+ aData.id+'&no='+no+'");>'
     	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit</a>&nbsp;');
     		}else if(aData.type=='import'){
-    			$('td:eq(5)', nRow).html('<a class="btn btn-info" href="#" onclick=ajaxContent(\"/Resource/toEditImportFromJD2\","resourceId='+ aData.id+'&no='+no+'");>'
+    			$('td:eq(5)', nRow).html('<a  href="#" onclick=ajaxContent(\"/Resource/toEditImportFromJD2\","resourceId='+ aData.id+'&no='+no+'");>'
     	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit</a>&nbsp;');
     		}
     		
