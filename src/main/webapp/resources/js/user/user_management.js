@@ -73,7 +73,7 @@ function edit(id){
 	ajaxContent('/User/toEdit/' + id);
 }
 function del(id){
-	ajaxContent('/User/delete/' + id);
+	if(confirm('Are you sure?')){ajaxContent('/User/delete/' + id);alert('DELETE SUCCESS!');}
 }
 function editGroup(id){
 	ajaxContent('/User/editGroup/' + id);

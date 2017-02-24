@@ -50,7 +50,8 @@ public class UserBean {
 	public String getDate() {
 		String desc = "";
 		if (this.date != null) {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			//SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			desc = sdf.format(this.date);
 		}
 		return desc;

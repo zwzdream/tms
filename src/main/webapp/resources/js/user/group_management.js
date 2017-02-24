@@ -68,7 +68,7 @@ function edit(id){
 	ajaxContent('/Group/toEdit/' + id);
 }
 function del(id){
-	ajaxContent('/Group/delete/' + id);
+	if(confirm('Are you sure?')){ajaxContent('/Group/delete/' + id);alert('DELETE SUCCESS!');}
 }
 function editUser(id){
 	ajaxContent('/Group/editUser/' + id);

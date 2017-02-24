@@ -1,44 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<div>
-	<ul class="breadcrumb">
-	<c:if test="${not empty resourceId}">
-            <li>
-               <a href="javascript:ajaxContent('/Index/dashboard/init')">Home</a>
-            </li>
-            <li>
-                <a href="javascript:ajaxContent('/Index/resource/init')">Resource Repository</a>
-            </li>
-     </c:if>
-	<c:if test="${not empty jdNo}">
-            <li>
-                  <a href="javascript:ajaxContent('/Index/dashboard/init')">Home</a>
-            </li>
-            <li>
-               <a href="javascript:ajaxContent('/Index/JD/init')">JD Management</a>
-            </li>
-            <li>
-               <a href="javascript:ajaxContent('/JD/toEdit','no=${jdNo}')">JD Edit</a>
-            </li>
-       
-            
-     </c:if>
-	<c:if test="${not empty jdNo2}">
-            <li>
-                  <a href="javascript:ajaxContent('/Index/dashboard/init')">Home</a>
-            </li>
-            <li>
-               <a href="javascript:ajaxContent('/Index/JD/init')">JD Management</a>
-            </li>
-            <li>
-               <a href="javascript:ajaxContent('/JD/toEdit','no=${jdNo2}')">JD Edit</a>
-            </li>
-       
-            
-     </c:if>
-    </ul>
-</div>
-<script type="text/javascript">
+<script>
 $(function(){
 	attachCalendarInput();
 	var gender = '${bean.gender}';
@@ -85,6 +47,46 @@ function updateResume(divId, formId){
 	}); 
 }
 </script>
+
+<div>
+	<ul class="breadcrumb">
+	<c:if test="${not empty resourceId}">
+            <li>
+               <a href="javascript:ajaxContent('/Index/dashboard/init')">Home</a>
+            </li>
+            <li>
+                <a href="javascript:ajaxContent('/Index/resource/init')">Resource Repository</a>
+            </li>
+     </c:if>
+	<c:if test="${not empty jdNo}">
+            <li>
+                  <a href="javascript:ajaxContent('/Index/dashboard/init')">Home</a>
+            </li>
+            <li>
+               <a href="javascript:ajaxContent('/Index/JD/init')">JD Management</a>
+            </li>
+            <li>
+               <a href="javascript:ajaxContent('/JD/toEdit','no=${jdNo}')">JD Edit</a>
+            </li>
+       
+            
+     </c:if>
+	<c:if test="${not empty jdNo2}">
+            <li>
+                  <a href="javascript:ajaxContent('/Index/dashboard/init')">Home</a>
+            </li>
+            <li>
+               <a href="javascript:ajaxContent('/Index/JD/init')">JD Management</a>
+            </li>
+            <li>
+               <a href="javascript:ajaxContent('/JD/toEdit','no=${jdNo2}')">JD Edit</a>
+            </li>
+       
+            
+     </c:if>
+    </ul>
+</div>
+
 <div class="row-fluid sortable">
 	<div class="box span12">
 		<div class="box-header well" data-original-title="">

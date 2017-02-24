@@ -6,7 +6,7 @@
  <link href='${ctx}/resources/ui/multiselect/css/style.css' rel='stylesheet'>
  <link href='${ctx}/resources/ui/multiselect/lib/google-code-prettify/prettify.css' rel='stylesheet'>
  <script src="${ctx}/resources/js/user/group_user.js"></script>
-<div>
+<!-- <div>
 	<ul class="breadcrumb">
             <li>
                <a href="#"  onclick='ajaxContent("/Index/dashboard/init")'>Home</a>
@@ -15,7 +15,7 @@
                   <a href="#"  onclick='ajaxContent("/Index/group/init")'>Group Management</a>
             </li>
     </ul>
-</div>
+</div> -->
 <div class="row-fluid sortable">
 <%--  <div class="form-control">
 	 <label class="col-sm-12 control-label" for="groupName">GroupName:<span id="groupName" class="text-success">${groupName}</span></label> 	 
