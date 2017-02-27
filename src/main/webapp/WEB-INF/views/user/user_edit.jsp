@@ -16,7 +16,7 @@
 	<div class="box span12">
 		<div class="box-header well" data-original-title>
 			<h2>
-				<i class="glyphicon glyphicon-edit"></i> Add
+				<i class="glyphicon glyphicon-edit"></i> Edit
 			</h2>
 			<div class="box-icon">
 				<a href="#" class="btn btn-minimize btn-round"><i class="glyphicon glyphicon-chevron-up"></i></a> 
@@ -40,7 +40,7 @@
  <div class="box col-md-12">
   <div class="box-inner">
           <div class="box-header well" data-original-title="">
-			<h2><i class="glyphicon glyphicon-edit"></i>Add&nbsp;Resource</h2>
+			<h2><i class="glyphicon glyphicon-edit"></i>View</h2>
 			<div class="box-icon">
 				<a href="#" class="btn btn-minimize btn-round btn-default"><i class="glyphicon glyphicon-chevron-up"></i></a> 
 				<a href="#" class="btn btn-close btn-round btn-default"><i class="glyphicon glyphicon-remove"></i></a>
