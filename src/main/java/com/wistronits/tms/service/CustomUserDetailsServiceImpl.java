@@ -17,61 +17,52 @@ import org.springframework.stereotype.Service;
 
 import com.wistronits.tms.dao.IUserDao;
 import com.wistronits.tms.entity.UserBean;
+import com.wistronits.tms.entity.customerUser;
 
 @Service
-public class CustomUserDetailsServiceImpl implements UserDetailsService {  
-  @Resource
-  private IUserDao userDao;
+public class CustomUserDetailsServiceImpl implements UserDetailsService {
+	@Resource
+	private IUserDao userDao;
 
-  @Override
-    public UserDetails loadUserByUsername(String username)  
-            throws UsernameNotFoundException, DataAccessException {  
-        ArrayList<UserDetails> userList=new ArrayList<UserDetails>();
-        UserDetails user = null;  
-  
-        try {  
-            ArrayList<UserBean> users = userDao.listByName(username);
-            for (UserBean dbUser : users) {  
-                if (dbUser.getUsername().equals(username) == true) {  
-                	userList.add(new User(dbUser.getUsername(), dbUser.getPassword()  
-                            .toLowerCase(), true, true, true, true,  
-                            getAuthorities(dbUser.getPermission())));
-                }  
-            }  
-  
-        } catch (Exception e) {  
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {
+		customerUser user = null;
 
-            throw new UsernameNotFoundException("Error in retrieving user");  
-        }  
-       for(UserDetails u:userList){
-    	  return u;
-       }
-        
-  
-        return user;  
-    }  
-  
-    /** 
-     * 获得访问角色权限 
-     *  
-     * @param access 
-     * @return 
-     */  
-    public Collection<GrantedAuthority> getAuthorities(Integer access) {  
-  
-        List<GrantedAuthority> authList = new ArrayList<GrantedAuthority>(2);  
-  
-        // 所有的用户默认拥有ROLE_USER权限  
+		try {
+			UserBean dbUser = userDao.listByName(username).get(0);
+			
+				if (dbUser.getUsername().equals(username) == true) {
 
-        authList.add(new SimpleGrantedAuthority("ROLE_USER"));  
-  
-        // 如果参数access为1.则拥有ROLE_ADMIN权限  
-        if (access.compareTo(1) == 0) {  
-           authList.add(new SimpleGrantedAuthority("ROLE_ADMIN"));  
-        }  
-  
-        return authList;  
-    }  
-}  
+					user=		new customerUser(dbUser.getId(), dbUser.getUsername(), dbUser.getPassword().toLowerCase(),
+									true, true, true, true, getAuthorities(dbUser.getPermission()));
+				}
+			
+
+		} catch (Exception e) {
+			throw new UsernameNotFoundException("Error in retrieving user");
+		}
 		
+		return user;
+	}
+	/**
+	 * 获得访问角色权限
+	 * 
+	 * @param access
+	 * @return
+	 */
+	public Collection<GrantedAuthority> getAuthorities(Integer access) {
 
+		List<GrantedAuthority> authList = new ArrayList<GrantedAuthority>(2);
+
+		// 所有的用户默认拥有ROLE_USER权限
+
+		authList.add(new SimpleGrantedAuthority("ROLE_USER"));
+
+		// 如果参数access为1.则拥有ROLE_ADMIN权限
+		if (access.compareTo(1) == 0) {
+			authList.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+		}
+
+		return authList;
+	}
+}

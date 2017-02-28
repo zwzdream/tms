@@ -50,7 +50,7 @@ function initTable(){
          },
       
    	aoColumns:[
-    		{sDefaultContent: ''},
+    		{mData: 'no'},
     		{mData:'title'},
     		{mData:'description'},
     		{sDefaultContent: 'Pending'},
@@ -58,9 +58,10 @@ function initTable(){
     		{sDefaultContent: ''}
     	],
     	fnRowCallback: function(nRow, aData, iDisplayIndex) {
-    		var tableSetings = this.fnSettings(); 
-    		var page_start = tableSetings._iDisplayStart;//查询页开始的索引
-    		$('td:eq(0)', nRow).html(page_start+iDisplayIndex+1);
+    		//var tableSetings = this.fnSettings(); 
+    		//var page_start = tableSetings._iDisplayStart;//查询页开始的索引
+    		//$('td:eq(0)', nRow).html(page_start+iDisplayIndex+1);
+    		//$('td:eq(0)', nRow).html(aData.no);
     		if(aData.duration>0){
     		$('td:eq(3)', nRow).html(aData.duration);
     		}

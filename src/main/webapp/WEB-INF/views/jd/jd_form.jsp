@@ -50,14 +50,26 @@
 </script>
 <fieldset>
 	<div class="form-group tr-new">
-        <label class="col-sm-2 control-label" for="no">No.</label>
+     <!--    <label class="col-sm-2 control-label" for="no">No.</label>
         <div class="col-sm-4">
          	<input type="number" class="form-control" id="no" name="no" placeholder="No." style="height:35px;">
-        </div>
-        <label class="col-sm-2 control-label" for="priority">Priority</label>
-        <div class="col-sm-4">
+        </div> -->
+         <!-- <label class="col-sm-2 control-label" for="priority">Priority</label>
+       <div class="col-sm-4">
          	<input type="text" class="form-control" id="priority" name="priority" placeholder="Priority" style="height:35px;">
-        </div>
+        </div> -->
+     
+                    <label class="col-sm-2 control-label" for="priority">Priority</label>
+
+                    <div class="col-sm-10 controls">
+                        <select id="priority" name="priority"  class="form-control" data-rel="chosen">
+                              <option value="0" >common</option>
+                              <option value="1">priority</option>
+                               <option value="2">emergency</option>
+                        </select>
+                    </div>
+       
+                
     </div>
      <div class="form-group tr-new">
         <label class="col-sm-2 control-label" for="title">Title</label>
@@ -67,13 +79,14 @@
     </div>		
     <div class="form-group tr-new">
         <label class="col-sm-2 control-label" for="client">Client</label>
-        <div class="col-sm-4">
+        <div class="col-sm-10">
         	<input type="text" class="form-control" id="client" name="client" placeholder="Client" style="height:35px;">
         </div>
-        <label class="col-sm-2 control-label" for="status">Status</label>
+     <!--  <label class="col-sm-2 control-label" for="status">Status</label>
         <div class="col-sm-4">
         	<input type="text" class="form-control" id="status" name="status" placeholder="Status" style="height:35px;">
-   		</div>
+   		</div>  -->
+   		<input type="hidden" class="form-control" id="status" name="status" value="1" >
     </div>					                    
     <div class="form-group tr-new">
         <label class="col-sm-2 control-label" for="location">Location</label>
@@ -99,13 +112,20 @@
     </div>
     <div class="form-group tr-new">
         <label class="col-sm-2 control-label" for="local">Local</label>
-        <div class="col-sm-4">
+  <!--       <div class="col-sm-4">
         	<input type="text" class="form-control" id="local" name="local" placeholder="Local" style="height:35px;">
-        </div>
+        </div> -->
+          <div class="col-sm-4">
+          <input type="radio" name="local" id="local1" value="true" checked="checked"> YES &nbsp;&nbsp;
+           <input type="radio" name="local" id="local2" value="false"> NO
+            </div>
         <label class="col-sm-2 control-label" for="owner">Owner</label>
         <div class="col-sm-4">
-       	 	<input type="text" class="form-control" id="owner" name="owner" placeholder="Owner" style="height:35px;">
+       	 	<input type="text" class="form-control" id="owner" name="owner" value="${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.id}" >
     	</div>
+<!--         <div class="col-sm-4">
+       	 	<input type="text" class="form-control" id="owner" name="owner" placeholder="Owner" style="height:35px;" >
+    	</div> -->
     </div>	
     <div class="form-group tr-new">
         <label class="col-sm-2 control-label" for="description">Description</label>

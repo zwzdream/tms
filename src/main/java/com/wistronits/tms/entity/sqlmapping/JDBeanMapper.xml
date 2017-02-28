@@ -30,8 +30,8 @@
 	<!-- mysql like的写法
      like concat('%',#{param},'%')  或者 like '%${param}%' ，推荐使用前者，可以避免sql注入。   -->
   		<![CDATA[
-	  		select * from jd A  where A.status=1 and A.keyword like concat('%',#{keyword},'%') 
-	  		union  select * from jd A where A.status=1 and A.title like concat('%',#{keyword},'%')
+	  		select * from jd A  where A.status=1 and A.title like concat('%',#{keyword},'%') 
+	  		union  select * from jd A where A.status=1 and A.description like concat('%',#{keyword},'%')
 		]]>
 	</select>
 	<select id="getJD" resultMap="BaseResultMap">
