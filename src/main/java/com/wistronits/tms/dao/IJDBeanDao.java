@@ -15,9 +15,7 @@ public interface IJDBeanDao {
 	public void closeJD(int no,Date date);
 	public ArrayList<JDBean> listAll();
 	public int listCurrentWeekCount();
-	public ArrayList<JDBean> getJDsInImport(int rid);
 	public ArrayList<JDBean> getJDsInAdd(int rid);
-	public ArrayList<JDBean> getJDsNotInImport(int rid);
 	public ArrayList<JDBean> getJDsNotInAdd(int rid);
 
 }

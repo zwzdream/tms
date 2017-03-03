@@ -3,47 +3,31 @@ package com.wistronits.tms.dao;
 import java.util.List;
 import java.util.Map;
 
-import com.wistronits.tms.entity.ImportResourceBean;
-import com.wistronits.tms.entity.JDBean;
 import com.wistronits.tms.entity.ResumeBean;
 
 public interface IResumeDao {
 
-	public int addResume(ResumeBean rDto);
-	public int insertResource(ImportResourceBean resource);
-	public List<ResumeBean> getAllResume();
-	public List<ImportResourceBean> getAllImportBeans();
-	public List<ImportResourceBean> getImportResourceByIds(List<Integer> ids);
-	public int getAllImportBeansCount();
-	public List<ImportResourceBean> getAddResourceByIds(List<Integer> ids);
-	public List<ImportResourceBean> getAllBeans();
-	public List<ImportResourceBean> getBeansByIds(Map<String, Object> mapList);
-	public int getAllBeansCount();
+	//public int addResume(ResumeBean rDto);
+	public int addResource(ResumeBean resource);
+	//public int insertResource(ImportResourceBean resource);
+	//public List<ResumeBean> getAllResume();
+	//public List<ImportResourceBean> getAllImportBeans();
+	public List<ResumeBean> getAllResources();
+	//public List<ImportResourceBean> getImportResourceByIds(List<Integer> ids);
+	//public List<ResumeBean> getAddResourceByIds(List<Integer> ids);
+	public List<ResumeBean> getResourcesByIds(List<Integer> ids);
+
+	public int getAllResourcesCount();
+	public List<ResumeBean> getBeansByIds(Map<String, Object> mapList);
 	public int getCurrentWeekCount();
-	public int deleteImportResource(int resourceId);
-	public int deleteResume(int resourceId);
-	public ImportResourceBean getImportResourceById(int resourceId);
-	public ResumeBean getResumeById(int resourceId);
-	public int editImportResource(ImportResourceBean resource);
-	public int editResume(ResumeBean rDto);
-/*	public List<ImportResourceBean> haveResumes(int no);
-	public List<ImportResourceBean> haveImportBeans(int no);*/
-	public List<ImportResourceBean> haveBeans(int no);
-/*	public List<ImportResourceBean> haveNotResumes(int no);
-	public List<ImportResourceBean> haveNotImportBeans(int no);*/
-	public List<ImportResourceBean> haveNotBeans(int no);
-	public int editBelongImportResource(int no,int rid);
-	public int addImportResourceToJD(int no,int rid);
-	public int addResumeResourceToJD(int no,int rid);
-	public int editBelongResumeResource(int no,int rid);
-	public int deleteImportResourceFromJD(int no,int rid);
-	public int deleteResumeResourceFromJD(int no,int rid);
-	public List<JDBean>  getJDsNotInAdd(int rid);
-	public List<JDBean>  getJDsInAdd(int rid);
-	public List<JDBean>  getJDsNotInImport(int rid);
-	public List<JDBean>  getJDsInImport(int rid);
+	public int deleteResource(int resourceId);
+	public ResumeBean getResourceById(int resourceId);
+	public int editResource(ResumeBean resource);
+	public List<ResumeBean> haveBeans(int no);
+	public List<ResumeBean> haveNotBeans(int no);
+	public int addResourceToJD(int no,int rid);
+	public int deleteResourceFromJD(int no,int rid);
 	public List<Integer>  getAddIdsByNo(int no);
-	public List<Integer>  getImportIdsByNo(int no);
 	
 	
 

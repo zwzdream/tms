@@ -1,11 +1,4 @@
-/* function searchResource(url){
-
-		$("#rsRepositoryTable").dataTable().fnClearTable(false);
-		initTable();
-
-
-} */
- function searchResource(url){
+function searchResource(url){
 	var keyWord = $('#keyWord').val();
 	if(keyWord=='') {
 		noty({type:"warning",text: "The keyword is emopty! Please enter a keyword to accurately query.", layout: "bottom", timeout: 3000});
@@ -52,7 +45,6 @@ function initTable(){
     	         {mData: 'gender'},
     	         {mData: 'lastMTime'},
     	         {sDefaultContent: ''},
-     	     /*     {sDefaultContent: ''}  */
     	],
     	fnRowCallback: function(nRow, aData, iDisplayIndex) {
     		var tableSetings = this.fnSettings(); 
@@ -66,22 +58,13 @@ function initTable(){
     			$('td:eq(3)', nRow).html('<span class="label-warning label label-default">Female</span>');
     		}
     
-    		if(aData.type=='add'){
-    			$('td:eq(5)', nRow).html('<a  href="#" onclick=ajaxContent(\"/Resource/toEditAdd\","resourceId='+ aData.id +'");>'
+    		
+    		$('td:eq(5)', nRow).html('<a  href="#" onclick=ajaxContent(\"/Resource/toEditResource\","resourceId='+ aData.id +'");>'
     	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit</a>&nbsp;'
-    	    			+'<a  href="#" onclick=deleteResource(\"/Resource/toDeleteAdd\","resourceId='+ aData.id +'");>'
+    	    			+'<a  href="#" onclick=deleteResource(\"/Resource/toDeleteResource\","resourceId='+ aData.id +'");>'
     	    			+'<i class="glyphicon glyphicon-trash icon-white"></i>Delete</a>');
-    		}else if(aData.type=='import'){
-    			$('td:eq(5)', nRow).html('<a   href="#" onclick=ajaxContent(\"/Resource/toEditImport\","resourceId='+ aData.id +'");>'
-    	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit</a>&nbsp;'
-    	    			+'<a  href="#" onclick=deleteResource(\"/Resource/toDeleteImport\","resourceId='+ aData.id +'");>'
-    	    			+'<i class="glyphicon glyphicon-trash icon-white"></i>Delete</a>');
-    		}
-    	
-     		/* $('td:eq(6)', nRow).html('<a class="btn btn-success" href="#" onclick=ajaxContent(\"/Resource/toEditJD\","resourceId='+ aData.id +'&resourceType='+ aData.type +'");>'
-	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit JD</a>&nbsp;'
-	    			+'<a class="btn btn-info" href="#" onclick=ajaxContent(\"/Resource/toScan\","resourceId='+ aData.id +'&resourceType='+ aData.type +'");>'
-	    			+'<i class="glyphicon glyphicon-eye-open icon-white"></i>Scan</a>');  */
+    		
+
     		
     		
     		return nRow;

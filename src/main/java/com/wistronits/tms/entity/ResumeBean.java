@@ -17,12 +17,28 @@ public class ResumeBean implements Serializable {
 	private String mobile;
 	private Date starts;
 	private String email;
+	private String filePath;
+	private String fileName;
 	private String residency;
 	private String education;
 	private String workExp;
 	private String projectExp;
 	private int age;
 	private Date lastMTime;
+	
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName() {
+		String[] temp= this.filePath.split("\\\\");
+		this.fileName = temp[temp.length-1];
+	}
+	public String getFilePath() {
+		return filePath;
+	}
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
 	 
 	
 	public String getEducation() {
@@ -79,6 +95,7 @@ public class ResumeBean implements Serializable {
 	}
 	public void setBirth(Date birth) {
 		this.birth = birth;
+		setAge();
 	}
 	public int getId() {
 		return id;
@@ -129,7 +146,7 @@ public class ResumeBean implements Serializable {
 	public String getLastMTime() {
 		String desc = "";
 		if (this.lastMTime != null) {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			desc = sdf.format(this.lastMTime);
 		}
 		return desc;

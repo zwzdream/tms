@@ -19,8 +19,8 @@
 						    <thead>
 						    <tr>
 						        <th>#</th>
-						    	<th>Type</th>
 						        <th>Name</th>
+						    	<th>PhoneNumber</th>
 						        <th>Age</th>
 						        <th>Gender</th>
 						        <th>Actions</th>
@@ -37,9 +37,9 @@
 				      <caption>The table shows the resources that already belong to the jd</caption>
 						    <thead>
 						    <tr>
-						    	<th>#</th>
-						    	<th>Type</th>
+						       <th>#</th>
 						        <th>Name</th>
+						    	<th>PhoneNumber</th>
 						        <th>Age</th>
 						        <th>Gender</th>
 						        <th>Actions</th>

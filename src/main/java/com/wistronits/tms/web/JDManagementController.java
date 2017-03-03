@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -47,10 +46,6 @@ public class JDManagementController {
 	@RequestMapping(value = "/toEdit", method = RequestMethod.POST)
 	public ModelAndView toEdit(int no) {
 		ModelAndView view = new ModelAndView("/jd/jd_edit");
-/*		PageHelper.startPage(1, 5);
-		List<JDBean> jdBeanList = jdBeanService.listAll();
-		PageInfo<JDBean> page = new PageInfo<>(jdBeanList);
-		view.addObject("page", page);*/
 		view.addObject("jd", jdBeanService.getJD(no));
 		view.addObject("jdNo", no);
 		return view;

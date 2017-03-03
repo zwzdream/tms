@@ -58,7 +58,7 @@ function listCanJoinResources(){
    	aoColumns:[
    	 {sDefaultContent: ''},
    	 {sDefaultContent: ''},
-     {sDefaultContent: ''},
+     {mData: 'mobile'},
      {mData: 'age'},
      {mData: 'gender'},
      {sDefaultContent: ''}
@@ -67,26 +67,14 @@ function listCanJoinResources(){
     		var tableSetings = this.fnSettings(); 
     		var page_start = tableSetings._iDisplayStart;//查询页开始的索引
     		$('td:eq(0)', nRow).html(page_start+iDisplayIndex+1);
-    		if(aData.type=="add"){
-    		$('td:eq(1)', nRow).html("add");
-    		}else if(aData.type=='import'){
-    			$('td:eq(1)', nRow).html("import");	
-    		}
-    		//console.log(aData.type);
-    		$('td:eq(2)', nRow).html(aData.firstName+' '+aData.lastName);
+    		$('td:eq(1)', nRow).html(aData.firstName+' '+aData.lastName);
     		if(aData.gender){
     			$('td:eq(4)', nRow).html('<span class="label-success label label-default">Male</span>');
     		}else{
     			$('td:eq(4)', nRow).html('<span class="label-warning label label-default">Female</span>');
     		}
-    		if(aData.type=='add'){
-    			$('td:eq(5)', nRow).html('<a  href="#" onclick=ajaxContent(\"/Resource/toEditAddFromJD\","resourceId='+ aData.id+'&no='+no+'");>'
-    	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit</a>&nbsp;');
-    		}else if(aData.type=='import'){
-    			$('td:eq(5)', nRow).html('<a  href="#" onclick=ajaxContent(\"/Resource/toEditImportFromJD\","resourceId='+ aData.id+'&no='+no+'");>'
-    	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit</a>&nbsp;');
-    		}
-    		
+    		$('td:eq(5)', nRow).html('<a  href="#" onclick=ajaxContent(\"/Resource/toEditFromJD\","resourceId='+ aData.id+'&no='+no+'");>'
+	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit</a>&nbsp;');
     	},
 
     	fnInitComplete: function(oSettings, json) { 
@@ -132,7 +120,7 @@ function listTheBelongResources(){
    	aoColumns:[
    	 {sDefaultContent: ''},
    	 {sDefaultContent: ''},
-     {sDefaultContent: ''},
+     {mData: 'mobile'},
      {mData: 'age'},
      {mData: 'gender'},
      {sDefaultContent: ''}
@@ -141,24 +129,14 @@ function listTheBelongResources(){
     		var tableSetings = this.fnSettings(); 
     		var page_start = tableSetings._iDisplayStart;//查询页开始的索引
     		$('td:eq(0)', nRow).html(page_start+iDisplayIndex+1);
-    		if(aData.type=="add"){
-    		$('td:eq(1)', nRow).html("add");
-    		}else if(aData.type=='import'){
-    			$('td:eq(1)', nRow).html("import");	
-    		}
-    		$('td:eq(2)', nRow).html(aData.firstName+' '+aData.lastName);
+    		$('td:eq(1)', nRow).html(aData.firstName+' '+aData.lastName);
     		if(aData.gender){
     			$('td:eq(4)', nRow).html('<span class="label-success label label-default">Male</span>');
     		}else{
     			$('td:eq(4)', nRow).html('<span class="label-warning label label-default">Female</span>');
     		}
-    		if(aData.type=='add'){
-    			$('td:eq(5)', nRow).html('<a  href="#" onclick=ajaxContent(\"/Resource/toEditAddFromJD2\","resourceId='+ aData.id+'&no='+no+'");>'
-    	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit</a>&nbsp;');
-    		}else if(aData.type=='import'){
-    			$('td:eq(5)', nRow).html('<a  href="#" onclick=ajaxContent(\"/Resource/toEditImportFromJD2\","resourceId='+ aData.id+'&no='+no+'");>'
-    	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit</a>&nbsp;');
-    		}
+    		$('td:eq(5)', nRow).html('<a  href="#" onclick=ajaxContent(\"/Resource/toEditFromJD2\","resourceId='+ aData.id+'&no='+no+'");>'
+	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit</a>&nbsp;');
     		
     	},
 
@@ -169,10 +147,10 @@ function listTheBelongResources(){
 	
 }
 
-function addTheResource(rId,no,rType){
+function addTheResource(rId,no){
 	 $.ajax({
 			url:ctx+"/Resource/addTheResourceToJD",
-			data:{rId:rId,jdId:no,rType:rType},
+			data:{rId:rId,jdId:no},
 			type:"post",
 			dataType : 'html',
 		    cache:false,
@@ -192,10 +170,10 @@ function addTheResource(rId,no,rType){
 		});
 }
 
-function removeTheResource(rId,no,rType){
+function removeTheResource(rId,no){
 	$.ajax({
 		url:ctx+"/Resource/deleteTheResourceFromJD",
-		data:{rId:rId,jdId:no,rType:rType},
+		data:{rId:rId,jdId:no},
 		type:"post",
 		dataType : 'html',
 		cache:false,

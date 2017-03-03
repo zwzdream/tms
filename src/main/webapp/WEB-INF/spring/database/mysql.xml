@@ -4,7 +4,7 @@
 	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 	<!-- 开启注解配置 -->
 <!-- 	<context:annotation-config /> -->
@@ -18,7 +18,7 @@
 	<beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<beans:property name="url"
-			value="jdbc:mysql://10.5.106.2:3306/zekee?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false" />
+			value="jdbc:mysql://10.5.106.2:3306/zekee?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false&amp;allowMultiQueries=true" />
 		<beans:property name="username">
 			<beans:value>zekee</beans:value>
 		</beans:property>

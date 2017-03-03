@@ -8,7 +8,6 @@
  <script src="${ctx}/resources/js/user/resource_jd.js"></script>  
 
  <input type="hidden" id="resourceId" name="resourceId" value="${resourceId}">
-<input type="hidden" id="resourceType" name="resourceType" value="${resourceType}"> 
 
 <div class="row">
 

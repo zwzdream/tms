@@ -64,18 +64,12 @@
 	</select>
 	
 	<select id="getJDsNotInAdd" resultMap="BaseResultMap">
-     SELECT a.* FROM jd a WHERE NOT EXISTS (SELECT b.add_id FROM jd_resume_resource b WHERE b.add_id=#{rid} AND b.jd_id=a.no)
+     SELECT a.* FROM jd a WHERE NOT EXISTS (SELECT b.resource_id FROM jd_resume_resource b WHERE b.resource_id=#{rid} AND b.jd_id=a.no)
      </select>
 	
 	<select id="getJDsInAdd" resultMap="BaseResultMap">
-     	SELECT a.* FROM jd a LEFT JOIN jd_resume_resource b ON b.jd_id =a.no LEFT JOIN RESUME c ON c.id=b.add_id WHERE c.id=#{rid}
+     	SELECT a.* FROM jd a LEFT JOIN jd_resume_resource b ON b.jd_id =a.no LEFT JOIN RESUME c ON c.id=b.resource_id WHERE c.id=#{rid}
      </select>
-	<select id="getJDsNotInImport" resultMap="BaseResultMap">
-     	 SELECT a.* FROM jd a WHERE NOT EXISTS (SELECT b.add_id FROM jd_resume_resource b WHERE b.import_id=#{rid} AND b.jd_id=a.no)
-     </select>
-	
-	<select id="getJDsInImport" resultMap="BaseResultMap">
-     	SELECT a.* FROM jd a LEFT JOIN jd_resume_resource b ON b.jd_id =a.no LEFT JOIN import_resource c ON c.id=b.import_id WHERE c.id=#{rid}
-     </select>
+
 	
 </mapper>

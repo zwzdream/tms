@@ -20,7 +20,7 @@ $(function(){
 });
 function addResume(divId, formId,callback){
 	var form = $("#" + formId)[0];
-	form.action= ctx + '/Resource/addResume';
+	form.action= ctx + '/Resource/addResource';
 	var formData = new FormData(form);
 	$('#content').fadeOut().parent().append('<div id="loading" class="center">Loading...<div class="center"></div></div>');
 	$.ajax({
@@ -76,8 +76,8 @@ function addResume(divId, formId,callback){
 		</div>
 		
 		<div class="box-content">
-			<form class="form-horizontal" id="addResume" method="POST">
-				<div class="form-group tr-new">
+	<form class="form-horizontal" id="addResume" method="POST">
+		<div class="form-group tr-new">
         <label class="col-sm-2 control-label" for="firstNmae">First&nbsp;Name&nbsp;</label>
         <div class="col-sm-4 input-group-sm" >
          	<input type="text" class="form-control" id="firstName" name="firstName" placeholder="FirstNmae" style="height:35px;">
@@ -87,22 +87,7 @@ function addResume(divId, formId,callback){
          	<input type="text" class="form-control" id="lastName" name="lastName" placeholder="LastName" style="height:35px;">
         </div>
     </div>
-      <!--    <div class="form-group tr-new">     
-                  <div class="form-group tr-new input-calendar">
-                        <label class="col-sm-2" for="birth">Date of Birth</label>&nbsp;
-                        <input type="text" class="form-control" id="birth" name="birth"/>
-                       </div>
-                 </div>
-           <div class="col-sm-4">
-   	<label class="col-sm-2 control-label" for="gender">Gender</label>
-       <label class="radio-inline" style="margin-left:15px;">
-		  <input type="radio" id="inlineRadio1" name="gender"  value="true">Male
-		</label>
-		 <label class="radio-inline" style="margin-left:15px;">
-		  <input type="radio" id="inlineRadio2" name="gender"  value="false">Female
-		</label>
-		</div>
-   </div> -->
+ 
     <div class="form-group tr-new">
     
           <div class=" input-calendar">     
@@ -114,7 +99,7 @@ function addResume(divId, formId,callback){
 
    		<label class="col-sm-2 control-label" for="gender">Gender</label>
        <label class="radio-inline" style="margin-left:15px;">
-		  <input type="radio" id="inlineRadio1" name="gender"  value="true">Male
+		  <input type="radio" id="inlineRadio1" name="gender"  value="true" checked="checked">Male
 		</label>
 		 <label class="radio-inline" style="margin-left:15px;">
 		  <input type="radio" id="inlineRadio2" name="gender"  value="false">Female
@@ -145,6 +130,13 @@ function addResume(divId, formId,callback){
         <div class="col-sm-4" >
 			<input type="email" class="form-control" id="email" name="email" placeholder="Email" style="height:35px;"></input>							        	
     	</div>
+    	
+         <label class="col-sm-2 control-label" for="inputFile">Resource import</label>
+         <div class="col-sm-4">
+                  <input type="file" id="inputFile" name="inputFile"> 
+                  
+                   
+         </div>
  
     </div>					                    
     <div class="form-group tr-new">

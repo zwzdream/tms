@@ -76,11 +76,11 @@ $(function(){
 
 function getCanJoinJDs(){
 	var resourceId=$("#resourceId").val();
-	var resourceType=$("#resourceType").val();
+	//var resourceType=$("#resourceType").val();
 	var option;
 	$.ajax({
 		url:ctx+"/Resource/getCanJoinJDs",
-		data:{resourceId:resourceId,resourceType:resourceType},
+		data:{resourceId:resourceId},
 		type:"post",
 		dataType : 'json',
 	    cache:false,
@@ -95,7 +95,7 @@ function getCanJoinJDs(){
 	    	$("#multiselect").html(option);
 	    },
 	    error:function(XMLHttpRequest, textStatus, errorThrown) {   
-	    	noty({type:"error",text: "An internal error has occurred. Please contact your system administrator!", layout: "center", timeout: 3000});
+	    	noty({type:"error",text: "There is no data record!", layout: "center", timeout: 3000});
 	    },  
 	    async: false
 		
@@ -105,11 +105,11 @@ function getCanJoinJDs(){
 }
 function getTheBelongJDs(){
 	var resourceId=$("#resourceId").val();
-	var resourceType=$("#resourceType").val();
+	//var resourceType=$("#resourceType").val();
 	var option;
 	$.ajax({
 		url:ctx+"/Resource/getTheBelongJDs",
-		data:{resourceId:resourceId,resourceType:resourceType},
+		data:{resourceId:resourceId},
 		type:"post",
 		dataType : 'json',
 		cache:false,
@@ -125,7 +125,7 @@ function getTheBelongJDs(){
 			$("#multiselect_to").html(option);
 		},
 		error:function(XMLHttpRequest, textStatus, errorThrown) {   
-			noty({type:"warning",text: "The user are not yet grouped!,you can assign a group to the user", layout: "center", timeout: 3000});
+			noty({type:"warning",text: "You can assign JD to the resource!", layout: "center", timeout: 3000});
 		},  
 		async: false
 		

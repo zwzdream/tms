@@ -9,7 +9,6 @@ import javax.annotation.Resource;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -30,20 +29,17 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
 
 		try {
 			UserBean dbUser = userDao.listByName(username).get(0);
-			
 				if (dbUser.getUsername().equals(username) == true) {
 
 					user=		new customerUser(dbUser.getId(), dbUser.getUsername(), dbUser.getPassword().toLowerCase(),
 									true, true, true, true, getAuthorities(dbUser.getPermission()));
 				}
-			
-
 		} catch (Exception e) {
 			throw new UsernameNotFoundException("Error in retrieving user");
 		}
-		
 		return user;
 	}
+
 	/**
 	 * 获得访问角色权限
 	 * 

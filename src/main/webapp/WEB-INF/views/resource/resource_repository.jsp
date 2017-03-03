@@ -36,26 +36,13 @@
 					  		 <!--   <div style="float:right;"> -->
 								<button type="button" class="btn btn-primary" onclick="searchResource('/Resource/searchresource');">Search</button>
 								&nbsp;&nbsp;&nbsp;
-					  			<button type="button" class="btn" onclick="ajaxContent('/Resource/toAdd.html');">Add</button>
-								&nbsp;&nbsp;&nbsp;
-								<button type="button" class="btn" onclick="ajaxContent('/Resource/toimport');">Import</button>
+					  			<button type="button" class="btn" onclick="ajaxContent('/Resource/toAdd');">Add</button>
 								&nbsp;&nbsp;&nbsp;
 								<button type="reset" class="btn">Clear</button>
 					  		<!--   </div> -->
 					      	</div> 
 					  	
 					  	</div>
-					<!--   	<div class="form-actions" >
-					  		<div style="float:right;">
-								<button type="button" class="btn btn-primary" onclick="searchResource('/Resource/searchresource');">Search</button>
-								&nbsp;&nbsp;&nbsp;
-					  			<button type="button" class="btn" onclick="ajaxContent('/Resource/toAdd.html');">Add</button>
-								&nbsp;&nbsp;&nbsp;
-								<button type="button" class="btn" onclick="ajaxContent('/Resource/toimport');">Import</button>
-								&nbsp;&nbsp;&nbsp;
-								<button type="reset" class="btn">Clear</button>
-					  		</div>
-					  	</div> -->
 					</fieldset>
 				</div>
 			</div>

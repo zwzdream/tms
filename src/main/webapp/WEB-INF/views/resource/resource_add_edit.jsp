@@ -16,7 +16,7 @@ $(function(){
 });
 function updateResume(divId, formId){
 	var form = $("#" + formId)[0];
-	form.action= ctx + '/Resource/updateResume';
+	form.action= ctx + '/Resource/updateResource';
 	form.method = "post";
 	var formData = new FormData(form);
 	$('#content').fadeOut().parent().append('<div id="loading" class="center">Loading...<div class="center"></div></div>');
@@ -143,6 +143,12 @@ function updateResume(divId, formId){
         <div class="col-sm-4">
 			<input type="email" class="form-control" id="email" name="email" value="${bean.email}" style="height:35px;"></input>							        	
     	</div>
+    	 <label class="col-sm-2 control-label" for="inputFile">Resource import</label>
+         <div class="col-sm-4">
+                  <input type="file" id="inputFile" name="inputFile"> 
+                  
+                   
+         </div>
     </div>					                    
     <div class="form-group tr-new">
         <label class="col-sm-2 control-label" for="residency">Residency</label>
@@ -168,6 +174,11 @@ function updateResume(divId, formId){
 			<textarea class="form-control" id="projectExp" name="projectExp"  style="height:85px;"> ${bean.projectExp}</textarea>							            
         </div>
     </div>
+    <div  class="box-content ">
+    <div><%@ include file="document_view.jsp"%></div>
+    </div>
+    
+    
    <c:if test="${not empty resourceId}">
 				<div class="form-actions" style="text-align:center;">
 					<button class="btn btn-primary" type="button" onclick="updateResume('content','editResume');">Submit</button>
@@ -176,13 +187,13 @@ function updateResume(divId, formId){
 	
    <c:if test="${not empty jdNo}">
 				<div class="form-actions" style="text-align:center;">
-					<button class="btn btn-primary" type="button" onclick="addTheResource('${bean.id}','${jdNo}','add');">ADD</button>
+					<button class="btn btn-primary" type="button" onclick="addTheResource('${bean.id}','${jdNo}');">ADD</button>
 				</div>
 	</c:if>
 	
    <c:if test="${not empty jdNo2}">
 				<div class="form-actions" style="text-align:center;">
-					<button class="btn btn-primary" type="button" onclick="removeTheResource('${bean.id}','${jdNo2}','add');">REMOVE</button>
+					<button class="btn btn-primary" type="button" onclick="removeTheResource('${bean.id}','${jdNo2}');">REMOVE</button>
 				</div>
 	</c:if>
 
@@ -193,12 +204,12 @@ function updateResume(divId, formId){
 	<!--/span-->
 </div>
 <!--/row-->
-<c:if test="${not empty resourceId}">
+ <c:if test="${not empty resourceId}">
 <div  class="row">
  <div class="box col-md-12">
   <div class="box-inner">
           <div class="box-header well" data-original-title="">
-			<h2><i class="glyphicon glyphicon-edit"></i>Add&nbsp;Resource</h2>
+			<h2><i class="glyphicon glyphicon-edit"></i>Resource-JD</h2>
 			<div class="box-icon">
 				<a href="#" class="btn btn-minimize btn-round btn-default"><i class="glyphicon glyphicon-chevron-up"></i></a> 
 				<a href="#" class="btn btn-close btn-round btn-default"><i class="glyphicon glyphicon-remove"></i></a>
@@ -210,4 +221,4 @@ function updateResume(divId, formId){
  </div>
  </div>
  </div>
-</c:if>
+</c:if> 

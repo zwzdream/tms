@@ -13,8 +13,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,11 +22,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.wistronits.tms.entity.ImportResourceBean;
 import com.wistronits.tms.entity.ResumeBean;
 import com.wistronits.tms.entity.RsResponse;
 import com.wistronits.tms.service.IResumeService;
-import com.wistronits.tms.util.FileOperate;
 
 @Controller
 @RequestMapping("/Resource")
@@ -40,15 +36,12 @@ public class ResourceRepositoryController {
 	@RequestMapping(value = "/toRepository", method = RequestMethod.GET)
 	public ModelAndView getAllRepository(){
 		ModelAndView mv = new ModelAndView();
-//		List<ImportResourceBean> importBeans = resumeService.getAllImportBeans();
-//		mv.getModel().put("importBeans", importBeans);
 		mv.setViewName("/resource/resource_repository");
 		return mv;
 	}
 	
 	@RequestMapping(value = "/toAdd", method = RequestMethod.POST)
 	  public String toAdd(Model model) {
-
 	    return "/resource/resource_add";
 	  }
 	
@@ -63,26 +56,7 @@ public class ResourceRepositoryController {
 		return mv;
 		
 	}
-	
 
-/*	@RequestMapping(value = "/toScanImport", method = RequestMethod.POST)
-	public void toScanImport(HttpServletResponse response,
-			@RequestParam(value="resourceId") int resourceId) throws IOException {
-			ImportResourceBean bean=resumeService.getImportResourceById(resourceId);
-		   FileOperate.downloadFile(response, bean.getFilePath());
-
-		
-	}*/
-	
-	@RequestMapping(value = "/toScanImport")
-	public ResponseEntity<byte[]> toScanImport(
-			@RequestParam(value="resourceId") int resourceId) throws IOException{
-		ResponseEntity<byte[]> res=new ResponseEntity<byte[]>(HttpStatus.OK);
-			ImportResourceBean bean=resumeService.getImportResourceById(resourceId);
-			res= FileOperate.download(bean.getFilePath());
-		    return res;
-		
-	}
 	@RequestMapping(value = "/toScan")
 	public String toScan(
 			@RequestParam(value="resourceId") int resourceId,
@@ -99,101 +73,34 @@ public class ResourceRepositoryController {
 		
 	}
 
-
-	@RequestMapping(value = "/toimport", method = RequestMethod.POST)
-	public String toImportPage(Model model) {
-		return "/resource/resource_import";
-	}
-	
-	
-	@SuppressWarnings("rawtypes")
-	@RequestMapping(value = "/importResource", method = RequestMethod.POST)
-	public @ResponseBody RsResponse importResource(
-			@RequestParam(value="firstName") String firstName,
-			@RequestParam(value="lastName") String lastName,
-			@RequestParam(value="birth") String birthYYYY_MM_DD,
-			@RequestParam(value="gender") Boolean gender,
-			@RequestParam(value="inputFile") MultipartFile file) {
-		Date birthDate = null;
-		if(!birthYYYY_MM_DD.isEmpty()) {
-			SimpleDateFormat df = new SimpleDateFormat("YYYY-MM-DD");
-			try {
-				birthDate = df.parse(birthYYYY_MM_DD);
-			} catch (ParseException e) {
-				return RsResponse.getErrorInstance("Birth date invalid:"+birthYYYY_MM_DD);
-			}
-		}
-		if(birthDate == null){
-			return RsResponse.getErrorInstance("Birth date must exist");
-		}
-		ImportResourceBean resource = new ImportResourceBean();
-		resource.setFirstName(firstName);
-		resource.setLastName(lastName);
-		resource.setBirth(birthDate);
-		resource.setGender(gender);
-		resource.setLastMTime(new Date());
-		boolean ret = resumeService.importResource(resource,file);
-		if(!ret)
-			return RsResponse.getErrorInstance("import to database failed!");
-		else
-			return RsResponse.BLANKSUCCESS;
-	}
-	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/searchresource", method = RequestMethod.GET)
-	public @ResponseBody RsResponse<ImportResourceBean> searchResource(
+	public @ResponseBody RsResponse<ResumeBean> searchResource(
 			@RequestParam(value="keyWord") String keyWord,
 			@RequestParam(value="sEcho") String sEcho,
 			@RequestParam(value="iDisplayStart") int offSet,
 			@RequestParam(value="iDisplayLength") int pageSize){
-		RsResponse<ImportResourceBean> rs = new RsResponse<ImportResourceBean>();
-		List<ImportResourceBean> importBeans = new ArrayList<ImportResourceBean>();
+		RsResponse<ResumeBean> rs = new RsResponse<ResumeBean>();
+		List<ResumeBean> resourceBeans = new ArrayList<ResumeBean>();
 		int count = 0;
 		if(keyWord.isEmpty()){
-//			importBeans = resumeService.getAllImportBeans(offSet,pageSize);
-//			count = resumeService.getAllImportBeansCount();
-			importBeans = resumeService.getAllBeans(offSet,pageSize);
-			count = resumeService.getAllBeansCount();
+			resourceBeans = resumeService.getAllResources(offSet,pageSize);
+			count = resumeService.getAllResourcesCount();
 		}else{
 			Map<String,Object> map = resumeService.searchResource(keyWord,offSet,pageSize);
-			importBeans = (List<ImportResourceBean>) map.get("list");
+			resourceBeans = (List<ResumeBean>) map.get("list");
 			count = (int) map.get("count");
 		}
-		rs.setAaData(importBeans);
+		rs.setAaData(resourceBeans);
 		rs.setiTotalDisplayRecords(count);  
 		rs.setiTotalRecords(count);
 		rs.setsEcho(sEcho);
 		return rs;
 	}
 	
-	/*@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/searchCanJoinResource", method = RequestMethod.POST)
-	public @ResponseBody RsResponse<ImportResourceBean> searchCanJoinResource(
-			@RequestParam(value="keyWord") String keyWord,
-			@RequestParam(value="sEcho") String sEcho,
-			@RequestParam(value="iDisplayStart") int offSet,
-			@RequestParam(value="iDisplayLength") int pageSize){
-		RsResponse<ImportResourceBean> rs = new RsResponse<ImportResourceBean>();
-		List<ImportResourceBean> importBeans = new ArrayList<ImportResourceBean>();
-		int count = 0;
-		if(keyWord.isEmpty()){
-			importBeans = resumeService.getAllBeans(offSet,pageSize);
-			count = resumeService.getAllBeansCount();
-		}else{
-			Map<String,Object> map = resumeService.searchResource(keyWord,offSet,pageSize);
-			importBeans = (List<ImportResourceBean>) map.get("list");
-			count = (int) map.get("count");
-		}
-		rs.setAaData(importBeans);
-		rs.setiTotalDisplayRecords(count);  
-		rs.setiTotalRecords(count);
-		rs.setsEcho(sEcho);
-		return rs;
-	}*/
-	
 	@SuppressWarnings("rawtypes")
-	@RequestMapping(value = "/addResume", method = RequestMethod.POST)
-	public @ResponseBody RsResponse addResume(
+	@RequestMapping(value = "/addResource", method = RequestMethod.POST)
+	public @ResponseBody RsResponse addResource(
 			@RequestParam(value="firstName") String firstName,
 			@RequestParam(value="lastName") String lastName,
 			@RequestParam(value="birth") String birthYYYY_MM_DD,
@@ -201,6 +108,7 @@ public class ResourceRepositoryController {
 			@RequestParam(value="mobile") String mobile,
 			@RequestParam(value="starts") String startsYYYY_MM_DD,
 			@RequestParam(value="email") String email,
+			@RequestParam(value="inputFile") MultipartFile file,
 			@RequestParam(value="residency") String residency,
 			@RequestParam(value="education") String education,
 			@RequestParam(value="workExp") String workExp,
@@ -243,147 +151,71 @@ public class ResourceRepositoryController {
 		rBean.setWorkExp(workExp);
 		rBean.setProjectExp(projectExp);
 		rBean.setLastMTime(new Date());
-		boolean ret = resumeService.addResume(rBean);
+		boolean ret = resumeService.addResource(rBean,file);
 		if(!ret)
 			return RsResponse.getErrorInstance("add to database failed!");
 		else
 			return RsResponse.BLANKSUCCESS;
 			
 	}
-	@RequestMapping(value="/toEditImport", method=RequestMethod.POST)
-	public ModelAndView toEditImportView(@RequestParam(value="resourceId") int resourceId){
+		
+
+	
+	@RequestMapping(value="/toEditResource", method=RequestMethod.POST)
+	public ModelAndView toEditResource(@RequestParam(value="resourceId") int resourceId){
 		ModelAndView mv = new ModelAndView();
-		ImportResourceBean bean = resumeService.getImportResourceById(resourceId);
+		ResumeBean bean = resumeService.getResourceById(resourceId);
 		String filePath=resumeService.transferToswf(bean.getFilePath());
 		mv.addObject("bean",bean);
-		mv.setViewName("/resource/resource_edit_importrecource");
 		mv.addObject("resourceId", resourceId);
-		mv.addObject("resourceType", "import");
 		mv.addObject("filePath",filePath);
-		
-		return mv;
-	}
-	
-	
-	@RequestMapping(value="/toEditAdd", method=RequestMethod.POST)
-	public ModelAndView toEditAddView(@RequestParam(value="resourceId") int resourceId){
-		ModelAndView mv = new ModelAndView();
-		ResumeBean bean = resumeService.getResumeById(resourceId);
-		mv.getModel().put("bean",bean);
 		mv.setViewName("/resource/resource_add_edit");
-		mv.addObject("resourceId", resourceId);
-		mv.addObject("resourceType", "add");
 		return mv;
 	}
 	
-	@RequestMapping(value="/toEditAddFromJD", method=RequestMethod.POST)
+	@RequestMapping(value="/toEditFromJD", method=RequestMethod.POST)
 	public ModelAndView toEditAddFromJD(@RequestParam(value="resourceId") int resourceId,@RequestParam(value="no") int no){
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("/resource/resource_add_edit");
-		ResumeBean bean = resumeService.getResumeById(resourceId);
+		ResumeBean bean = resumeService.getResourceById(resourceId);
+		String filePath=resumeService.transferToswf(bean.getFilePath());
 		mv.addObject("bean",bean);
 		mv.addObject("jdNo",no);
+		mv.addObject("filePath",filePath);
 		mv.setViewName("/resource/resource_add_edit");
 		return mv;
 	}
-	@RequestMapping(value="/toEditAddFromJD2", method=RequestMethod.POST)
+	
+	@RequestMapping(value="/toEditFromJD2", method=RequestMethod.POST)
 	public ModelAndView toEditAddFromJD2(@RequestParam(value="resourceId") int resourceId,@RequestParam(value="no") int no){
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("/resource/resource_add_edit");
-		ResumeBean bean = resumeService.getResumeById(resourceId);
+		ResumeBean bean = resumeService.getResourceById(resourceId);
+		String filePath=resumeService.transferToswf(bean.getFilePath());
 		mv.addObject("bean",bean);
 		mv.addObject("jdNo2",no);
+		mv.addObject("filePath",filePath);
 		mv.setViewName("/resource/resource_add_edit");
 		return mv;
 	}
 	
-	@RequestMapping(value="/toEditImportFromJD", method=RequestMethod.POST)
-	public ModelAndView toEditImportFromJD(@RequestParam(value="resourceId") int resourceId,@RequestParam(value="no") int no){
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/resource/resource_edit_importrecource");
-		ImportResourceBean bean = resumeService.getImportResourceById(resourceId);
-		String filePath=resumeService.transferToswf(bean.getFilePath());
-		mv.addObject("bean",bean);
-		mv.addObject("jdNo",no);
-		mv.addObject("filePath",filePath);
-		return mv;
-	}
-	@RequestMapping(value="/toEditImportFromJD2", method=RequestMethod.POST)
-	public ModelAndView toEditImportFromJD2(@RequestParam(value="resourceId") int resourceId,@RequestParam(value="no") int no){
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/resource/resource_edit_importrecource");
-		ImportResourceBean bean = resumeService.getImportResourceById(resourceId);
-		String filePath=resumeService.transferToswf(bean.getFilePath());
-		mv.addObject("bean",bean);
-		mv.addObject("jdNo2",no);
-		mv.addObject("filePath",filePath);
-		return mv;
-	}
-	
 	@SuppressWarnings("rawtypes")
-	@RequestMapping(value="/toDeleteImport", method=RequestMethod.POST)
-	public @ResponseBody RsResponse toDeleteImport (@RequestParam(value="resourceId") int resourceId){
+	@RequestMapping(value="/toDeleteResource", method=RequestMethod.POST)
+	public @ResponseBody RsResponse toDeleteResource (@RequestParam(value="resourceId") int resourceId){
 		if(resourceId<=0){
 			return RsResponse.getErrorInstance("resourceId invalid: "+resourceId);
 		}
-		boolean ret = resumeService.deleteImportResource(resourceId);
+		boolean ret = resumeService.deleteResource(resourceId);
 		if(!ret){
-			return RsResponse.getErrorInstance("delete import resource failed!");
+			return RsResponse.getErrorInstance("delete  resource failed!");
 		}else{
 			return RsResponse.BLANKSUCCESS;
 		}
 	}
+
 	@SuppressWarnings("rawtypes")
-	@RequestMapping(value="/toDeleteAdd", method=RequestMethod.POST)
-	public @ResponseBody RsResponse toDeleteAdd (@RequestParam(value="resourceId") int resourceId){
-		if(resourceId<=0){
-			return RsResponse.getErrorInstance("resourceId invalid: "+resourceId);
-		}
-		boolean ret = resumeService.deleteResume(resourceId);
-		if(!ret){
-			return RsResponse.getErrorInstance("delete Resume resource failed!");
-		}else{
-			return RsResponse.BLANKSUCCESS;
-		}
-	}
-	
-	@SuppressWarnings("rawtypes")
-	@RequestMapping(value = "/updateImportResource", method = RequestMethod.POST)
-	public @ResponseBody RsResponse updateImportResource(
-			@RequestParam(value="id") int id,
-			@RequestParam(value="firstName") String firstName,
-			@RequestParam(value="lastName") String lastName,
-			@RequestParam(value="birth") String birthYYYY_MM_DD,
-			@RequestParam(value="gender") Boolean gender,
-			@RequestParam(value="inputFile") MultipartFile file) {
-		Date birthDate = null;
-		if(!birthYYYY_MM_DD.isEmpty()) {
-			SimpleDateFormat df = new SimpleDateFormat("YYYY-MM-DD");
-			try {
-				birthDate = df.parse(birthYYYY_MM_DD);
-			} catch (ParseException e) {
-				return RsResponse.getErrorInstance("Birth date invalid:"+birthYYYY_MM_DD);
-			}
-		}
-		if(birthDate == null){
-			return RsResponse.getErrorInstance("Birth date must exist");
-		}
-		ImportResourceBean resource = new ImportResourceBean();
-		resource.setId(id);
-		resource.setFirstName(firstName);
-		resource.setLastName(lastName);
-		resource.setBirth(birthDate);
-		resource.setGender(gender);
-		resource.setLastMTime(new Date());
-		boolean ret = resumeService.editImportResource(resource, file);
-		if(!ret)
-			return RsResponse.getErrorInstance("edit to database failed!");
-		else
-			return RsResponse.BLANKSUCCESS;
-	}
-	@SuppressWarnings("rawtypes")
-	@RequestMapping(value = "/updateResume", method = RequestMethod.POST)
-	public @ResponseBody RsResponse updateResume(
+	@RequestMapping(value = "/updateResource", method = RequestMethod.POST)
+	public @ResponseBody RsResponse updateResource(
 			@RequestParam(value="id") int id,
 			@RequestParam(value="firstName") String firstName,
 			@RequestParam(value="lastName") String lastName,
@@ -392,6 +224,7 @@ public class ResourceRepositoryController {
 			@RequestParam(value="mobile") String mobile,
 			@RequestParam(value="starts") String startsYYYY_MM_DD,
 			@RequestParam(value="email") String email,
+			@RequestParam(value="inputFile") MultipartFile file,
 			@RequestParam(value="residency") String residency,
 			@RequestParam(value="education") String education,
 			@RequestParam(value="workExp") String workExp,
@@ -434,39 +267,31 @@ public class ResourceRepositoryController {
 		rBean.setWorkExp(workExp);
 		rBean.setProjectExp(projectExp);
 		rBean.setLastMTime(new Date());
-		boolean ret = resumeService.editResume(rBean);
+		boolean ret = resumeService.editResource(rBean, file);
 		if(!ret)
 			return RsResponse.getErrorInstance("edit to database failed!");
 		else
 			return RsResponse.BLANKSUCCESS;
 	}
 	
-/*	@RequestMapping(value = "/getCanJoinResources", method = RequestMethod.POST)
-	public @ResponseBody Map<String,Object> getCanJoinResources(@RequestParam(value = "no") int no) {
-		 
-		return resumeService.getCanJoinResources(no);
-
-	}*/
-	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/listCanJoinResources", method = RequestMethod.POST)
-	public @ResponseBody RsResponse<ImportResourceBean> listCanJoinResources(
+	public @ResponseBody RsResponse<ResumeBean> listCanJoinResources(
 			@RequestParam(value="no") int no,
 			@RequestParam(value="keyWord") String keyWord,
 			@RequestParam(value="sEcho") String sEcho,
 			@RequestParam(value="iDisplayStart") int offSet,
 			@RequestParam(value="iDisplayLength") int pageSize){
-		RsResponse<ImportResourceBean> rs = new RsResponse<ImportResourceBean>();
-		List<ImportResourceBean> importBeans = new ArrayList<ImportResourceBean>();
+		RsResponse<ResumeBean> rs = new RsResponse<ResumeBean>();
+		List<ResumeBean> importBeans = new ArrayList<ResumeBean>();
 		int count = 0;
-		//int total = resumeService.getAllBeansCount();
 		if(keyWord.isEmpty()){
 			Map<String,Object> map =resumeService.getCanJoinResources(offSet,pageSize,no);
-			importBeans = (List<ImportResourceBean>) map.get("resources");
+			importBeans = (List<ResumeBean>) map.get("resources");
 			count = (int) map.get("count");
 		}else{
 			Map<String,Object> map = resumeService.searchCanJoinResource(keyWord,no);
-			importBeans = (List<ImportResourceBean>) map.get("list");
+			importBeans = (List<ResumeBean>) map.get("list");
 			count = (int) map.get("count");
 		}
 		rs.setAaData(importBeans);
@@ -476,25 +301,20 @@ public class ResourceRepositoryController {
 		return rs;
 	}
 	
-/*	@RequestMapping(value = "/getTheBelongResources", method = RequestMethod.POST)
-	public @ResponseBody Map<String,Object> getTheBelongResources(@RequestParam(value = "no") int no) {
-		return resumeService.getTheBelongResources(no);
-
-	}*/
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/listTheBelongResources", method = RequestMethod.POST)
-	public @ResponseBody RsResponse<ImportResourceBean> listTheBelongResources(
+	public @ResponseBody RsResponse<ResumeBean> listTheBelongResources(
 			@RequestParam(value="no") int no,
 			@RequestParam(value="sEcho") String sEcho,
 			@RequestParam(value="iDisplayStart") int offSet,
 			@RequestParam(value="iDisplayLength") int pageSize){
-		RsResponse<ImportResourceBean> rs = new RsResponse<ImportResourceBean>();
-		List<ImportResourceBean> importBeans = new ArrayList<ImportResourceBean>();
+		RsResponse<ResumeBean> rs = new RsResponse<ResumeBean>();
+		List<ResumeBean> importBeans = new ArrayList<ResumeBean>();
 		int count = 0;
 		
 		Map<String,Object> map =resumeService.getTheBelongResources(offSet,pageSize,no);
-		importBeans = (List<ImportResourceBean>) map.get("resources");
+		importBeans = (List<ResumeBean>) map.get("resources");
 		count = (int) map.get("count");
 
 		rs.setAaData(importBeans);
@@ -505,80 +325,26 @@ public class ResourceRepositoryController {
 	}
 	
 	@RequestMapping(value = "/getCanJoinJDs", method = RequestMethod.POST)
-	public @ResponseBody Map<String,Object> getCanJoinJDs(
-			@RequestParam(value="resourceId") int resourceId,
-			@RequestParam(value="resourceType") String resourceType) {
-		return resumeService.getCanJoinJDs(resourceId,resourceType);
+	public @ResponseBody Map<String,Object> getCanJoinJDs(@RequestParam(value="resourceId") int resourceId) {
+		return resumeService.getCanJoinJDs(resourceId);
 	}
 	
 
 	
 	@RequestMapping(value = "/getTheBelongJDs", method = RequestMethod.POST)
-	public @ResponseBody Map<String,Object> getTheBelongJDs(
-			@RequestParam(value="resourceId") int resourceId,
-			@RequestParam(value="resourceType") String resourceType) {
-		return resumeService.getTheBelongJDs(resourceId,resourceType);
+	public @ResponseBody Map<String,Object> getTheBelongJDs(@RequestParam(value="resourceId") int resourceId) {
+		return resumeService.getTheBelongJDs(resourceId);
 	}
-/*	@SuppressWarnings("rawtypes")
-	@RequestMapping(value = "/editTheBelongResource", method = RequestMethod.POST)
-	public @ResponseBody RsResponse editTheBelongGroup(
-			@RequestParam(value = "jdId") int no,
-			@RequestParam(value = "resourceId") int rid,
-			@RequestParam(value="resourceName")String rName) {
-		String type=rName.substring(rName.indexOf("(")+1, rName.indexOf(")"));
-		
-		int i=resumeService.editTheBelongResource(no, rid,type);
-		if(i==0 ){
-			int j= resumeService.addResourceToJD(no, rid,type);
-			if(j==0){
-				return RsResponse.getErrorInstance("edit to database failed!");
-			}
-		}
-		// ModelAndView view = new ModelAndView("jd/jd_add_resource");
-		// view.addObject("jdNo", no);
-		//return view;
-		 return RsResponse.BLANKSUCCESS;
-	}*/
+	
 	
 	@RequestMapping(value = "/addTheResourceToJD", method = RequestMethod.POST)
 	public ModelAndView addTheResourceToJD(	
 			@RequestParam(value = "jdId") int no,
-			@RequestParam(value = "rId") int rid,
-			@RequestParam(value="rType")String type) {
+			@RequestParam(value = "rId") int rid) {
 		ModelAndView view = new ModelAndView("jd/jd_edit");
-		int resultCount=resumeService.addResourceToJD(no, rid, type);
+		int resultCount=resumeService.addResourceToJD(no, rid);
 		if(resultCount!=0){
 			view.addObject("jdNo", no);
-		}
-		return view;
-		
-	}
-	
-	@RequestMapping(value = "/addResourceToJD", method = RequestMethod.POST)
-	public ModelAndView addResourceToJD(	
-			@RequestParam(value = "jdId") int no,
-			@RequestParam(value = "resourceId") int rid,
-			@RequestParam(value="resourceName")String rName) {
-		String type=rName.substring(rName.indexOf("(")+1, rName.indexOf(")"));
-		ModelAndView view = new ModelAndView("jd/jd_add_resource");
-		int resultCount=resumeService.addResourceToJD(no, rid, type);
-		if(resultCount!=0){
-			 view.addObject("jdNo", no);
-		}
-		return view;
-
-	}
-	
-	@RequestMapping(value = "/deleteResourceFromJD", method = RequestMethod.POST)
-	public ModelAndView deleteResourceFromJD(
-			@RequestParam(value = "jdId") int no,
-			@RequestParam(value = "resourceId") int rid,
-			@RequestParam(value="resourceName")String rName) {
-		String type=rName.substring(rName.indexOf("(")+1, rName.indexOf(")"));
-		 ModelAndView view = new ModelAndView("jd/jd_add_resource");
-		 int resultCount=resumeService.deleteResourceFromJD(no, rid, type);
-		 if(resultCount!=0){
-			 view.addObject("jdNo", no);
 		}
 		return view;
 	}
@@ -586,10 +352,9 @@ public class ResourceRepositoryController {
 	@RequestMapping(value = "/deleteTheResourceFromJD", method = RequestMethod.POST)
 	public ModelAndView deleteTheResourceFromJD(
 			@RequestParam(value = "jdId") int no,
-			@RequestParam(value = "rId") int rid,
-			@RequestParam(value="rType")String type) {
+			@RequestParam(value = "rId") int rid) {
 		ModelAndView view = new ModelAndView("jd/jd_edit");
-		int resultCount=resumeService.deleteResourceFromJD(no, rid, type);
+		int resultCount=resumeService.deleteResourceFromJD(no, rid);
 		if(resultCount!=0){
 			view.addObject("jdNo", no);
 		}
@@ -600,35 +365,24 @@ public class ResourceRepositoryController {
 	@RequestMapping(value = "/addJDToResource", method = RequestMethod.POST)
 	public ModelAndView addJDToResource(	
 			@RequestParam(value = "jdId") int no,
-			@RequestParam(value = "resourceId") int rid,
-			@RequestParam(value="resourceType")String rType) {
+			@RequestParam(value = "resourceId") int rid) {
 		ModelAndView view = new ModelAndView("resource/resource_edit_jd");
-		int resultCount=resumeService.addResourceToJD(no, rid, rType);
+		int resultCount=resumeService.addResourceToJD(no, rid);
 		if(resultCount!=0){
 			view.addObject("resourceId", rid);
-			view.addObject("resourceType", rType);
-			
 		}
 		return view;
-		
 	}
-
-	
-	
 
 	@RequestMapping(value = "/deleteJDFromResource", method = RequestMethod.POST)
 	public ModelAndView deleteJDFromResource(
 			@RequestParam(value = "jdId") int no,
-			@RequestParam(value = "resourceId") int rid,
-			@RequestParam(value="resourceType")String rType) {
+			@RequestParam(value = "resourceId") int rid) {
 		ModelAndView view = new ModelAndView("resource/resource_edit_jd");
-		int resultCount=resumeService.deleteResourceFromJD(no, rid, rType);
+		int resultCount=resumeService.deleteResourceFromJD(no, rid);
 		if(resultCount!=0){
 			view.addObject("resourceId", rid);
-			view.addObject("resourceType", rType);
-			
 		}
 		return view;
 	}
-		
 }

@@ -73,7 +73,7 @@ public class LuceneIndexer {
 				doc.add(new Field("content",content,Field.Store.NO,Field.Index.ANALYZED));
 				doc.add(new Field("id",idString,Field.Store.YES,Field.Index.NO));
 				doc.add(new Field("type","import",Field.Store.YES,Field.Index.NO));
-				doc.add(new Field("identifier",idString+"import",type));
+				doc.add(new Field("identifier",idString,type));
 				writer.addDocument(doc);
 				
 				System.out.println("Create index successfully!");
@@ -100,8 +100,7 @@ public class LuceneIndexer {
 	public static Map<String, Object> seacher(String workKey, int page, int pageSize){
 		Directory directory = null; 
 		IndexReader reader = null;
-		List<Integer> addList = new ArrayList<Integer>();
-		List<Integer> importList = new ArrayList<Integer>();
+		List<Integer> resourceList = new ArrayList<Integer>();
 		Map<String, Object> result = new HashMap<String,Object>();
 		try {
 			File indexDir = new File(LUCENE_INDEX_FOLDER_PATH);
@@ -113,9 +112,6 @@ public class LuceneIndexer {
 			reader = DirectoryReader.open(directory);
 			IndexSearcher seacher = new IndexSearcher(reader);
 			
-
-//			Term term = new Term("content", "lucene");  
-//			Query query = new TermQuery(term);
 			
 			QueryParser parser = new QueryParser("content", new StandardAnalyzer());
 			Query query = parser.parse(workKey);
@@ -128,15 +124,10 @@ public class LuceneIndexer {
 			System.out.println("matched files count in page:"+docs.length);
 			for (ScoreDoc scoreDoc : docs) {
 				Document doc = seacher.doc(scoreDoc.doc);
-				if("add".equals(doc.get("type"))){
-					addList.add(Integer.parseInt(doc.get("id")));
-				}else if("import".equals(doc.get("type"))){
-					importList.add(Integer.parseInt(doc.get("id")));
-				}
+				resourceList.add(Integer.parseInt(doc.get("id")));
 			}
 			result.put("count", tds.totalHits);
-			result.put("importList", importList);
-			result.put("addList", addList);
+			result.put("resourceList", resourceList);
 		} catch (IOException | ParseException e) {
 			e.printStackTrace();
 		}finally{
@@ -155,7 +146,6 @@ public class LuceneIndexer {
 		Directory directory = null; 
 		IndexReader reader = null;
 		List<Integer> addList = new ArrayList<Integer>();
-		List<Integer> importList = new ArrayList<Integer>();
 		Map<String, Object> result = new HashMap<String,Object>();
 		try {
 			File indexDir = new File(LUCENE_INDEX_FOLDER_PATH);
@@ -180,14 +170,12 @@ public class LuceneIndexer {
 			System.out.println("matched files count in page:"+docs.length);*/
 			for (ScoreDoc scoreDoc : docs) {
 				Document doc = seacher.doc(scoreDoc.doc);
-				if("add".equals(doc.get("type"))){
-					addList.add(Integer.parseInt(doc.get("id")));
-				}else if("import".equals(doc.get("type"))){
-					importList.add(Integer.parseInt(doc.get("id")));
+				if("import".equals(doc.get("type"))){
+				addList.add(Integer.parseInt(doc.get("id")));
 				}
 			}
 			result.put("count", tds.totalHits);
-			result.put("importList", importList);
+		//	result.put("importList", importList);
 			result.put("addList", addList);
 		} catch (IOException | ParseException e) {
 
@@ -322,7 +310,7 @@ public class LuceneIndexer {
 		 return temp;
 	 }
 
-	@SuppressWarnings("deprecation")
+	/*@SuppressWarnings("deprecation")
 	public static void createIndexer(String content, int id) {
 		Directory directory = null;
 		IndexWriter writer = null;
@@ -364,9 +352,9 @@ public class LuceneIndexer {
 				}
 			}
 		}
-	}
+	}*/
 
-	public static void deleteIndex(String type,int resourceId) {
+	public static void deleteIndex(int resourceId) {
 		Directory directory = null;
 		IndexWriter writer = null;
 		File indexDir = new File(LUCENE_INDEX_FOLDER_PATH);
@@ -377,7 +365,7 @@ public class LuceneIndexer {
 			directory = FSDirectory.open(indexDir.toPath(),NoLockFactory.INSTANCE);
 			IndexWriterConfig writerConfig = new IndexWriterConfig(new StandardAnalyzer());
 			writer = new IndexWriter(directory,writerConfig);
-			writer.deleteDocuments(new Term("identifier",String.valueOf(resourceId)+type));
+			writer.deleteDocuments(new Term("identifier",String.valueOf(resourceId)));
 			writer.commit();
 			System.out.println("delete index successfully!");		
 		} catch (Exception e) {

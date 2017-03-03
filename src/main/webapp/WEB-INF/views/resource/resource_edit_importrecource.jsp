@@ -180,7 +180,7 @@ function updateResource(divId, formId) {
 		<div class="box-inner">
 			<div class="box-header well" data-original-title="">
 				<h2>
-					<i class="glyphicon glyphicon-edit"></i>Add&nbsp;Resource
+					<i class="glyphicon glyphicon-edit"></i>Scan
 				</h2>
 				<div class="box-icon">
 					<a href="#" class="btn btn-minimize btn-round btn-default"><i
