@@ -380,17 +380,19 @@ public class LuceneIndexer {
 		}
 	}
 	
-	
+	/**
+	 * 只支持office03版本及以下
+	 */
 	public static String readOfficeContent(File srcFile) throws IOException, Exception{
 		String content=null;
 		String filePath = srcFile.getAbsolutePath();
-		if (filePath.endsWith(".txt") || filePath.endsWith(".xml")){
+		if (filePath.endsWith(".txt")){
 			content = FileReaderAll(srcFile.getCanonicalPath(), "utf-8");
-		}else if (filePath.endsWith(".doc") || filePath.endsWith(".docx")) {
+		}else if (filePath.endsWith(".doc")) {
 			content = WordFileReader(srcFile.getCanonicalPath());
-		}else if (filePath.endsWith(".xls") || filePath.endsWith(".xlsx")) {
+		}else if (filePath.endsWith(".xls")) {
 			content = ExcelFileReader(srcFile.getCanonicalPath());
-		}else if (filePath.endsWith(".ppt") || filePath.endsWith(".pptx")) {
+		}else if (filePath.endsWith(".ppt")) {
 			content = PptFileReader(srcFile.getCanonicalPath());
 		}else if (filePath.endsWith(".pdf")) {
 			content = PdfboxFileReader(srcFile.getCanonicalPath());
@@ -399,29 +401,4 @@ public class LuceneIndexer {
 		
 	}
 	
-/*	public static void deleteIndex(int resourceId) {
-		Directory directory = null;
-		IndexWriter writer = null;
-		File indexDir = new File(LUCENE_INDEX_FOLDER_PATH);
-		if(!indexDir.exists() && !indexDir.isDirectory()){
-			indexDir.mkdir();
-		}
-		try {
-			directory = FSDirectory.open(indexDir.toPath(),NoLockFactory.INSTANCE);
-			IndexWriterConfig writerConfig = new IndexWriterConfig(new StandardAnalyzer());
-			writer = new IndexWriter(directory,writerConfig);
-			writer.deleteDocuments(new Term("id",String.valueOf(resourceId)));
-			writer.commit();
-			System.out.println("delete index successfully --id:"+resourceId);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}finally{
-			if(writer!=null)
-				try {
-					writer.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-		}
-	}
-*/}
+}

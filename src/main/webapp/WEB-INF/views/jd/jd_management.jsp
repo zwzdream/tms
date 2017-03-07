@@ -17,7 +17,7 @@
 				<div class="box-header well" data-original-title>
 					<h2><i class="glyphicon glyphicon-user"></i> </h2>
 					<div class="box-icon">
-						<a href="#" class="btn btn-setting btn-round btn-default" title='Add' <%-- onclick="ajaxContent('${ctx}/resource/add.html'); --%>">
+						<a href="#" class="btn btn-setting btn-round btn-default" title='Add'>
 							<i class="glyphicon glyphicon-cog"></i></a> 
 						<a href="#" class="btn btn-minimize btn-round btn-default">
 							<i class="glyphicon glyphicon-chevron-up"></i></a> 
@@ -30,12 +30,12 @@
 					  	<div class="form-group">
 							<label class="col-sm-2 control-label" for="name">Keyword</label>
 						  	<div class="col-sm-3">
-							  	<input id="keyword" class="form-control" type="text" name="keyword" value='' maxlength="20" >
+							  	<input id="keyword" class="form-control" type="text" name="keyword" value='' maxlength="20"  >
 						  	</div>	
 						<div class="form-actions" >
 						  	<!-- <div style="float:right;padding-right: 18px"> -->
 						  	<div>
-								<button type="button" class="btn btn-primary" onclick='doQry();'>Search</button>
+								<button id="searchJD" type="button" class="btn btn-primary" onclick='doQry();'>Search</button>
 								&nbsp;&nbsp;&nbsp;
 					  			<button type="button" class="btn" onclick='ajaxContent("/JD/toAdd.html");'>Add</button>
 								&nbsp;&nbsp;&nbsp;
@@ -43,15 +43,7 @@
 					  		</div>
 					  	</div>
 					  	</div>
-				<!-- 	  	<div class="form-actions" >
-					  		<div style="float:right;">
-								<button type="button" class="btn btn-primary" onclick='doQry();'>Search</button>
-								&nbsp;&nbsp;&nbsp;
-					  			<button type="button" class="btn" onclick='ajaxContent("/JD/toAdd.html");'>Add</button>
-								&nbsp;&nbsp;&nbsp;
-								<button type="reset" class="btn">Clear</button>
-					  		</div>
-					  	</div> -->
+		
 					</fieldset>
 				</div>
 			</div>

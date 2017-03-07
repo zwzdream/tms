@@ -38,7 +38,7 @@ public class ViewOfficeOnline {
 	 * @param resourcePath
 	 */
 	@SuppressWarnings("unused")
-	public static void office2pdf(){
+	public static String office2pdf(){
 		if(environment==1){
 			
 		
@@ -62,7 +62,8 @@ public class ViewOfficeOnline {
 					 System.out.println("****Office files have been converted to PDF file, don't need to convert again!****");  
 				}
 			}else{
-				System.out.println("***Office file does not exist, please check carefully!***");
+				System.out.println("***Office file does not exist, please check out carefully!***");
+				return "Office file does not exist, please check out carefully!";
 			}
 			//close the connection
 			 connection.disconnect();
@@ -73,14 +74,16 @@ public class ViewOfficeOnline {
 			}else if(environment==3){
 				
 			}
-		} catch (Exception e) {
+		 } catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("****An office file failed to convert a PDF file!****");
-		}   finally{	if(pro.isAlive()){
+			return "Please check the version of file carefully or Please refresh the page again!";
+		   }   finally{	 if(pro.isAlive()){
 			 pro.destroy();
-		         }
-		  }
-	        }
+		              }
+		       }
+	   }
+		return "";
 	
 		
  }

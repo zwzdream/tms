@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 
@@ -33,30 +34,42 @@ public class IResumeServiceImpl implements IResumeService {
 	public Boolean addResource(ResumeBean resource, MultipartFile file) {
 		try {
 			File localFile = uploadFile(file);
+			if(localFile!=null){
 			resource.setFilePath(localFile.getAbsolutePath());
-			System.out.println(localFile.getAbsolutePath());
+			System.out.println(localFile.getAbsolutePath());}
 			int cnt =  iResumeDao.addResource(resource);
 			if(cnt<=0){
 				return false;
 			}
+			if(localFile!=null){
 			LuceneIndexer.createIndexer(localFile, resource.getId());
+			}
 		} catch (IllegalStateException | IOException e) {
 			e.printStackTrace();
-			return false;
+			return true;
 		}
 		return true;
 	}
 	
 	public File uploadFile(MultipartFile file) throws IllegalStateException, IOException {
+		
 		String fileName = file.getOriginalFilename();
-		String path = LuceneIndexer.UPLOAD_FOLDER_PATH + "/" + fileName;
+		
+	
 		File fileDir = new File(LuceneIndexer.UPLOAD_FOLDER_PATH);
 		if(!fileDir.exists() && !fileDir.isDirectory()){
-			fileDir.mkdir();
-		}
+			fileDir.mkdir();}
+		if(!fileName.isEmpty()){
+	 String newFileName = String.valueOf(System.currentTimeMillis()) + 
+					  UUID.randomUUID()+fileName.substring(fileName.lastIndexOf("."));
+	String path = LuceneIndexer.UPLOAD_FOLDER_PATH + "/" + newFileName;
 		File localFile = new File(path);
 		file.transferTo(localFile);
 		return localFile;
+		
+		}else{
+	 	return 	null;
+		}
 	}
 
 	@Override
@@ -137,14 +150,17 @@ public class IResumeServiceImpl implements IResumeService {
 	public Boolean editResource(ResumeBean resource,MultipartFile file) {
 		try {
 			File localFile = uploadFile(file);
-			resource.setFilePath(localFile.getAbsolutePath());
+			if(localFile!=null){
+				resource.setFilePath(localFile.getAbsolutePath());
+				}
 			int cnt =  iResumeDao.editResource(resource);
 			if(cnt<=0){
 				return false;
 			}
-			//String filePath=ViewOfficeOnline.toTransferString(resource.getFilePath());
-			LuceneIndexer.deleteIndex(resource.getId());
-			LuceneIndexer.createIndexer(localFile, resource.getId());
+			if(localFile!=null){
+				LuceneIndexer.deleteIndex(resource.getId());
+				LuceneIndexer.createIndexer(localFile, resource.getId());
+				}
 		} catch (IllegalStateException | IOException e) {
 			e.printStackTrace();
 			return false;
@@ -206,25 +222,32 @@ public class IResumeServiceImpl implements IResumeService {
 		return resRe;
 	}
 	@Override
-	public String transferToswf(String filePath) {
+	public ArrayList<String> transferToswf(String filePath) {
 		String fileString=ViewOfficeOnline.toTransferString(filePath);
 		String fileName=fileString.substring(0, fileString.lastIndexOf("."));
 		String casefile1=fileName+".swf";
 		String casefile2=fileName+".pdf";
 		File file1=new File(casefile1);
 		File file2=new File(casefile2);
+		String  returnString="";
+		ArrayList<String> returnList=new ArrayList<String>();
 		if(!file1.exists()){
 			if(!file2.exists()){
 				ViewOfficeOnline.setFileString(fileString,fileName);
-				ViewOfficeOnline.office2pdf();
+				 returnString=ViewOfficeOnline.office2pdf();
 				 ViewOfficeOnline.pdf2swf();
 			}else{
 			ViewOfficeOnline.setFileString(fileName);
 			 ViewOfficeOnline.pdf2swf();
 			}
 		}
+		returnList.add(fileName.substring(fileName.lastIndexOf("/")+1));
+		returnList.add(returnString);
+		return returnList;
+		
+		
 	
-		 return fileName.substring(fileName.lastIndexOf("/")+1);
+		 //return fileName.substring(fileName.lastIndexOf("/")+1);
 	}
 
 	

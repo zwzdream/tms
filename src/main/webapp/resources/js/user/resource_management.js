@@ -1,3 +1,4 @@
+
 function searchResource(url){
 	var keyWord = $('#keyWord').val();
 	if(keyWord=='') {
@@ -47,10 +48,10 @@ function initTable(){
     	         {sDefaultContent: ''},
     	],
     	fnRowCallback: function(nRow, aData, iDisplayIndex) {
-    		var tableSetings = this.fnSettings(); 
-    		//var paging_length = tableSetings._iDisplayLength;  //pagesize
-    		var page_start = tableSetings._iDisplayStart;
-    		$('td:eq(0)', nRow).html(page_start+iDisplayIndex+1);
+    		//var tableSetings = this.fnSettings(); 
+    	//	var page_start = tableSetings._iDisplayStart;
+    		//$('td:eq(0)', nRow).html(page_start+iDisplayIndex+1);
+    		$('td:eq(0)', nRow).html(aData.id);
     		$('td:eq(1)', nRow).html(aData.firstName+' '+aData.lastName);
     		if(aData.gender){
     			$('td:eq(3)', nRow).html('<span class="label-success label label-default">Male</span>');

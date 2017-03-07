@@ -1,9 +1,11 @@
 package com.wistronits.tms.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
+
 import com.wistronits.tms.entity.ResumeBean;
 
 public interface IResumeService {
@@ -22,7 +24,7 @@ public interface IResumeService {
 	public Map<String,Object> getTheBelongJDs(int rid);
 	public int addResourceToJD(int no,int rid);
 	public int deleteResourceFromJD(int no,int rid);
-	public String transferToswf(String filePath);
+	public ArrayList<String> transferToswf(String filePath);
 	public Map<String, Object> searchCanJoinResource(String keyWord,int no);
 	
 

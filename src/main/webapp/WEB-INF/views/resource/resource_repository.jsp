@@ -16,7 +16,7 @@
 				<div class="box-header well" data-original-title>
 					<h2><i class="glyphicon glyphicon-user"></i> </h2>
 					<div class="box-icon">
-						<a href="#" class="btn btn-setting btn-round btn-default" title='Add' <%-- onclick="ajaxContent('${ctx}/resource/add.html'); --%>">
+						<a href="#" class="btn btn-setting btn-round btn-default" title='Add' <%-- onclick="ajaxContent('${ctx}/resource/add.html'); --%>>
 							<i class="glyphicon glyphicon-cog"></i></a> 
 						<a href="#" class="btn btn-minimize btn-round btn-default">
 							<i class="glyphicon glyphicon-chevron-up"></i></a> 
@@ -34,7 +34,7 @@
 						  	
 						  	<div class="form-actions" >
 					  		 <!--   <div style="float:right;"> -->
-								<button type="button" class="btn btn-primary" onclick="searchResource('/Resource/searchresource');">Search</button>
+								<button id="searchResume" type="button" class="btn btn-primary" onclick="searchResource('/Resource/searchresource');">Search</button>
 								&nbsp;&nbsp;&nbsp;
 					  			<button type="button" class="btn" onclick="ajaxContent('/Resource/toAdd');">Add</button>
 								&nbsp;&nbsp;&nbsp;

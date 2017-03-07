@@ -15,10 +15,64 @@
 		visibility: visible;
 	}
 </style>
+<script>
+$(function(){
+	var priority = '${jd.priority}';
+	 if(typeof(priority) != "undefined"&priority!=''){
+		$('#priority').val(priority)
+	}
+	
+	var status='${jd.status}';
+	if(typeof(status) != "undefined"&status==0){
+		$('#status').attr('value','closed');
+	}else if(typeof(status) != "undefined"&status==1){
+		$('#status').attr('value','processing');
+	}else {
+		noty({type:"error",text: "An internal error has occurred. Please contact your system administrator!", layout: "center", timeout: 3000});
+	}
+	
+	listAllUser();
+    $('#owner').val('${jd.owner}')
+
+})
+
+function listAllUser(){
+	var option;
+	$.ajax({
+		url:ctx+"/User/listAll",
+		type:"post",
+		dataType : 'json',
+	    cache:false,
+	    success:function(data){
+	    	var json = eval(data);
+	    	$.each(json,function(index, item) {
+	    		//循环获取数据
+	    		var id= json[index].id;
+				var name = json[index].username;
+	    		option += ("<option value='"+id+"'>"+name+"</option>");
+	    	});
+	    	$("#owner").html(option);
+	    },
+	    error:function(XMLHttpRequest, textStatus, errorThrown) {   
+	    	noty({type:"error",text: "An internal error has occurred. Please contact your system administrator!", layout: "center", timeout: 3000});
+	    },  
+	    async: false
+		
+		
+	});
+}
+
+</script>
 <script type="text/javascript">
 
 	function closeJD(form){
-		var formData = new FormData(form);
+	if($('#status').val()=="processing"){
+			$('#status').attr('value',1);
+	}else{
+			noty({type:"error",text: "status error!", layout: "center", timeout: 3000});
+	}
+	
+	var formData = new FormData(form);
 	  form.action= ctx + '/JD/edit/close';
 	  form.method = "post";	
 	  if(confirm('Are you sure?')){
@@ -52,6 +106,11 @@
 	  return false;
 	}
 	function dataValiE(form){
+	if($('#status').val()=="processing"){
+			$('#status').attr('value',1);
+	}else{
+			noty({type:"error",text: "status error!", layout: "center", timeout: 3000});
+	}
 	 var formData = new FormData(form);
 	  form.action= ctx + '/JD/edit/save';
 	  form.method = "post";	
@@ -93,25 +152,26 @@
         <div class="col-sm-4">
          	<input type="number" class="form-control" id="no" name="no" value="${jd.no }" style="height:35px;" readonly>
         </div>
-        <label class="col-sm-2 control-label" for="priority">Priority</label>
+          <label class="col-sm-2 control-label" for="local">Local</label>
         <div class="col-sm-4">
-         	<input type="text" class="form-control" id="priority" name="priority" value="${jd.priority }" style=height:35px;">
+        	<input type="text" class="form-control" id="local" name="local" value="${jd.local }" style="height:35px;">
         </div>
+       
     </div>
      <div class="form-group tr-new">
         <label class="col-sm-2 control-label" for="title">Title</label>
         <div class="col-sm-10">
-   			<input type="text" class="form-control" id="title" name="title" value="${jd.title }" style=height:35px;"></input>
+   			<input type="text" class="form-control" id="title" name="title" value="${jd.title }" style="height:35px;"></input>
    		</div>
     </div>		
     <div class="form-group tr-new">
         <label class="col-sm-2 control-label" for="client">Client</label>
         <div class="col-sm-4">
-        	<input type="text" class="form-control" id="client" name="client" value="${jd.client}" style=height:35px;">
+        	<input type="text" class="form-control" id="client" name="client" value="${jd.client}" style="height:35px;">
         </div>
         <label class="col-sm-2 control-label" for="status">Status</label>
         <div class="col-sm-4">
-        	<input type="text" class="form-control" id="status" name="status" value="${jd.status }" style="height:35px;" readonly>
+        	<input type="text" class="form-control" id="status" name="status"  style="height:35px;" readonly>
    		</div>
     </div>					                    
     <div class="form-group tr-new">
@@ -137,13 +197,19 @@
    		</div>
     </div>
     <div class="form-group tr-new">
-        <label class="col-sm-2 control-label" for="local">Local</label>
+      <label class="col-sm-2 control-label" for="priority">Priority</label>
         <div class="col-sm-4">
-        	<input type="text" class="form-control" id="local" name="local" value="${jd.local }" style="height:35px;">
+         	<%-- <input type="text" class="form-control" id="priority" name="priority" value="${jd.priority }" style=height:35px;"> --%>
+                        <select id="priority" name="priority"  class="form-control" data-rel="chosen">
+                              <option value="0" >common</option>
+                              <option value="1">priority</option>
+                               <option value="2">emergency</option>
+                        </select>
+     
         </div>
         <label class="col-sm-2 control-label" for="owner">Owner</label>
         <div class="col-sm-4">
-       	 	<input type="text" class="form-control" id="owner" name="owner" value="${jd.owner }" style="height:35px;">
+       	    <select id="owner" name="owner"  class="form-control" data-rel="chosen"></select>
     	</div>
     </div>	
     <div class="form-group tr-new">

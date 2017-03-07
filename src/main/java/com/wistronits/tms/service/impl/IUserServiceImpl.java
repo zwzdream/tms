@@ -44,6 +44,12 @@ public class IUserServiceImpl implements IUserService {
 	public ArrayList<UserBean> listByName(String username) {
 		return this.userDao.listByName(username);
 	}
+	
+	@Override
+	public ArrayList<UserBean> listAll() {
+	
+		return this.userDao.listAll();
+	}
 
 	@Override
 	public ArrayList<UserBean> getAllNotIncludedUser(int gid) {
@@ -68,5 +74,7 @@ public class IUserServiceImpl implements IUserService {
 	public int getHighestRoot(int id) {
 		return this.userDao.getHighestRoot(id);
 	}
+
+	
 
 }

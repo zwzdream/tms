@@ -12,6 +12,7 @@ public interface IUserService {
 	public void updateRoot(int uid,int gid,Date date);
 	public void deleteUser(int id);
 	public ArrayList<UserBean> listByName(String username);
+	public ArrayList<UserBean> listAll();
 	public ArrayList<UserBean> getAllNotIncludedUser(int gid);
 	public ArrayList<UserBean> getAllIncludedUser(int gid);
 	public void addUserToGroup(int uid,int gid);

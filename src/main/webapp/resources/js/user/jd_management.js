@@ -1,7 +1,21 @@
 $(function(){
 	$table=$('#table1');
    initTable();
+    notEnter();
 });
+
+
+
+function notEnter()
+{
+	$(this).keydown( function(e) {
+	    var key = window.event?e.keyCode:e.which;
+	    if(key.toString() == "13"){
+	        return false;
+	    }
+	});
+}
+
 function doQry(){
 	var keyword = $('#keyword').val();
 	if(keyword=='') {

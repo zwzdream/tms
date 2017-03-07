@@ -169,10 +169,10 @@ body {
 	<script
 		src='${ctx}/resources/ui/charisma/bower_components/fullcalendar/dist/fullcalendar.min.js'></script>
 	<!-- data table plugin -->
-	<script src='${ctx}/resources/ui/charisma/js/jquery.dataTables.min.js'></script>
+	 <script src='${ctx}/resources/ui/charisma/js/jquery.dataTables.min.js'></script> 
 	<!-- select or dropdown enhancer -->
-	<script
-		src="${ctx}/resources/ui/charisma/bower_components/chosen/chosen.jquery.min.js"></script>
+	 <script
+		src="${ctx}/resources/ui/charisma/bower_components/chosen/chosen.jquery.min.js"></script> 
 	<!-- plugin for gallery image view -->
 	<script
 		src="${ctx}/resources/ui/charisma/bower_components/colorbox/jquery.colorbox-min.js"></script>
@@ -187,7 +187,7 @@ body {
 	<!-- Date Range Picker -->
 		<script
 		src="${ctx}/resources/ui/charisma/bower_components/daterangepicker/moment.min.js"></script>
-	<script
+ 	<script
 		src="${ctx}/resources/ui/charisma/bower_components/daterangepicker/daterangepicker.js"></script>
 
 	<!-- star rating plugin -->
@@ -211,19 +211,20 @@ body {
 	<script type="text/javascript"
 		src="${ctx}/resources/js/charisma/common.js"></script>
 	<script type="text/javascript" src="${ctx}/resources/js/app/jd/jd.js"></script>
-	<script type="text/javascript">
+ 	<script type="text/javascript">
 		
 		var token = $("meta[name='_csrf']").attr("content");
 		var header = $("meta[name='_csrf_header']").attr("content");
 		$(document).ajaxSend(function(e, xhr, options) {
 			xhr.setRequestHeader(header, token);
 		});
-	</script>
+	</script> 
 	 	<script type="text/javascript">
 	 	$(function(){
 		ajaxContent("/Index/dashboard/init");
 	 	});
 	</script>  
+
 
 </body>
 </html>

@@ -3,7 +3,6 @@ package com.wistronits.tms.web;
 
 
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -57,21 +56,6 @@ public class ResourceRepositoryController {
 		
 	}
 
-	@RequestMapping(value = "/toScan")
-	public String toScan(
-			@RequestParam(value="resourceId") int resourceId,
-			@RequestParam(value="resourceType") String resourceType) throws IOException {
-        String retrurnString="";
-		if("import".equals(resourceType)){
-			retrurnString="forward:/Resource/toScanImport";
-		}else if("add".equals(resourceType)){
-          		
-			retrurnString="forward:/Resource/toEditAdd";
-           }
-		return retrurnString;
-
-		
-	}
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/searchresource", method = RequestMethod.GET)
@@ -108,7 +92,7 @@ public class ResourceRepositoryController {
 			@RequestParam(value="mobile") String mobile,
 			@RequestParam(value="starts") String startsYYYY_MM_DD,
 			@RequestParam(value="email") String email,
-			@RequestParam(value="inputFile") MultipartFile file,
+			@RequestParam(value="inputFile")  MultipartFile file,
 			@RequestParam(value="residency") String residency,
 			@RequestParam(value="education") String education,
 			@RequestParam(value="workExp") String workExp,
@@ -116,27 +100,25 @@ public class ResourceRepositoryController {
 			) {	
 		Date birthDate = null;
 		Date startsDate=null;
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		if(!birthYYYY_MM_DD.isEmpty()) {
-			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		
 			try {
 				birthDate = df.parse(birthYYYY_MM_DD);
 			} catch (ParseException e) {
 				return RsResponse.getErrorInstance("Birth date invalid:"+birthYYYY_MM_DD);
 			}
 		}
-		if(birthDate == null){
-			return RsResponse.getErrorInstance("Birth date must exist");
-		}
 		if(!startsYYYY_MM_DD.isEmpty()) {
-			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 			try {
 				startsDate = df.parse(startsYYYY_MM_DD);
 			} catch (ParseException e) {
 				return RsResponse.getErrorInstance("Work starts date invalid:"+birthYYYY_MM_DD);
 			}
 		}
-		if(startsDate == null){
-			return RsResponse.getErrorInstance("Work starts date must exist");
+		String regex = "^[a-zA-Z].*[xX]$";
+		if(file.getOriginalFilename().matches(regex)){
+			return RsResponse.getErrorInstance("Please upload an office file of under the 2003 version !");
 		}
 		ResumeBean rBean = new ResumeBean();
 		rBean.setBirth(birthDate);
@@ -164,11 +146,21 @@ public class ResourceRepositoryController {
 	@RequestMapping(value="/toEditResource", method=RequestMethod.POST)
 	public ModelAndView toEditResource(@RequestParam(value="resourceId") int resourceId){
 		ModelAndView mv = new ModelAndView();
+		String filePath="error";
+		String fileError="success";
+		ArrayList<String> returnList=null;
 		ResumeBean bean = resumeService.getResourceById(resourceId);
-		String filePath=resumeService.transferToswf(bean.getFilePath());
+		String rfilePath= bean.getFilePath();
+		if(rfilePath!=null){
+		returnList=resumeService.transferToswf(rfilePath);
+		filePath=returnList.get(0);
+		fileError=returnList.get(1);
+		}
+		
 		mv.addObject("bean",bean);
 		mv.addObject("resourceId", resourceId);
 		mv.addObject("filePath",filePath);
+		mv.addObject("fileError",fileError);
 		mv.setViewName("/resource/resource_add_edit");
 		return mv;
 	}
@@ -176,12 +168,20 @@ public class ResourceRepositoryController {
 	@RequestMapping(value="/toEditFromJD", method=RequestMethod.POST)
 	public ModelAndView toEditAddFromJD(@RequestParam(value="resourceId") int resourceId,@RequestParam(value="no") int no){
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/resource/resource_add_edit");
+		String filePath="error";
+		String fileError="success";
+		ArrayList<String> returnList=null;
 		ResumeBean bean = resumeService.getResourceById(resourceId);
-		String filePath=resumeService.transferToswf(bean.getFilePath());
+		String rfilePath= bean.getFilePath();
+		if(rfilePath!=null){
+			returnList=resumeService.transferToswf(rfilePath);
+			filePath=returnList.get(0);
+			fileError=returnList.get(1);
+		}
 		mv.addObject("bean",bean);
 		mv.addObject("jdNo",no);
 		mv.addObject("filePath",filePath);
+		mv.addObject("fileError",fileError);
 		mv.setViewName("/resource/resource_add_edit");
 		return mv;
 	}
@@ -189,12 +189,20 @@ public class ResourceRepositoryController {
 	@RequestMapping(value="/toEditFromJD2", method=RequestMethod.POST)
 	public ModelAndView toEditAddFromJD2(@RequestParam(value="resourceId") int resourceId,@RequestParam(value="no") int no){
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/resource/resource_add_edit");
+		String filePath="error";
+		String fileError="";
+		ArrayList<String> returnList=null;
 		ResumeBean bean = resumeService.getResourceById(resourceId);
-		String filePath=resumeService.transferToswf(bean.getFilePath());
+		String rfilePath= bean.getFilePath();
+		if(rfilePath!=null){
+			returnList=resumeService.transferToswf(rfilePath);
+			filePath=returnList.get(0);
+			fileError=returnList.get(1);
+		}
 		mv.addObject("bean",bean);
 		mv.addObject("jdNo2",no);
 		mv.addObject("filePath",filePath);
+		mv.addObject("fileError",fileError);
 		mv.setViewName("/resource/resource_add_edit");
 		return mv;
 	}
@@ -231,27 +239,24 @@ public class ResourceRepositoryController {
 			@RequestParam(value="projectExp") String projectExp) {
 		Date birthDate = null;
 		Date startsDate=null;
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		if(!birthYYYY_MM_DD.isEmpty()) {
-			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 			try {
 				birthDate = df.parse(birthYYYY_MM_DD);
 			} catch (ParseException e) {
 				return RsResponse.getErrorInstance("Birth date invalid:"+birthYYYY_MM_DD);
 			}
 		}
-		if(birthDate == null){
-			return RsResponse.getErrorInstance("Birth date must exist");
-		}
 		if(!startsYYYY_MM_DD.isEmpty()) {
-			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 			try {
 				startsDate = df.parse(startsYYYY_MM_DD);
 			} catch (ParseException e) {
 				return RsResponse.getErrorInstance("Work starts date invalid:"+birthYYYY_MM_DD);
 			}
 		}
-		if(startsDate == null){
-			return RsResponse.getErrorInstance("Work starts date must exist");
+		String regex = "^[a-zA-Z].*[xX]$";
+		if(file.getOriginalFilename().matches(regex)){
+			return RsResponse.getErrorInstance("Please upload an office file of under the 2003 version !");
 		}
 		ResumeBean rBean = new ResumeBean();
 		rBean.setId(id);

@@ -58,8 +58,10 @@
      <update id="editResource" parameterType="com.wistronits.tms.entity.ResumeBean" >
 	update resume set first_name=#{firstName},last_name=#{lastName},birth=#{birth},gender=#{gender},mobile=#{mobile},
 	starts=#{starts},email=#{email},residency=#{residency},workExp=#{workExp},projectExp=#{projectExp},last_m_time=#{lastMTime} where id=#{id} ;
+		<if test="filePath!=null and filePath!=''">
+	  	update resume_file set resume_filepath=#{filePath} where resume_id=#{id};
+		 </if>
 	
-	update resume_file set resume_filepath=#{filePath} where resume_id=#{id};
 	</update>
 	
 	<select id="getCurrentWeekCount" resultType="int">

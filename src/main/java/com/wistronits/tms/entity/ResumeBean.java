@@ -127,7 +127,9 @@ public class ResumeBean implements Serializable {
 		int yearNow = cal.get(Calendar.YEAR);
 		int monthNow = cal.get(Calendar.MONTH);
 		int dayOfMonthNow = cal.get(Calendar.DAY_OF_MONTH);
+		if(!(this.birth==null)){
 		cal.setTime(this.birth);
+		}
 		
 		int yearBirth = cal.get(Calendar.YEAR);
 		int monthBirth = cal.get(Calendar.MONTH);
@@ -150,7 +152,6 @@ public class ResumeBean implements Serializable {
 			desc = sdf.format(this.lastMTime);
 		}
 		return desc;
-		//return lastMTime;
 	}
 	public void setLastMTime(Date lastMTime) {
 		this.lastMTime = lastMTime;

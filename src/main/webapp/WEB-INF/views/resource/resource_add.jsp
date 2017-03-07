@@ -35,6 +35,8 @@ function addResume(divId, formId,callback){
 		success:function(obj){
 			if((obj) && (obj.success)){
 				noty({type:"success",text: "Add successed!", layout: "bottom", timeout: 3000});
+			}else if((obj) && (obj.errorMessage)){
+				noty({type:"error",text: "Add failed!"+obj.errorMessage, layout: "bottom", timeout: 3000});
 			}else{
 				noty({type:"error",text: "Add failed!", layout: "bottom", timeout: 3000});
 			}
@@ -78,7 +80,7 @@ function addResume(divId, formId,callback){
 		<div class="box-content">
 	<form class="form-horizontal" id="addResume" method="POST">
 		<div class="form-group tr-new">
-        <label class="col-sm-2 control-label" for="firstNmae">First&nbsp;Name&nbsp;</label>
+        <label class="col-sm-2 control-label" for="firstName">First&nbsp;Name&nbsp;</label>
         <div class="col-sm-4 input-group-sm" >
          	<input type="text" class="form-control" id="firstName" name="firstName" placeholder="FirstNmae" style="height:35px;">
         </div>

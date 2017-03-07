@@ -6,13 +6,18 @@ $(function(){
 	var gender = '${bean.gender}';
 	gender?$(':radio[name=gender][value=true]').attr('checked',true):$(':radio[name=gender][value=false]').attr('checked',true);
 	var birth = '${bean.birth}';
+	if(typeof(birth) != "undefined"&birth!=''){
+		//console.log(birth);
 	var birthArr = new Date(birth).toLocaleDateString().split('/');////toLocaleDateString
 	var birthStr = birthArr.join("-");
 	$('#birth').attr('value',birthStr);
+	}
 	var starts = '${bean.starts}';
+	if(typeof(starts) != "undefined"&starts!=''){
 	var startsArr = new Date(starts).toLocaleDateString().split('/');////toLocaleDateString
 	var startsStr = startsArr.join("-");
 	$('#starts').attr('value',startsStr);
+	}
 });
 function updateResume(divId, formId){
 	var form = $("#" + formId)[0];
@@ -31,9 +36,9 @@ function updateResume(divId, formId){
         dataType: "json",
 		success:function(obj){
 			if((obj) && (obj.success)){
-				noty({type:"success",text: "Edit successed!", layout: "bottom", timeout: 3000});
- 			}else{
-				noty({type:"error",text: "Update failed!", layout: "bottom", timeout: 3000});
+				noty({type:"success",text: "Update successed!", layout: "bottom", timeout: 3000});
+ 			}else if((obj) && (obj.errorMessage)){
+				noty({type:"error",text:"Update failes!" +obj.errorMessage, layout: "bottom", timeout: 3000});
 			}
 		},
 		error: function(XMLHttpRequest, textStatus, errorThrown) { 
@@ -175,7 +180,9 @@ function updateResume(divId, formId){
         </div>
     </div>
     <div  class="box-content ">
+      <c:if test="${filePath !='error'}">
     <div><%@ include file="document_view.jsp"%></div>
+    </c:if>
     </div>
     
     

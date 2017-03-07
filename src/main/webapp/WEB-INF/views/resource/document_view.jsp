@@ -21,6 +21,7 @@ body {
 	display: none;
 }
 </style>
+
 <div class="container">
 <div style="/* position: absolute; */left: 50px; top: 10px;">
 	<a id="viewerPlaceHolder"
@@ -55,6 +56,12 @@ body {
 						localeChain : 'en_US'
 					}
 				});
+		
+		var fileError='${fileError}';
+		if(fileError!=""){
+			noty({type:"warning",text:fileError, layout: "center", timeout: 3000});
+		}
+	
 	</script>
 </div>
 </div>

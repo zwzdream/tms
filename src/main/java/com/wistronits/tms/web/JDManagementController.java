@@ -17,10 +17,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonObjectFormatVisitor;
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.fasterxml.jackson.databind.util.JSONWrappedObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wistronits.tms.entity.JDBean;
 import com.wistronits.tms.service.IJDBeanService;
+import com.wistronits.tms.service.IUserService;
 
 
 @Controller
@@ -28,7 +32,7 @@ import com.wistronits.tms.service.IJDBeanService;
 public class JDManagementController {
 	@Resource
 	private IJDBeanService jdBeanService;
-
+	
 	@RequestMapping(value = "/toAdd", method = RequestMethod.POST)
 	public String toAdd(Model model) {
 
@@ -48,8 +52,10 @@ public class JDManagementController {
 		ModelAndView view = new ModelAndView("/jd/jd_edit");
 		view.addObject("jd", jdBeanService.getJD(no));
 		view.addObject("jdNo", no);
+		
 		return view;
 	}
+	
 
 	@RequestMapping(value = "/all/list", method = RequestMethod.POST)
 	public ModelAndView listAll(int pageNum, int pageSize) {
@@ -66,7 +72,6 @@ public class JDManagementController {
 		form.setModifydate(new Date());
 		jdBeanService.saveJDBean(form);
 		ModelAndView view = new ModelAndView("/jd/jd_management");
-		view.addObject(form);
 		return view;
 	}
 
@@ -75,7 +80,6 @@ public class JDManagementController {
 		form.setModifydate(new Date());
 		jdBeanService.editJDBean(form);
 		ModelAndView view = new ModelAndView("/jd/jd_management");
-		view.addObject(form);
 		return view;
 	}
 

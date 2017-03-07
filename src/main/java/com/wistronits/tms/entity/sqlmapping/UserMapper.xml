@@ -32,6 +32,12 @@
 		]]>
 	</select>
 	
+	<select id="listAll" resultMap="BaseResultMap">
+  		<![CDATA[
+	  		select * from user
+		]]>
+	</select>
+	
 	<update id="editUser" >
 	<![CDATA[
 	update user set username=#{username},password=#{password},mail=#{mail},telphone=#{telphone},

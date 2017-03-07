@@ -1,5 +1,6 @@
 package com.wistronits.tms.web;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -61,7 +62,13 @@ public class UserManagementController {
 		view.addObject(form);
 		return view;
 	}
+	
+	@RequestMapping(value = "/listAll")
+	public @ResponseBody ArrayList<UserBean> listAll() {
+		return userService.listAll();
+	}
 
+	
 	
 	@RequestMapping(value = "/username/list", method = RequestMethod.GET)
 	@ResponseBody

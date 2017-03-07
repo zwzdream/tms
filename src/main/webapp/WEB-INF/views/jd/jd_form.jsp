@@ -49,28 +49,7 @@
 
 </script>
 <fieldset>
-	<div class="form-group tr-new">
-     <!--    <label class="col-sm-2 control-label" for="no">No.</label>
-        <div class="col-sm-4">
-         	<input type="number" class="form-control" id="no" name="no" placeholder="No." style="height:35px;">
-        </div> -->
-         <!-- <label class="col-sm-2 control-label" for="priority">Priority</label>
-       <div class="col-sm-4">
-         	<input type="text" class="form-control" id="priority" name="priority" placeholder="Priority" style="height:35px;">
-        </div> -->
-     
-                    <label class="col-sm-2 control-label" for="priority">Priority</label>
 
-                    <div class="col-sm-10 controls">
-                        <select id="priority" name="priority"  class="form-control" data-rel="chosen">
-                              <option value="0" >common</option>
-                              <option value="1">priority</option>
-                               <option value="2">emergency</option>
-                        </select>
-                    </div>
-       
-                
-    </div>
      <div class="form-group tr-new">
         <label class="col-sm-2 control-label" for="title">Title</label>
         <div class="col-sm-10">
@@ -118,11 +97,21 @@
           <div class="col-sm-4">
           <input type="radio" name="local" id="local1" value="true" checked="checked"> YES &nbsp;&nbsp;
            <input type="radio" name="local" id="local2" value="false"> NO
-            </div>
-        <label class="col-sm-2 control-label" for="owner">Owner</label>
-        <div class="col-sm-4">
-       	 	<input type="text" class="form-control" id="owner" name="owner" value="${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.id}" >
+          </div>
+   <!--      <label class="col-sm-2 control-label" for="owner">Owner</label> -->
+
+       	 	<input type="hidden" class="form-control" id="owner" name="owner" value="${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.id}" >
+    
+        
+         <label class="col-sm-2 control-label" for="priority">Priority</label>
+         <div class="col-sm-4">
+       	  <select id="priority" name="priority"  class="form-control" data-rel="chosen">
+                              <option value="0" >common</option>
+                              <option value="1">priority</option>
+                               <option value="2">emergency</option>
+           </select>
     	</div>
+    	
 <!--         <div class="col-sm-4">
        	 	<input type="text" class="form-control" id="owner" name="owner" placeholder="Owner" style="height:35px;" >
     	</div> -->
