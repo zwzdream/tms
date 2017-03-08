@@ -36,14 +36,16 @@ public class IResumeServiceImpl implements IResumeService {
 			File localFile = uploadFile(file);
 			if(localFile!=null){
 			resource.setFilePath(localFile.getAbsolutePath());
-			System.out.println(localFile.getAbsolutePath());}
+			}
 			int cnt =  iResumeDao.addResource(resource);
 			if(cnt<=0){
 				return false;
 			}
+			LuceneIndexer.createIndexer(resource.toString(), resource.getId());
 			if(localFile!=null){
-			LuceneIndexer.createIndexer(localFile, resource.getId());
+			LuceneIndexer.createIndexer(localFile, resource);
 			}
+			
 		} catch (IllegalStateException | IOException e) {
 			e.printStackTrace();
 			return true;
@@ -135,7 +137,8 @@ public class IResumeServiceImpl implements IResumeService {
 		if(count!=1){
 			return false;
 		}
-		LuceneIndexer.deleteIndex(resourceId);
+		LuceneIndexer.deleteBasicIndex(resourceId);
+		LuceneIndexer.deleteFileIndex(resourceId);
 		return true;
 	}
 
@@ -157,10 +160,13 @@ public class IResumeServiceImpl implements IResumeService {
 			if(cnt<=0){
 				return false;
 			}
+			LuceneIndexer.deleteBasicIndex(resource.getId());
+			LuceneIndexer.createIndexer(resource.toString(), resource.getId());
 			if(localFile!=null){
-				LuceneIndexer.deleteIndex(resource.getId());
-				LuceneIndexer.createIndexer(localFile, resource.getId());
+				LuceneIndexer.deleteFileIndex(resource.getId());
+				LuceneIndexer.createIndexer(localFile, resource);
 				}
+				
 		} catch (IllegalStateException | IOException e) {
 			e.printStackTrace();
 			return false;

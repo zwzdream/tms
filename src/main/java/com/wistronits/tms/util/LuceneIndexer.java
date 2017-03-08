@@ -41,13 +41,15 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.xmlbeans.XmlException;
 
+import com.wistronits.tms.entity.ResumeBean;
+
 public class LuceneIndexer {
 	
 	public static String UPLOAD_FOLDER_PATH = "D:/saveFiles";
 	public static String LUCENE_INDEX_FOLDER_PATH = "D:/luceneIndex";
 	
 	@SuppressWarnings("deprecation")
-	public static void createIndexer(File srcFile, int id){
+	public static void createIndexer(File srcFile, ResumeBean bean){
 		Directory directory = null;
 		IndexWriter writer = null;
 		Document doc = null;
@@ -69,14 +71,13 @@ public class LuceneIndexer {
 				 type.setIndexOptions(IndexOptions.DOCS);    
 				 type.setTokenized(false);    
 				 type.setStored(true); 
-				 String idString=String.valueOf(id);
+				 String idString=String.valueOf(bean.getId());
 				doc.add(new Field("content",content,Field.Store.NO,Field.Index.ANALYZED));
 				doc.add(new Field("id",idString,Field.Store.YES,Field.Index.NO));
-				doc.add(new Field("type","import",Field.Store.YES,Field.Index.NO));
-				doc.add(new Field("identifier",idString,type));
+				doc.add(new Field("identifier",idString+"file",type));
 				writer.addDocument(doc);
 				
-				System.out.println("Create index successfully!");
+				System.out.println("Create  index successfully for file!");
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -119,7 +120,6 @@ public class LuceneIndexer {
 			TopDocs tds = getDocsByPage(page, pageSize, seacher, query);
 			ScoreDoc[] docs = tds.scoreDocs;
 
-//			System.out.println("all match files count:"+getAllMatchDocCount(seacher));
 			System.out.println("matched files count:"+tds.totalHits);
 			System.out.println("matched files count in page:"+docs.length);
 			for (ScoreDoc scoreDoc : docs) {
@@ -170,12 +170,9 @@ public class LuceneIndexer {
 			System.out.println("matched files count in page:"+docs.length);*/
 			for (ScoreDoc scoreDoc : docs) {
 				Document doc = seacher.doc(scoreDoc.doc);
-				if("import".equals(doc.get("type"))){
 				addList.add(Integer.parseInt(doc.get("id")));
-				}
 			}
 			result.put("count", tds.totalHits);
-		//	result.put("importList", importList);
 			result.put("addList", addList);
 		} catch (IOException | ParseException e) {
 
@@ -310,7 +307,7 @@ public class LuceneIndexer {
 		 return temp;
 	 }
 
-	/*@SuppressWarnings("deprecation")
+	@SuppressWarnings("deprecation")
 	public static void createIndexer(String content, int id) {
 		Directory directory = null;
 		IndexWriter writer = null;
@@ -335,11 +332,10 @@ public class LuceneIndexer {
 				 String idString=String.valueOf(id);
 				doc.add(new Field("content",content,Field.Store.NO,Field.Index.ANALYZED));
 				doc.add(new Field("id",idString,Field.Store.YES,Field.Index.NO));
-				doc.add(new Field("type","add",Field.Store.YES,Field.Index.NO));
-				doc.add(new Field("identifier",idString+"add",type));
+				doc.add(new Field("identifier",idString+"basic",type));
 				writer.addDocument(doc);
 				
-				System.out.println("Create index successfully for manual add resource!");
+				System.out.println("Create index successfully for basic information!");
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -352,9 +348,9 @@ public class LuceneIndexer {
 				}
 			}
 		}
-	}*/
+	}
 
-	public static void deleteIndex(int resourceId) {
+	public static void deleteFileIndex(int resourceId) {
 		Directory directory = null;
 		IndexWriter writer = null;
 		File indexDir = new File(LUCENE_INDEX_FOLDER_PATH);
@@ -365,9 +361,35 @@ public class LuceneIndexer {
 			directory = FSDirectory.open(indexDir.toPath(),NoLockFactory.INSTANCE);
 			IndexWriterConfig writerConfig = new IndexWriterConfig(new StandardAnalyzer());
 			writer = new IndexWriter(directory,writerConfig);
-			writer.deleteDocuments(new Term("identifier",String.valueOf(resourceId)));
+			writer.deleteDocuments(new Term("identifier",String.valueOf(resourceId)+"file"));
 			writer.commit();
-			System.out.println("delete index successfully!");		
+			System.out.println("delete file index successfully!");		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(writer!=null)
+				try {
+					writer.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+		}
+	}
+	
+	public static void deleteBasicIndex(int resourceId) {
+		Directory directory = null;
+		IndexWriter writer = null;
+		File indexDir = new File(LUCENE_INDEX_FOLDER_PATH);
+		if(!indexDir.exists() && !indexDir.isDirectory()){
+			indexDir.mkdir();
+		}
+		try {
+			directory = FSDirectory.open(indexDir.toPath(),NoLockFactory.INSTANCE);
+			IndexWriterConfig writerConfig = new IndexWriterConfig(new StandardAnalyzer());
+			writer = new IndexWriter(directory,writerConfig);
+			writer.deleteDocuments(new Term("identifier",String.valueOf(resourceId)+"basic"));
+			writer.commit();
+			System.out.println("delete basic index successfully!");		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
