@@ -5,6 +5,7 @@ import java.util.Date;
 public class JDBean {
 
 	  private int no;//系统唯一标识，自增长
+	  private String number;//编号
 	  private int priority;//优先级 0=普通，1=优先，2=紧急
 	  private String title;//Job Ttitle，限定长度为50
 	  private String client;//客户名，限定长度为50
@@ -26,6 +27,12 @@ public class JDBean {
 	public void setNo(int no) {
 		this.no = no;
 	}
+    public String getNumber() {
+			return number;
+		}
+	public void setNumber(String number) {
+			this.number = number;
+	 }
 	public int getPriority() {
 		return priority;
 	}

@@ -3,8 +3,6 @@ package com.wistronits.tms.web;
 
 
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,6 +12,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -81,63 +80,24 @@ public class ResourceRepositoryController {
 		rs.setsEcho(sEcho);
 		return rs;
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "/addResource", method = RequestMethod.POST)
-	public @ResponseBody RsResponse addResource(
-			@RequestParam(value="firstName") String firstName,
-			@RequestParam(value="lastName") String lastName,
-			@RequestParam(value="birth") String birthYYYY_MM_DD,
-			@RequestParam(value="gender") boolean gender,
-			@RequestParam(value="mobile") String mobile,
-			@RequestParam(value="starts") String startsYYYY_MM_DD,
-			@RequestParam(value="email") String email,
-			@RequestParam(value="inputFile")  MultipartFile file,
-			@RequestParam(value="residency") String residency,
-			@RequestParam(value="education") String education,
-			@RequestParam(value="workExp") String workExp,
-			@RequestParam(value="projectExp") String projectExp
-			) {	
-		Date birthDate = null;
-		Date startsDate=null;
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-		if(!birthYYYY_MM_DD.isEmpty()) {
-		
-			try {
-				birthDate = df.parse(birthYYYY_MM_DD);
-			} catch (ParseException e) {
-				return RsResponse.getErrorInstance("Birth date invalid:"+birthYYYY_MM_DD);
-			}
-		}
-		if(!startsYYYY_MM_DD.isEmpty()) {
-			try {
-				startsDate = df.parse(startsYYYY_MM_DD);
-			} catch (ParseException e) {
-				return RsResponse.getErrorInstance("Work starts date invalid:"+birthYYYY_MM_DD);
-			}
-		}
+	public @ResponseBody RsResponse addResource(@ModelAttribute("addForm") ResumeBean rBean,
+			@RequestParam(value="inputFile")  MultipartFile file) {	
+
 		String regex = "^[a-zA-Z].*[xX]$";
 		if(file.getOriginalFilename().matches(regex)){
 			return RsResponse.getErrorInstance("Please upload an office file of under the 2003 version !");
 		}
-		ResumeBean rBean = new ResumeBean();
-		rBean.setBirth(birthDate);
-		rBean.setFirstName(firstName);
-		rBean.setLastName(lastName);
-		rBean.setGender(gender);
-		rBean.setMobile(mobile);
-		rBean.setStarts(startsDate);
-		rBean.setEmail(email);
-		rBean.setResidency(residency);
-		rBean.setEducation(education);
-		rBean.setWorkExp(workExp);
-		rBean.setProjectExp(projectExp);
+		rBean.setAddTime(new Date());
 		rBean.setLastMTime(new Date());
 		boolean ret = resumeService.addResource(rBean,file);
-		if(!ret)
+		if(!ret){
 			return RsResponse.getErrorInstance("add to database failed!");
-		else
+		}else{
 			return RsResponse.BLANKSUCCESS;
+			}
 			
 	}
 		
@@ -162,6 +122,25 @@ public class ResourceRepositoryController {
 		mv.addObject("filePath",filePath);
 		mv.addObject("fileError",fileError);
 		mv.setViewName("/resource/resource_add_edit");
+		return mv;
+	}
+	@RequestMapping(value="/toScanResource", method=RequestMethod.POST)
+	public ModelAndView toScanResource(@RequestParam(value="resourceId") int resourceId){
+		ModelAndView mv = new ModelAndView("/resource/resource_scan");
+		String filePath="error";
+		String fileError="success";
+		ArrayList<String> returnList=null;
+		ResumeBean bean = resumeService.getResourceById(resourceId);
+		String rfilePath= bean.getFilePath();
+		if(rfilePath!=null){
+			returnList=resumeService.transferToswf(rfilePath);
+			filePath=returnList.get(0);
+			fileError=returnList.get(1);
+		}
+		
+		mv.addObject("filePath",filePath);
+		mv.addObject("fileError",fileError);
+
 		return mv;
 	}
 	
@@ -223,60 +202,20 @@ public class ResourceRepositoryController {
 
 	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "/updateResource", method = RequestMethod.POST)
-	public @ResponseBody RsResponse updateResource(
-			@RequestParam(value="id") int id,
-			@RequestParam(value="firstName") String firstName,
-			@RequestParam(value="lastName") String lastName,
-			@RequestParam(value="birth") String birthYYYY_MM_DD,
-			@RequestParam(value="gender") boolean gender,
-			@RequestParam(value="mobile") String mobile,
-			@RequestParam(value="starts") String startsYYYY_MM_DD,
-			@RequestParam(value="email") String email,
-			@RequestParam(value="inputFile") MultipartFile file,
-			@RequestParam(value="residency") String residency,
-			@RequestParam(value="education") String education,
-			@RequestParam(value="workExp") String workExp,
-			@RequestParam(value="projectExp") String projectExp) {
-		Date birthDate = null;
-		Date startsDate=null;
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-		if(!birthYYYY_MM_DD.isEmpty()) {
-			try {
-				birthDate = df.parse(birthYYYY_MM_DD);
-			} catch (ParseException e) {
-				return RsResponse.getErrorInstance("Birth date invalid:"+birthYYYY_MM_DD);
-			}
-		}
-		if(!startsYYYY_MM_DD.isEmpty()) {
-			try {
-				startsDate = df.parse(startsYYYY_MM_DD);
-			} catch (ParseException e) {
-				return RsResponse.getErrorInstance("Work starts date invalid:"+birthYYYY_MM_DD);
-			}
-		}
+	public @ResponseBody RsResponse updateResource(@ModelAttribute("editForm") ResumeBean rBean,
+			@RequestParam(value="inputFile") MultipartFile file) {
+	
 		String regex = "^[a-zA-Z].*[xX]$";
 		if(file.getOriginalFilename().matches(regex)){
 			return RsResponse.getErrorInstance("Please upload an office file of under the 2003 version !");
 		}
-		ResumeBean rBean = new ResumeBean();
-		rBean.setId(id);
-		rBean.setBirth(birthDate);
-		rBean.setFirstName(firstName);
-		rBean.setLastName(lastName);
-		rBean.setGender(gender);
-		rBean.setMobile(mobile);
-		rBean.setStarts(startsDate);
-		rBean.setEmail(email);
-		rBean.setResidency(residency);
-		rBean.setEducation(education);
-		rBean.setWorkExp(workExp);
-		rBean.setProjectExp(projectExp);
 		rBean.setLastMTime(new Date());
 		boolean ret = resumeService.editResource(rBean, file);
-		if(!ret)
+		if(!ret){
 			return RsResponse.getErrorInstance("edit to database failed!");
-		else
+		}else{
 			return RsResponse.BLANKSUCCESS;
+		}
 	}
 	
 	@SuppressWarnings("unchecked")

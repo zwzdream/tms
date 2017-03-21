@@ -51,21 +51,29 @@
 <fieldset>
 
      <div class="form-group tr-new">
+        <label class="col-sm-2 control-label" for="title">NO.</label>
+        <div class="col-sm-4">
+   			<input type="text" class="form-control" id="number" name="number" placeholder="Number" style="height:35px;"></input>
+   		</div>
         <label class="col-sm-2 control-label" for="title">Title</label>
-        <div class="col-sm-10">
+        <div class="col-sm-4">
    			<input type="text" class="form-control" id="title" name="title" placeholder="Title" style="height:35px;"></input>
    		</div>
     </div>		
     <div class="form-group tr-new">
         <label class="col-sm-2 control-label" for="client">Client</label>
-        <div class="col-sm-10">
+        <div class="col-sm-4">
         	<input type="text" class="form-control" id="client" name="client" placeholder="Client" style="height:35px;">
         </div>
-     <!--  <label class="col-sm-2 control-label" for="status">Status</label>
-        <div class="col-sm-4">
-        	<input type="text" class="form-control" id="status" name="status" placeholder="Status" style="height:35px;">
-   		</div>  -->
-   		<input type="hidden" class="form-control" id="status" name="status" value="1" >
+   		  <label class="col-sm-2 control-label" for="status">Status</label>
+         <div class="col-sm-4">
+       	  <select id="status" name="status"  class="form-control" data-rel="chosen">
+                              <option value="0" >closed</option>
+                              <option value="1">hold on</option>
+                               <option value="2">open</option>
+           </select>
+    	</div>
+   	<!-- 	<input type="hidden" class="form-control" id="status" name="status" value="1" > -->
     </div>					                    
     <div class="form-group tr-new">
         <label class="col-sm-2 control-label" for="location">Location</label>
@@ -91,9 +99,6 @@
     </div>
     <div class="form-group tr-new">
         <label class="col-sm-2 control-label" for="local">Local</label>
-  <!--       <div class="col-sm-4">
-        	<input type="text" class="form-control" id="local" name="local" placeholder="Local" style="height:35px;">
-        </div> -->
           <div class="col-sm-4">
           <input type="radio" name="local" id="local1" value="true" checked="checked"> YES &nbsp;&nbsp;
            <input type="radio" name="local" id="local2" value="false"> NO

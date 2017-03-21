@@ -18,11 +18,12 @@
 				    <caption>The table shows the resources that can be added to the jd</caption>
 						    <thead>
 						    <tr>
-						        <th>#</th>
+						      <th>No.</th>
 						        <th>Name</th>
-						    	<th>PhoneNumber</th>
-						        <th>Age</th>
-						        <th>Gender</th>
+						        <th>Industry&nbsp;Experience</th>
+						        <th>Title</th>
+						        <th>Location</th>
+						        <th>Work&nbsp;Eligibility</th>
 						        <th>Actions</th>
 						    </tr>
 						    </thead>
@@ -37,11 +38,12 @@
 				      <caption>The table shows the resources that already belong to the jd</caption>
 						    <thead>
 						    <tr>
-						       <th>#</th>
+						      <th>No.</th>
 						        <th>Name</th>
-						    	<th>PhoneNumber</th>
-						        <th>Age</th>
-						        <th>Gender</th>
+						        <th>Industry&nbsp;Experience</th>
+						        <th>Title</th>
+						        <th>Location</th>
+						        <th>Work&nbsp;Eligibility</th>
 						        <th>Actions</th>
 						    </tr>
 						    </thead>

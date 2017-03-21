@@ -3,6 +3,7 @@
 <mapper namespace="com.wistronits.tms.dao.IJDBeanDao">
 	<resultMap id="BaseResultMap" type="com.wistronits.tms.entity.JDBean">
 		<id column="no" property="no" jdbcType="INTEGER" />
+		<result column="number" property="number" jdbcType="VARCHAR" />
 		<result column="priority" property="priority" jdbcType="INTEGER" />
 		<result column="title" property="title" jdbcType="VARCHAR" />
 		<result column="client" property="client" jdbcType="VARCHAR" />
@@ -21,18 +22,21 @@
 
 	<insert id="saveJDBean" useGeneratedKeys="true" keyProperty="no">
 	  <![CDATA[
-	  		insert into jd(no,priority,title,client,status,location,duration,payrate,keyword,local,
-	  		owner,description,qualification,notes,modifydate) values(#{no},#{priority},#{title},#{client},#{status},#{location},#{duration}
+	  		insert into jd(no,number,priority,title,client,status,location,duration,payrate,keyword,local,
+	  		owner,description,qualification,notes,modifydate) values(#{no},#{number},#{priority},#{title},#{client},#{status},#{location},#{duration}
 	  		,#{payrate},#{keyword},#{local},#{owner},#{description},#{qualification},#{notes},#{modifydate})
 	  	]]>
 	</insert>
 	<select id="listByKeyword" resultMap="BaseResultMap">
 	<!-- mysql like的写法
      like concat('%',#{param},'%')  或者 like '%${param}%' ，推荐使用前者，可以避免sql注入。   -->
-  		<![CDATA[
-	  		select * from jd A  where A.status=1 and A.title like concat('%',#{keyword},'%') 
-	  		union  select * from jd A where A.status=1 and A.description like concat('%',#{keyword},'%')
-		]]>
+  
+	  		select * from jd A  where A.title like concat('%',#{keyword},'%') 
+	  		union  select * from jd A where A.status=1 and A.description like concat('%',#{keyword},'%') order by number desc
+	  	<!-- 	<if test="_parameter !=null and _parameter!=''">
+               and A.status=1
+              </if> -->
+	
 	</select>
 	<select id="getJD" resultMap="BaseResultMap">
   		<![CDATA[
@@ -42,9 +46,9 @@
 	
 	<update id="editJDBean" >
 	<![CDATA[
-	update jd set priority=#{priority},title=#{title},client=#{client},location=#{location},duration=#{location},duration=#{duration},
-	payrate=#{payrate},keyword=#{keyword},local=#{local},owner=#{owner},description=#{description},qualification=#{qualification},
-	notes=#{notes},modifydate=#{modifydate} where no=#{no} and status=#{status}
+	update jd set number=#{number},priority=#{priority},title=#{title},client=#{client},location=#{location},duration=#{location},duration=#{duration},
+	payrate=#{payrate},keyword=#{keyword},status=#{status},local=#{local},owner=#{owner},description=#{description},qualification=#{qualification},
+	notes=#{notes},modifydate=#{modifydate} where no=#{no}
 	]]>	
 	</update>
 	
@@ -64,11 +68,11 @@
 	</select>
 	
 	<select id="getJDsNotInAdd" resultMap="BaseResultMap">
-     SELECT a.* FROM jd a WHERE NOT EXISTS (SELECT b.resource_id FROM jd_resume_resource b WHERE b.resource_id=#{rid} AND b.jd_id=a.no)
+     SELECT a.* FROM jd a WHERE NOT EXISTS (SELECT b.resource_id FROM jd_resume_resource b WHERE b.resource_id=#{rid} AND b.jd_id=a.no) order by a.number desc
      </select>
 	
 	<select id="getJDsInAdd" resultMap="BaseResultMap">
-     	SELECT a.* FROM jd a LEFT JOIN jd_resume_resource b ON b.jd_id =a.no LEFT JOIN RESUME c ON c.id=b.resource_id WHERE c.id=#{rid}
+     	SELECT a.* FROM jd a LEFT JOIN jd_resume_resource b ON b.jd_id =a.no LEFT JOIN RESUME c ON c.id=b.resource_id WHERE c.id=#{rid} order by a.number desc
      </select>
 
 	

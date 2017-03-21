@@ -21,13 +21,14 @@
 				    <table id="rsRepositoryTable" class="table table-striped table-bordered bootstrap-datatable responsive" >
 						    <thead>
 						    <tr>
-						    	<th>#</th>
+						    	<th>No.</th>
 						        <th>Name</th>
-						        <th>Age</th>
-						        <th>Gender</th>
-						        <th>LastMTime</th>
+						        <th>Industry&nbsp;Experience</th>
+						        <th>Title</th>
+						        <th>Location</th>
+						        <th>Work&nbsp;Eligibility</th>
+						        <th>Resume</th>
 						        <th>Actions</th>
-						      <!--   <th>JD Operation</th>  -->
 						    </tr>
 						    </thead>
 				    </table>

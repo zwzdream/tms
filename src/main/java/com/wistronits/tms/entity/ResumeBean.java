@@ -2,7 +2,6 @@ package com.wistronits.tms.entity;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 
@@ -10,73 +9,37 @@ public class ResumeBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private int id;
-	private String firstName;
-	private String lastName;
-	private Date birth;
-	private Boolean gender;
+	private String name;
+	private String title;
 	private String mobile;
-	private Date starts;
 	private String email;
+	private String industryExperience;
 	private String filePath;
 	private String fileName;
-	private String residency;
-	private String education;
-	private String workExp;
-	private String projectExp;
-	private int age;
+	private String location;
+	private Boolean relocation;
+	private String degree;
+	private String workEligibility;
+	private String website;
+	private Date addTime;
 	private Date lastMTime;
-	
-	public String getFileName() {
-		return fileName;
+	public int getId() {
+		return id;
 	}
-	public void setFileName() {
-		String[] temp= this.filePath.split("\\\\");
-		this.fileName = temp[temp.length-1];
+	public void setId(int id) {
+		this.id = id;
 	}
-	public String getFilePath() {
-		return filePath;
+	public String getName() {
+		return name;
 	}
-	public void setFilePath(String filePath) {
-		this.filePath = filePath;
+	public void setName(String name) {
+		this.name = name;
 	}
-	 
-	
-	public String getEducation() {
-		return education;
+	public String getTitle() {
+		return title;
 	}
-	public void setEducation(String education) {
-		this.education = education;
-	}
-	public String getWorkExp() {
-		return workExp;
-	}
-	public void setWorkExp(String workExp) {
-		this.workExp = workExp;
-	}
-	public String getProjectExp() {
-		return projectExp;
-	}
-	public void setProjectExp(String projectExp) {
-		this.projectExp = projectExp;
-	}
-	
-	public String getResidency() {
-		return residency;
-	}
-	public void setResidency(String residency) {
-		this.residency = residency;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public Date getStarts() {
-		return starts;
-	}
-	public void setStarts(Date starts) {
-		this.starts = starts;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	public String getMobile() {
 		return mobile;
@@ -84,66 +47,71 @@ public class ResumeBean implements Serializable {
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
-	public Boolean getGender() {
-		return gender;
+	public String getEmail() {
+		return email;
 	}
-	public void setGender(Boolean gender) {
-		this.gender = gender;
+	public void setEmail(String email) {
+		this.email = email;
 	}
-	public Date getBirth() {
-		return birth;
+	public String getIndustryExperience() {
+		return industryExperience;
 	}
-	public void setBirth(Date birth) {
-		this.birth = birth;
-		setAge();
+	public void setIndustryExperience(String industryExperience) {
+		this.industryExperience = industryExperience;
 	}
-	public int getId() {
-		return id;
+	public String getFilePath() {
+		return filePath;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
 	}
-	public String getFirstName() {
-		return firstName;
+	public String getFileName() {
+		return fileName;
 	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setFileName(String fileName) {
+		String[] temp= this.filePath.split("\\\\");
+		this.fileName = temp[temp.length-1];
 	}
-	public String getLastName() {
-		return lastName;
+	public String getLocation() {
+		return location;
 	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setLocation(String location) {
+		this.location = location;
 	}
-	public int getAge() {
-		return age;
+	public Boolean getRelocation() {
+		return relocation;
 	}
-	public void setAge() {
-		this.age = getAgeFromBirth();
+	public void setRelocation(Boolean relocation) {
+		this.relocation = relocation;
 	}
-
-	private int getAgeFromBirth(){
-		Calendar cal = Calendar.getInstance();
-		int yearNow = cal.get(Calendar.YEAR);
-		int monthNow = cal.get(Calendar.MONTH);
-		int dayOfMonthNow = cal.get(Calendar.DAY_OF_MONTH);
-		if(!(this.birth==null)){
-		cal.setTime(this.birth);
+	public String getDegree() {
+		return degree;
+	}
+	public void setDegree(String degree) {
+		this.degree = degree;
+	}
+	public String getWorkEligibility() {
+		return workEligibility;
+	}
+	public void setWorkEligibility(String workEligibility) {
+		this.workEligibility = workEligibility;
+	}
+	public String getWebsite() {
+		return website;
+	}
+	public void setWebsite(String website) {
+		this.website = website;
+	}
+	public String getAddTime() {
+		String desc = "";
+		if (this.lastMTime != null) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			desc = sdf.format(this.lastMTime);
 		}
-		
-		int yearBirth = cal.get(Calendar.YEAR);
-		int monthBirth = cal.get(Calendar.MONTH);
-		int dayOfMonthBirth = cal.get(Calendar.DAY_OF_MONTH);
-		
-		int age = yearNow-yearBirth;
-		if(monthNow<=monthBirth){
-			if(monthNow==monthBirth){
-				if(dayOfMonthNow<dayOfMonthBirth) age--;
-			}else{
-				age--;
-			}
-		}
-		return age;
+		return desc;
+	}
+	public void setAddTime(Date addTime) {
+		this.addTime = addTime;
 	}
 	public String getLastMTime() {
 		String desc = "";
@@ -156,7 +124,14 @@ public class ResumeBean implements Serializable {
 	public void setLastMTime(Date lastMTime) {
 		this.lastMTime = lastMTime;
 	}
-	public String toString(){
-		return this.firstName+" "+this.lastName+" "+this.mobile+" "+this.email+" "+this.residency+" "+this.education+" "+this.workExp+" "+this.projectExp;
+	@Override
+	public String toString() {
+		return  name + " " + title + " " + mobile + " "+email  + " "
+	+ location + " " + degree+ " " + workEligibility + " " + website ;
 	}
+
+
+	
+
+	
 }

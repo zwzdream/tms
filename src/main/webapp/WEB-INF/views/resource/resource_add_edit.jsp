@@ -3,27 +3,12 @@
 <script>
 $(function(){
 	attachCalendarInput();
-	var gender = '${bean.gender}';
-	gender?$(':radio[name=gender][value=true]').attr('checked',true):$(':radio[name=gender][value=false]').attr('checked',true);
-	var birth = '${bean.birth}';
-	if(typeof(birth) != "undefined"&birth!=''){
-		//console.log(birth);
-	var birthArr = new Date(birth).toLocaleDateString().split('/');////toLocaleDateString
-	var birthStr = birthArr.join("-");
-	$('#birth').attr('value',birthStr);
-	}
-	var starts = '${bean.starts}';
-	if(typeof(starts) != "undefined"&starts!=''){
-	var startsArr = new Date(starts).toLocaleDateString().split('/');////toLocaleDateString
-	var startsStr = startsArr.join("-");
-	$('#starts').attr('value',startsStr);
-	}
+	var gender = '${bean.relocation}';
+	gender?$(':radio[name=relocation][value=true]').attr('checked',true):$(':radio[name=relocation][value=false]').attr('checked',true);
 });
-function updateResume(divId, formId){
-	var form = $("#" + formId)[0];
-	form.action= ctx + '/Resource/updateResource';
-	form.method = "post";
+function updateResume(form){
 	var formData = new FormData(form);
+	form.action= ctx + '/Resource/updateResource';
 	$('#content').fadeOut().parent().append('<div id="loading" class="center">Loading...<div class="center"></div></div>');
 	$.ajax({
 		type : "post",
@@ -104,81 +89,79 @@ function updateResume(divId, formId){
 			</div>
 		</div>
 		<div class="box-content">
-			<form class="form-horizontal" id="editResume" method="POST">
+			<form class="form-horizontal" id="editForm" name="editForm" method="POST">
 			<input type="hidden"  id="id" name="id" value="${bean.id}">
 				<div class="form-group tr-new">
-        <label class="col-sm-2 control-label" for="firstNmae">First&nbsp;Name</label>
-        <div class="col-sm-4 input-group-sm">
-         	<input type="text" class="form-control" id="firstName" name="firstName" value="${bean.firstName}" style="height:35px;">
-        </div>
-        <label class="col-sm-2 control-label" for="lastName">Last&nbsp;Name</label>
+        <label class="col-sm-2 control-label" for="firstName">Name&nbsp;</label>
         <div class="col-sm-4 input-group-sm" >
-         	<input type="text" class="form-control" id="lastName" name="lastName" value="${bean.lastName}" style="height:35px;">
+         	<input type="text" class="form-control" id="name" name="name" value="${bean.name}" style="height:35px;">
+        </div>
+        <label class="col-sm-2 control-label" for="title">Title&nbsp;</label>
+        <div class="col-sm-4" >
+         	<input type="text" class="form-control" id="title" name="title" value="${bean.title}" style="height:35px;">
         </div>
     </div>
-     <div class="form-group tr-new">
-         <div class=" input-calendar">     
-            <label class="col-sm-2 control-label" for="birth">Date&nbsp;of&nbsp;Birth</label>
-                       <div class="col-sm-4" >
-                        <input type="text" class="form-control" id="birth" name="birth"/>
-                        </div>
-         </div>
-   		<label class="col-sm-2 control-label" for="gender">Gender</label>
-       <label class="radio-inline" style="margin-left:15px;">
-		  <input type="radio" id="inlineRadio1" name="gender"  value="true">Male
-		</label>
-		 <label class="radio-inline" style="margin-left:15px;">
-		  <input type="radio" id="inlineRadio2" name="gender"  value="false">Female
-		</label>
-    </div>		
+ 
+    <div class="form-group tr-new">
+    
+         <label class="col-sm-2 control-label" for="degree">Degree</label>
+        <div class="col-sm-4">
+        	<input type="date" class="form-control" id="degree" name="degree" value="${bean.degree}" style="height:35px;">
+   		</div> 
+
+         <label class="col-sm-2 control-label" for="industryExperience">Industry&nbsp;Experience</label>
+        <div class="col-sm-4">
+        	<input type="date" class="form-control" id="industryExperience" name="industryExperience" value="${bean.industryExperience}" style="height:35px;">
+   		</div> 
+   	
+
+    </div>	
+   		
+		
     <div class="form-group tr-new">
         <label class="col-sm-2 control-label" for="mobile">Mobile</label>
-        <div class="col-sm-4">
+        <div class="col-sm-4" >
         	<input type="tel" class="form-control" id="mobile" name="mobile" value="${bean.mobile}" style="height:35px;">
         </div>
-           <div class="input-calendar">
-                 <label class="col-sm-2 control-label" for="starts">Work&nbsp;Starts</label>
-                       <div class="col-sm-4" ">
-                        <input type="text" class="form-control" id="starts" name="starts"/>
-                        </div>
-         </div>
-    </div>					                    
-    <div class="form-group tr-new">
-        <label class="col-sm-2 control-label" for="email">Email</label>
-        <div class="col-sm-4">
+          <label class="col-sm-2 control-label" for="email">Email</label>
+        <div class="col-sm-4" >
 			<input type="email" class="form-control" id="email" name="email" value="${bean.email}" style="height:35px;"></input>							        	
     	</div>
-    	 <label class="col-sm-2 control-label" for="inputFile">Resource import</label>
+
+    </div>					                    
+					                    
+    <div class="form-group tr-new">
+        <label class="col-sm-2 control-label" for="location">Location</label>
+       	<div class="col-sm-4" >
+        	<input type="text" class="form-control" id="location" name="location" value="${bean.location}" style="height:35px;">
+        </div>
+        	<label class="col-sm-2 control-label" for="gender">Relocation</label>
+       <label class="radio-inline" style="margin-left:15px;">
+		  <input type="radio" id="inlineRadio1" name="relocation"  value="true" checked="checked">YES
+		</label>
+		 <label class="radio-inline" style="margin-left:15px;">
+		  <input type="radio" id="inlineRadio2" name="relocation"  value="false">NO
+		</label>
+        
+
+    </div>	
+       <div class="form-group tr-new">
+           <label class="col-sm-2 control-label" for="website">webSite</label>
+        <div class="col-sm-4" >
+			<input type="email" class="form-control" id="website" name="website" value="${bean.website}" style="height:35px;"></input>							        	
+    	</div>
+           <label class="col-sm-2 control-label" for="workEligibility">WorkEligibility</label>
+        <div class="col-sm-4" >
+			<input type="email" class="form-control" id="workEligibility" name="workEligibility" value="${bean.workEligibility}" style="height:35px;"></input>							        	
+    	</div>
+    </div>
+    <div class="form-group tr-new">
+    	      <label class="col-sm-2 control-label" for="inputFile">Candidates&nbsp;Resume</label>
          <div class="col-sm-4">
                   <input type="file" id="inputFile" name="inputFile"> 
-                  
-                   
-         </div>
-    </div>					                    
-    <div class="form-group tr-new">
-        <label class="col-sm-2 control-label" for="residency">Residency</label>
-       	<div class="col-sm-4">
-        	<input type="text" class="form-control" id="residency" name="residency" value="${bean.residency}" style="height:35px;">
-        </div>
-    </div>
-    <div class="form-group tr-new">
-        <label class="col-sm-2 control-label" for="education" style="color:red;">Education</label>
-        <div class="col-sm-9">
-        	<textarea  class="form-control" id="education" name="education"  style="height:85px;">${bean.education}</textarea>
-        </div>
+         </div>	
     </div>	
-    <div class="form-group tr-new">
-        <label class="col-sm-2 control-label" for="workExp" style="color:red;">Work&nbsp;Experience</label>
-        <div class="col-sm-9">
-       		<textarea class="form-control" id="workExp" name="workExp" style="height:85px;">${bean.workExp}</textarea> 
-        </div>
-    </div>			                    				                    				                    		                   
-    <div class="form-group tr-new">
-        <label class="col-sm-2 control-label" for="projectExp" style="color:red;">Project&nbsp;Experience</label>
-        <div class="col-sm-9">
-			<textarea class="form-control" id="projectExp" name="projectExp"  style="height:85px;"> ${bean.projectExp}</textarea>							            
-        </div>
-    </div>
+    	         
     <div  class="box-content ">
       <c:if test="${filePath !='error'}">
     <div><%@ include file="document_view.jsp"%></div>
@@ -188,7 +171,7 @@ function updateResume(divId, formId){
     
    <c:if test="${not empty resourceId}">
 				<div class="form-actions" style="text-align:center;">
-					<button class="btn btn-primary" type="button" onclick="updateResume('content','editResume');">Submit</button>
+					<button class="btn btn-primary" type="button" onclick="updateResume(this.form);">Submit</button>
 				</div>
 	</c:if>
 	

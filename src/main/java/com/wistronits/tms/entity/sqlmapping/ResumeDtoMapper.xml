@@ -5,29 +5,28 @@
 
 	<resultMap id="ResumeBeanResultMap" type="com.wistronits.tms.entity.ResumeBean">
 		<id column="id" property="id" jdbcType="INTEGER" />
-		<result column="first_name" property="firstName" jdbcType="VARCHAR" />
-		<result column="last_name" property="lastName" jdbcType="VARCHAR" />
-		<result column="birth" property="birth" jdbcType="DATE" />
-		<result column="gender" property="gender" jdbcType="BOOLEAN" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
 		<result column="mobile" property="mobile" jdbcType="VARCHAR" />
-		<result column="starts" property="starts" jdbcType="DATE" />
+		<result column="industryExperience" property="industryExperience" jdbcType="DATE" />
 		<result column="email" property="email" jdbcType="VARCHAR" />
-		<result column="residency" property="residency" jdbcType="VARCHAR" />
-		<result column="education" property="education" jdbcType="VARCHAR" />
-		<result column="workExp" property="workExp" jdbcType="VARCHAR" />
-		<result column="projectExp" property="projectExp" jdbcType="VARCHAR" />
+		<result column="location" property="location" jdbcType="VARCHAR" />
+		<result column="relacation" property="relocation" jdbcType="BOOLEAN" />
+		<result column="degree" property="degree" jdbcType="VARCHAR" />
+		<result column="workEligibility" property="workEligibility" jdbcType="VARCHAR" />
+		<result column="website" property="website" jdbcType="VARCHAR" />
+		<result column="add_time" property="addTime" jdbcType="DATE" />
 		<result column="last_m_time" property="lastMTime" jdbcType="DATE"/>
 		<result column="resume_filepath" property="filePath" jdbcType="VARCHAR" />
 	</resultMap>
 
      
 	<insert id="addResource" parameterType="com.wistronits.tms.entity.ResumeBean" useGeneratedKeys="true" keyProperty="id">
-       insert into resume (first_name, last_name,birth,gender,mobile,starts,email,residency,education,workExp,projectExp,last_m_time)
-     		values (#{firstName,jdbcType=VARCHAR}, #{lastName,jdbcType=VARCHAR},#{birth,jdbcType=DATE},
-     		#{gender,jdbcType=BOOLEAN},#{mobile,jdbcType=VARCHAR},#{starts,jdbcType=DATE},#{email,jdbcType=VARCHAR},#{residency,jdbcType=VARCHAR},
-     		#{education,jdbcType=VARCHAR},#{workExp,jdbcType=VARCHAR},#{projectExp,jdbcType=VARCHAR},#{lastMTime,jdbcType=DATE});
+       insert into resume (name, title,mobile,industryExperience,email,location,relocation,degree,workEligibility,website,add_time,last_m_time)
+     		values (#{name}, #{title},#{mobile},#{industryExperience},#{email},#{location},#{relocation},#{degree},
+     		#{workEligibility},#{website},#{addTime},#{lastMTime});
      		
-     		insert into resume_file(resume_filepath,resume_id) values(#{filePath,jdbcType=VARCHAR},LAST_INSERT_ID()) ;
+     		insert into resume_file(resume_filepath,resume_id) values(#{filePath},LAST_INSERT_ID()) ;
      </insert>
 
      <select id="getAllResources" resultMap="ResumeBeanResultMap">
@@ -56,8 +55,8 @@
      
      
      <update id="editResource" parameterType="com.wistronits.tms.entity.ResumeBean" >
-	update resume set first_name=#{firstName},last_name=#{lastName},birth=#{birth},gender=#{gender},mobile=#{mobile},
-	starts=#{starts},email=#{email},residency=#{residency},workExp=#{workExp},projectExp=#{projectExp},last_m_time=#{lastMTime} where id=#{id} ;
+	update resume set name=#{name},title=#{title},mobile=#{mobile},industryExperience=#{industryExperience},
+	email=#{email},location=#{location},relocation=#{relocation},degree=#{degree},workEligibility=#{workEligibility},website=#{website},last_m_time=#{lastMTime} where id=#{id} ;
 		<if test="filePath!=null and filePath!=''">
 	  	update resume_file set resume_filepath=#{filePath} where resume_id=#{id};
 		 </if>

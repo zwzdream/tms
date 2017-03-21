@@ -71,11 +71,13 @@
 			<table id="table1" class="table table-striped table-bordered bootstrap-datatable ">
 				     <thead>
 				               <tr>
-						        <th>Seq</th>
-						        <th>Name</th>
-						        <th>Description</th>
-						        <th>Total</th>
-						        <th>Complete</th>
+						        <th>JD No.</th>
+						        <th>Job Title</th>
+						        <th>Client</th>
+						        <th>Pay Rate</th>
+						        <th>Duration</th> 
+						        <th>Location</th>
+						        <th>Status</th>
 						        <th>Actions</th>
 						    </tr>
 						    </thead>

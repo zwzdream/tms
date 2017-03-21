@@ -55,25 +55,20 @@ function listCanJoinResources(){
          	aoData.push({"name":"keyWord","value":keyWord});
          },
       
-   	aoColumns:[
-   	 {sDefaultContent: ''},
-   	 {sDefaultContent: ''},
-     {mData: 'mobile'},
-     {mData: 'age'},
-     {mData: 'gender'},
-     {sDefaultContent: ''}
-    	],
+     	aoColumns: [
+			 {sDefaultContent: ''},
+	         {mData: 'name'},
+	         {mData: 'industryExperience'},
+	         {mData: 'title'},
+	         {mData: 'location'},
+	         {mData: 'workEligibility'},
+	         {sDefaultContent: ''},
+	],
     	fnRowCallback: function(nRow, aData, iDisplayIndex) {
     		var tableSetings = this.fnSettings(); 
     		var page_start = tableSetings._iDisplayStart;//查询页开始的索引
     		$('td:eq(0)', nRow).html(page_start+iDisplayIndex+1);
-    		$('td:eq(1)', nRow).html(aData.firstName+' '+aData.lastName);
-    		if(aData.gender){
-    			$('td:eq(4)', nRow).html('<span class="label-success label label-default">Male</span>');
-    		}else{
-    			$('td:eq(4)', nRow).html('<span class="label-warning label label-default">Female</span>');
-    		}
-    		$('td:eq(5)', nRow).html('<a  href="#" onclick=ajaxContent(\"/Resource/toEditFromJD\","resourceId='+ aData.id+'&no='+no+'");>'
+    		$('td:eq(6)', nRow).html('<a  href="#" onclick=ajaxContent(\"/Resource/toEditFromJD\","resourceId='+ aData.id+'&no='+no+'");>'
 	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit</a>&nbsp;');
     	},
 
@@ -117,28 +112,22 @@ function listTheBelongResources(){
          	aoData.push({"name":"no","value":no});
          },
       
-   	aoColumns:[
-   	 {sDefaultContent: ''},
-   	 {sDefaultContent: ''},
-     {mData: 'mobile'},
-     {mData: 'age'},
-     {mData: 'gender'},
-     {sDefaultContent: ''}
-    	],
-    	fnRowCallback: function(nRow, aData, iDisplayIndex) {
-    		var tableSetings = this.fnSettings(); 
-    		var page_start = tableSetings._iDisplayStart;//查询页开始的索引
-    		$('td:eq(0)', nRow).html(page_start+iDisplayIndex+1);
-    		$('td:eq(1)', nRow).html(aData.firstName+' '+aData.lastName);
-    		if(aData.gender){
-    			$('td:eq(4)', nRow).html('<span class="label-success label label-default">Male</span>');
-    		}else{
-    			$('td:eq(4)', nRow).html('<span class="label-warning label label-default">Female</span>');
-    		}
-    		$('td:eq(5)', nRow).html('<a  href="#" onclick=ajaxContent(\"/Resource/toEditFromJD2\","resourceId='+ aData.id+'&no='+no+'");>'
+     	aoColumns: [
+			 {sDefaultContent: ''},
+	         {mData: 'name'},
+	         {mData: 'industryExperience'},
+	         {mData: 'title'},
+	         {mData: 'location'},
+	         {mData: 'workEligibility'},
+	         {sDefaultContent: ''},
+	],
+   	fnRowCallback: function(nRow, aData, iDisplayIndex) {
+   		var tableSetings = this.fnSettings(); 
+   		var page_start = tableSetings._iDisplayStart;//查询页开始的索引
+   		$('td:eq(0)', nRow).html(page_start+iDisplayIndex+1);
+   		$('td:eq(6)', nRow).html('<a  href="#" onclick=ajaxContent(\"/Resource/toEditFromJD2\","resourceId='+ aData.id+'&no='+no+'");>'
 	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit</a>&nbsp;');
-    		
-    	},
+   	},
 
     	fnInitComplete: function(oSettings, json) { 
             //

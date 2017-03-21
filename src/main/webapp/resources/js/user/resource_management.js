@@ -41,33 +41,27 @@ function initTable(){
     	sAjaxSource: ctx+'/Resource/searchresource?keyWord='+keyWord, //'Get'to server url
     	aoColumns: [
 				 {sDefaultContent: ''},
+    	         {mData: 'name'},
+    	         {mData: 'industryExperience'},
+    	         {mData: 'title'},
+    	         {mData: 'location'},
+    	         {mData: 'workEligibility'},
     	         {sDefaultContent: ''},
-    	         {mData: 'age'},
-    	         {mData: 'gender'},
-    	         {mData: 'lastMTime'},
     	         {sDefaultContent: ''},
     	],
     	fnRowCallback: function(nRow, aData, iDisplayIndex) {
-    		//var tableSetings = this.fnSettings(); 
-    	//	var page_start = tableSetings._iDisplayStart;
-    		//$('td:eq(0)', nRow).html(page_start+iDisplayIndex+1);
-    		$('td:eq(0)', nRow).html(aData.id);
-    		$('td:eq(1)', nRow).html(aData.firstName+' '+aData.lastName);
-    		if(aData.gender){
-    			$('td:eq(3)', nRow).html('<span class="label-success label label-default">Male</span>');
-    		}else{
-    			$('td:eq(3)', nRow).html('<span class="label-warning label label-default">Female</span>');
-    		}
-    
+    		var tableSetings = this.fnSettings(); 
+    		var page_start = tableSetings._iDisplayStart;
+    		$('td:eq(0)', nRow).html(page_start+iDisplayIndex+1);
+    		//$('td:eq(0)', nRow).html(aData.id);
     		
-    		$('td:eq(5)', nRow).html('<a  href="#" onclick=ajaxContent(\"/Resource/toEditResource\","resourceId='+ aData.id +'");>'
+    		$('td:eq(6)', nRow).html('<a  href="#" onclick=ajaxContent(\"/Resource/toScanResource\","resourceId='+ aData.id +'");>'
+    				+'<i class="glyphicon glyphicon-edit icon-white"></i>Resume</a>');
+    				
+    		$('td:eq(7)', nRow).html('<a  href="#" onclick=ajaxContent(\"/Resource/toEditResource\","resourceId='+ aData.id +'");>'
     	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit</a>&nbsp;'
     	    			+'<a  href="#" onclick=deleteResource(\"/Resource/toDeleteResource\","resourceId='+ aData.id +'");>'
     	    			+'<i class="glyphicon glyphicon-trash icon-white"></i>Delete</a>');
-    		
-
-    		
-    		
     		return nRow;
     	},
     	fnInitComplete: function(oSettings, json) { 

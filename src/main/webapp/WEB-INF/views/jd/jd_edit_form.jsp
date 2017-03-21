@@ -21,15 +21,21 @@ $(function(){
 	 if(typeof(priority) != "undefined"&priority!=''){
 		$('#priority').val(priority)
 	}
+	 var status='${jd.status}';
+	 if(typeof(status) != "undefined"&status!=''){
+		$('#status').val(status)
+	}
 	
-	var status='${jd.status}';
+/* 	var status='${jd.status}';
 	if(typeof(status) != "undefined"&status==0){
 		$('#status').attr('value','closed');
 	}else if(typeof(status) != "undefined"&status==1){
 		$('#status').attr('value','processing');
+	}else if(typeof(status) != "undefined"&status==2){
+		$('#status').attr('value','open');
 	}else {
 		noty({type:"error",text: "An internal error has occurred. Please contact your system administrator!", layout: "center", timeout: 3000});
-	}
+	} */
 	
 	listAllUser();
     $('#owner').val('${jd.owner}')
@@ -106,11 +112,12 @@ function listAllUser(){
 	  return false;
 	}
 	function dataValiE(form){
-	if($('#status').val()=="processing"){
+/* 	if($('#status').val()=="processing"){
 			$('#status').attr('value',1);
 	}else{
 			noty({type:"error",text: "status error!", layout: "center", timeout: 3000});
-	}
+			return ;
+	}  */
 	 var formData = new FormData(form);
 	  form.action= ctx + '/JD/edit/save';
 	  form.method = "post";	
@@ -147,10 +154,13 @@ function listAllUser(){
 
 </script>
 <fieldset>
+
+   	<input type="hidden" class="form-control" id="no" name="no" value="${jd.no}" style="height:35px;"></input>
+   	
 	<div class="form-group tr-new">
         <label class="col-sm-2 control-label" for="no">No.</label>
         <div class="col-sm-4">
-         	<input type="number" class="form-control" id="no" name="no" value="${jd.no }" style="height:35px;" readonly>
+         	<input type="number" class="form-control" id="number" name="number" value="${jd.number }" style="height:35px;" readonly>
         </div>
           <label class="col-sm-2 control-label" for="local">Local</label>
         <div class="col-sm-4">
@@ -160,7 +170,7 @@ function listAllUser(){
     </div>
      <div class="form-group tr-new">
         <label class="col-sm-2 control-label" for="title">Title</label>
-        <div class="col-sm-10">
+        <div class="col-sm-4">
    			<input type="text" class="form-control" id="title" name="title" value="${jd.title }" style="height:35px;"></input>
    		</div>
     </div>		
@@ -170,9 +180,16 @@ function listAllUser(){
         	<input type="text" class="form-control" id="client" name="client" value="${jd.client}" style="height:35px;">
         </div>
         <label class="col-sm-2 control-label" for="status">Status</label>
-        <div class="col-sm-4">
+        <!--<div class="col-sm-4">
         	<input type="text" class="form-control" id="status" name="status"  style="height:35px;" readonly>
-   		</div>
+   		</div> -->
+   		  <div class="col-sm-4">
+       	  <select id="status" name="status"  class="form-control" data-rel="chosen">
+                              <option value="0" >closed</option>
+                              <option value="1">hold on</option>
+                               <option value="2">open</option>
+           </select>
+    	</div>
     </div>					                    
     <div class="form-group tr-new">
         <label class="col-sm-2 control-label" for="location">Location</label>

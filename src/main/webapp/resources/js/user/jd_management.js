@@ -64,10 +64,12 @@ function initTable(){
          },
       
    	aoColumns:[
-    		{mData: 'no'},
+    		{mData: 'number'},
     		{mData:'title'},
-    		{mData:'description'},
-    		{sDefaultContent: 'Pending'},
+    		{mData:'client'},
+    		{mData:'payrate'},
+    		{mData:'duration'},
+    		{mData:'location'},
     		{sDefaultContent: ''},
     		{sDefaultContent: ''}
     	],
@@ -76,15 +78,14 @@ function initTable(){
     		//var page_start = tableSetings._iDisplayStart;//查询页开始的索引
     		//$('td:eq(0)', nRow).html(page_start+iDisplayIndex+1);
     		//$('td:eq(0)', nRow).html(aData.no);
-    		if(aData.duration>0){
-    		$('td:eq(3)', nRow).html(aData.duration);
+    		if(aData.status==0){
+    			$('td:eq(6)', nRow).html('<span class="label-error label label-default">Closed</span>');
+    		}else if(aData.status==1){
+    			$('td:eq(6)', nRow).html('<span class="label-success label label-default">Hold On</span>');
+    		}else if(aData.status==2){
+    			$('td:eq(6)', nRow).html('<span class="label-primary label label-default">Open</span>');
     		}
-    		if(aData.status==1){
-    			$('td:eq(4)', nRow).html('<span class="label-success label label-default">Active</span>');
-    		}else if(aData.status==0){
-    			$('td:eq(4)', nRow).html('<span class="label-error label label-default">Close</span>');
-    		}
-    		$('td:eq(5)', nRow).html('<a  href="#" onclick=ajaxContent(\"/JD/toEdit/\","no='+ aData.no +'");>'
+    		$('td:eq(7)', nRow).html('<a  href="#" onclick=ajaxContent(\"/JD/toEdit/\","no='+ aData.no +'");>'
 	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit</a>&nbsp;'
 	    		/*	+'<a class="btn btn-success" href="#" onclick=ajaxContent(\"/JD/toAddResource\","no='+ aData.no +'");>'
 	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Add Resource</a>'*/);

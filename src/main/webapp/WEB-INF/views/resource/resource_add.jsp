@@ -15,13 +15,12 @@
 	}
 </style>
 <script type="text/javascript">
-$(function(){
+/* $(function(){//日期插件
 	attachCalendarInput();
-});
-function addResume(divId, formId,callback){
-	var form = $("#" + formId)[0];
-	form.action= ctx + '/Resource/addResource';
+}); */
+function addResume(form){
 	var formData = new FormData(form);
+	form.action= ctx + '/Resource/addResource';
 	$('#content').fadeOut().parent().append('<div id="loading" class="center">Loading...<div class="center"></div></div>');
 	$.ajax({
 		type : "post",
@@ -78,34 +77,30 @@ function addResume(divId, formId,callback){
 		</div>
 		
 		<div class="box-content">
-	<form class="form-horizontal" id="addResume" method="POST">
+	<form class="form-horizontal" id="addForm" name="addForm" method="POST">
 		<div class="form-group tr-new">
-        <label class="col-sm-2 control-label" for="firstName">First&nbsp;Name&nbsp;</label>
+        <label class="col-sm-2 control-label" for="firstName">Name&nbsp;</label>
         <div class="col-sm-4 input-group-sm" >
-         	<input type="text" class="form-control" id="firstName" name="firstName" placeholder="FirstNmae" style="height:35px;">
+         	<input type="text" class="form-control" id="name" name="name" placeholder="Name" style="height:35px;">
         </div>
-        <label class="col-sm-2 control-label" for="lastName">Last&nbsp;Name&nbsp;</label>
+        <label class="col-sm-2 control-label" for="title">Title&nbsp;</label>
         <div class="col-sm-4" >
-         	<input type="text" class="form-control" id="lastName" name="lastName" placeholder="LastName" style="height:35px;">
+         	<input type="text" class="form-control" id="title" name="title" placeholder="Title" style="height:35px;">
         </div>
     </div>
  
     <div class="form-group tr-new">
     
-          <div class=" input-calendar">     
-            <label class="col-sm-2 control-label" for="birth">Date&nbsp;of&nbsp;Birth</label>
-                       <div class="col-sm-4" >
-                        <input type="text" class="form-control" id="birth" name="birth"/>
-                        </div>
-         </div>
+         <label class="col-sm-2 control-label" for="degree">Degree</label>
+        <div class="col-sm-4">
+        	<input type="date" class="form-control" id="degree" name="degree" placeholder="Degree" style="height:35px;">
+   		</div> 
 
-   		<label class="col-sm-2 control-label" for="gender">Gender</label>
-       <label class="radio-inline" style="margin-left:15px;">
-		  <input type="radio" id="inlineRadio1" name="gender"  value="true" checked="checked">Male
-		</label>
-		 <label class="radio-inline" style="margin-left:15px;">
-		  <input type="radio" id="inlineRadio2" name="gender"  value="false">Female
-		</label>
+         <label class="col-sm-2 control-label" for="industryExperience">Industry&nbsp;Experience</label>
+        <div class="col-sm-4">
+        	<input type="date" class="form-control" id="industryExperience" name="industryExperience" placeholder="Industry Experience" style="height:35px;">
+   		</div> 
+   	
 
     </div>	
    		
@@ -115,64 +110,58 @@ function addResume(divId, formId,callback){
         <div class="col-sm-4" >
         	<input type="tel" class="form-control" id="mobile" name="mobile" placeholder="Mobile" style="height:35px;">
         </div>
-      <!--   <label class="col-sm-2 control-label" for="starts">Work&nbsp;Starts</label>
-        <div class="col-sm-4">
-        	<input type="date" class="form-control" id="starts" name="starts" placeholder="Work Starts" style="height:35px;">
-   		</div> -->
-          <div class="input-calendar">
+          <label class="col-sm-2 control-label" for="email">Email</label>
+        <div class="col-sm-4" >
+			<input type="email" class="form-control" id="email" name="email" placeholder="Email" style="height:35px;"></input>							        	
+    	</div>
+       
+     <!--      <div class="input-calendar">
                  <label class="col-sm-2 control-label" for="starts">Work&nbsp;Starts</label>
                        <div class="col-sm-4" >
                         <input type="text" class="form-control" id="starts" name="starts" />
                         </div>
-         </div>
+         </div> -->
 
     </div>					                    
+					                    
     <div class="form-group tr-new">
-        <label class="col-sm-2 control-label" for="email">Email</label>
+        <label class="col-sm-2 control-label" for="location">Location</label>
+       	<div class="col-sm-4" >
+        	<input type="text" class="form-control" id="location" name="location" placeholder="Location" style="height:35px;">
+        </div>
+        	<label class="col-sm-2 control-label" for="gender">Relocation</label>
+       <label class="radio-inline" style="margin-left:15px;">
+		  <input type="radio" id="inlineRadio1" name="relocation"  value="true" checked="checked">YES
+		</label>
+		 <label class="radio-inline" style="margin-left:15px;">
+		  <input type="radio" id="inlineRadio2" name="relocation"  value="false">NO
+		</label>
+        
+
+    </div>	
+       <div class="form-group tr-new">
+           <label class="col-sm-2 control-label" for="website">webSite</label>
         <div class="col-sm-4" >
-			<input type="email" class="form-control" id="email" name="email" placeholder="Email" style="height:35px;"></input>							        	
+			<input type="email" class="form-control" id="website" name="website" placeholder="Website" style="height:35px;"></input>							        	
     	</div>
-    	
-         <label class="col-sm-2 control-label" for="inputFile">Resource import</label>
+           <label class="col-sm-2 control-label" for="workEligibility">WorkEligibility</label>
+        <div class="col-sm-4" >
+			<input type="email" class="form-control" id="workEligibility" name="workEligibility" placeholder="WorkEligibility" style="height:35px;"></input>							        	
+    	</div>
+    </div>
+    <div class="form-group tr-new">
+    	      <label class="col-sm-2 control-label" for="inputFile">Candidates&nbsp;Resume</label>
          <div class="col-sm-4">
                   <input type="file" id="inputFile" name="inputFile"> 
-                  
-                   
-         </div>
- 
-    </div>					                    
-    <div class="form-group tr-new">
-        <label class="col-sm-2 control-label" for="residency">Residency</label>
-       	<div class="col-sm-4" >
-        	<input type="text" class="form-control" id="residency" name="residency" placeholder="Residency" style="height:35px;">
-        </div>
-
-    </div>
-    <div class="form-group tr-new">
-        <label class="col-sm-2 control-label" for="education" style="color:red;">Education</label>
-        <div class="col-sm-9" >
-        	<textarea  class="form-control" id="education" name="education" style="height:85px;"></textarea>
-        </div>
+         </div>	
     </div>	
-    <div class="form-group tr-new">
-        <label class="col-sm-2 control-label" for="workExp" style="color:red;">Work&nbsp;Experience</label>
-        <div class="col-sm-9" >
-       		<textarea class="form-control" id="workExp" name="workExp"  style="height:85px;"></textarea> 
+
+        <div class="form-actions" style="text-align:center;">
+        <button class="btn btn-primary" type="button" onclick="addResume(this.form);">Submit</button>
         </div>
-    </div>			                    				                    				                    		                   
-    <div class="form-group tr-new">
-        <label class="col-sm-2 control-label" for="projectExp" style="color:red;">Project&nbsp; Experience</label>
-        <div class="col-sm-9" >
-			<textarea class="form-control" id="projectExp" name="projectExp"  style="height:85px;"></textarea>							            
-        </div>
-    </div>
-   
-				<div class="form-actions" style="text-align:center;">
-					<button class="btn btn-primary" type="button" onclick="addResume('content','addResume');">Submit</button>
-				</div>
-			</form>
-		</div>
-	</div>
+        </form>
+  </div>
+</div>
 	<!--/span-->
 </div>
 <!--/row-->
