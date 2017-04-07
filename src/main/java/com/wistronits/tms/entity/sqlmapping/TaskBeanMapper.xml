@@ -86,9 +86,15 @@
   		<![CDATA[  select * from task  ]]>
 	</select>
 	
-	<select id="listCurrentWeekCount" resultType="int">
-	  		SELECT count(*) FROM jd WHERE modifydate>DATE_SUB(CURDATE(), INTERVAL 1 WEEK) 
+	<select id="listCurrentTask" resultType="int">
+	  		SELECT count(*) FROM task WHERE create_time>DATE_SUB(CURDATE(), INTERVAL 1 WEEK) 
 	</select>
+	
+     <delete id="deleteTask">
+	delete from task where id=#{id};
+	delete from task_notes where task_id=#{id};
+	
+	</delete>
 
 
 	

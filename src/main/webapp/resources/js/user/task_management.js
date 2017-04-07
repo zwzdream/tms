@@ -152,7 +152,9 @@ function initTable(){
 	    			+'<a  href="#" onclick=ajaxContent(\"/Task/toAssign\","id='+ aData.id +'");>'
 	    			+'<i class="glyphicon glyphicon-hand-right  icon-white"></i></a>'
 	    			+'<a  href="#" onclick=ajaxJSON(\"/Task/completeTask\","id='+ aData.id +'",initTable);>'
-	    			+'<i class="glyphicon glyphicon-ok  icon-white"></i></a>');
+	    			+'<i class="glyphicon glyphicon-ok  icon-white"></i></a>'
+    		        +'<a  href="#" onclick=ajaxJSON(\"/Task/deleteTask\","id='+ aData.id +'",initTable);>'
+    		        +'<i class="glyphicon glyphicon-trash  icon-white"></i></a>');
     		}else if(aData.status==1){
     			$('td:eq(7)', nRow).html(
         				'<a href="#" >'
@@ -162,7 +164,9 @@ function initTable(){
     	    			+'<a  href="#" onclick=ajaxContent(\"/Task/toAssign\","id='+ aData.id +'");>'
     	    			+'<i class="glyphicon glyphicon-hand-right  icon-white"></i></a>'
     	    			+'<a  href="#" onclick=ajaxJSON(\"/Task/completeTask\","id='+ aData.id +'",initTable);>'
-    	    			+'<i class="glyphicon glyphicon-ok  icon-white"></i></a>');
+    	    			+'<i class="glyphicon glyphicon-ok  icon-white"></i></a>'
+    	    			+'<a  href="#" onclick=ajaxJSON(\"/Task/deleteTask\","id='+ aData.id +'",initTable);>'
+    	    		    +'<i class="glyphicon glyphicon-trash  icon-white"></i></a>');
     		}else if(aData.status==2){
     			$('td:eq(7)', nRow).html(
     			'<a href="#">'
@@ -172,7 +176,9 @@ function initTable(){
     			+'<a  href="#" onclick=ajaxContent(\"/Task/toAssign\","id='+ aData.id +'");>'
     			+'<i class="glyphicon glyphicon-hand-right  icon-white"></i></a>'
     			+'<a href="#">'
-    			+'<i class="glyphicon glyphicon-ok  icon-white" style="color:gray;"></i></a>');
+    			+'<i class="glyphicon glyphicon-ok  icon-white" style="color:gray;"></i></a>'
+    			+'<a  href="#" onclick=ajaxJSON(\"/Task/deleteTask\","id='+ aData.id +'",initTable);>'
+ 		        +'<i class="glyphicon glyphicon-trash  icon-white"></i></a>');
     			
     		}
     	},

@@ -81,6 +81,13 @@ public class TaskManagementController {
 		return view;
 	}
 	
+	@RequestMapping(value = "/deleteTask", method = RequestMethod.POST)
+	public @ResponseBody Map<Object,Object> deleteTask(@ModelAttribute("id") int id) {
+		Map<Object,Object> returnData=new HashMap<Object,Object>();
+		returnData.put("message",taskService.deleteTask(id));
+		return returnData;
+	}
+	
 	@RequestMapping(value = "/completeTask", method = RequestMethod.POST)
 	public @ResponseBody Map<Object,Object> completeTask(@ModelAttribute("id") int id) {
 		Map<Object,Object> returnData=new HashMap<Object,Object>();

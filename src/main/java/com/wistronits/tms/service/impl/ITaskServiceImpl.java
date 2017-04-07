@@ -106,10 +106,20 @@ public class ITaskServiceImpl implements ITaskService{
 
 
 	@Override
-	public int listCurrentWeekCount() {
-		return taskDao.listCurrentWeekCount();
+	public int listCurrentTask() {
+		return taskDao.listCurrentTask();
 	}
 
+	@Override
+	public String deleteTask(int id) {
+		int row= taskDao.deleteTask(id);
+		if(row>0){
+			 return "Delete the task successfully!";
+		}
+		return "Unknown error, please contact the administrator!";
+	}
+
+	
 	
 
 }

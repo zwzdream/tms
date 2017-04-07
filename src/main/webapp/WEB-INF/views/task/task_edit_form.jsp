@@ -37,7 +37,9 @@ $(function(){
 	    			+'<a class="btn iframe"  href="#" onclick=ajaxContent(\"/Task/toAssign\","id='+id +'");>'
 	    			+'<i class="glyphicon glyphicon-hand-right  icon-white"></i>Assign&nbsp;To</a>'
 	    			+'<a class="btn iframe" href="#" onclick=ajaxJSON(\"/Task/completeTask\","id='+id +'",refresh);>'
-	    			+'<i class="glyphicon glyphicon-ok  icon-white"></i>Complete</a>' );
+	    			+'<i class="glyphicon glyphicon-ok  icon-white"></i>Complete</a>' 
+	    			+'<a  href="#" onclick=ajaxJSON(\"/Task/deleteTask\","id='+id +'");>'
+	    		    +'<i class="glyphicon glyphicon-trash  icon-white"></i>Delete</a>');
 		}else if(status==1){
 			$("#maindiv").html(
 					'<a class="btn iframe" href="#" >'
@@ -45,7 +47,9 @@ $(function(){
 	    			+'<a class="btn iframe" href="#" onclick=ajaxContent(\"/Task/toAssign\","id='+ id +'");>'
 	    			+'<i class="glyphicon glyphicon-hand-right  icon-white"></i>Assign&nbsp;To</a>'
 	    			+'<a class="btn iframe" href="#" onclick=ajaxJSON(\"/Task/completeTask\","id='+ id +'",refresh);>'
-	    			+'<i class="glyphicon glyphicon-ok  icon-white"></i>Complete</a>');
+	    			+'<i class="glyphicon glyphicon-ok  icon-white"></i>Complete</a>'
+	    			+'<a  href="#" onclick=ajaxJSON(\"/Task/deleteTask\","id='+ id +'");>'
+	    		    +'<i class="glyphicon glyphicon-trash  icon-white"></i>Delete</a>');
 		}else if(status==2){
 			$("#maindiv").html(
 			'<a class="btn iframe" href="#">'
@@ -53,7 +57,9 @@ $(function(){
 			+'<a class="btn iframe" href="#" onclick=ajaxContent(\"/Task/toAssign\","id='+id +'");>'
 			+'<i class="glyphicon glyphicon-hand-right  icon-white"></i>Assign&nbsp;To</a>'
 			+'<a class="btn iframe" href="#">'
-			+'<i class="glyphicon glyphicon-ok  icon-white" style="color:gray;"></i>Complete</a>');
+			+'<i class="glyphicon glyphicon-ok  icon-white" style="color:gray;"></i>Complete</a>'
+			+'<a  href="#" onclick=ajaxJSON(\"/Task/deleteTask\","id='+ id +'");>'
+		    +'<i class="glyphicon glyphicon-trash  icon-white"></i>Delete</a>');
 		}
 	}
 	

@@ -16,5 +16,6 @@ public interface ITaskService {
 	public String completeTask(int id,Date complete_time);
 	public ArrayList<TaskBean> listAll();
 	public ArrayList<TaskNotes> getTaskNotesById(int id);
-	public int listCurrentWeekCount();
+	public int listCurrentTask();
+	public String deleteTask(int id);
 }
