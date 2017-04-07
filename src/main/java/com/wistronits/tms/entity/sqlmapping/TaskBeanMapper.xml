@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wistronits.tms.dao.ITaskDao">
+	<resultMap id="TaskResultMap" type="com.wistronits.tms.entity.TaskBean">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="priority" property="priority" jdbcType="INTEGER" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="description" property="description" jdbcType="VARCHAR" />
+		<result column="create_time" property="create_time" jdbcType="DATE" />
+		<result column="start_time" property="start_time" jdbcType="DATE" />
+		<result column="complete_time" property="complete_time" jdbcType="DATE" />
+		<result column="last_update" property="last_update" jdbcType="DATE" />
+		<result column="duration" property="duration" jdbcType="INTEGER" />
+		<result column="creater" property="creater" jdbcType="INTEGER" />
+		<result column="last_assignee" property="last_assignee" jdbcType="INTEGER" />
+		<result column="consummator" property="consummator" jdbcType="INTEGER" />
+		<collection property="taskNotes"  ofType="com.wistronits.tms.entity.TaskNotes">
+		  <result property="task_id" column="task_id" jdbcType="INTEGER"/>    
+		  <result column="update_time" property="update_time" jdbcType="DATE" />
+		  <result column="assigneeId" property="assigneeId" jdbcType="INTEGER" />
+		  <result column="assignee" property="assignee" jdbcType="VARCHAR" />
+		   <result column="note" property="note" jdbcType="VARCHAR" />
+        </collection>
+	</resultMap>
+
+
+	<insert id="saveTask" useGeneratedKeys="true" keyProperty="id">
+	  		insert into task(name,priority,status,description,create_time,duration,creater,last_assignee) 
+	  		values(#{name},#{priority},#{status},#{description},#{create_time},#{duration},#{creater},#{last_assignee});
+	  		
+	  		insert into task_notes(update_time,assignee,task_id) 
+	  		values(#{create_time},#{assigneeName},LAST_INSERT_ID())
+	</insert>
+	<select id="listByKeyword" resultMap="TaskResultMap">
+	<!-- mysql like的写法
+     like concat('%',#{param},'%')  或者 like '%${param}%' ，推荐使用前者，可以避免sql注入。   -->
+  
+	  		select * from task A  where A.name like concat('%',#{keyword},'%') 
+	  		union  select * from task A where   A.description like concat('%',#{keyword},'%') order by id desc
+	  	<!-- 	<if test="_parameter !=null and _parameter!=''">
+               and A.status=1
+              </if> -->
+	
+	</select>
+	<select id="getTaskById" resultMap="TaskResultMap">
+  		 select A.*, B.* from task A left join task_notes B on  A.id=B.task_id where A.id=#{id} 
+	</select>
+	
+<!-- 	<select id="getTaskNotesById" resultMap="TaskNotesResult">
+  		<![CDATA[ select * from task_notes A  where  A.task_id=#{id} order by id]]>
+	</select> -->
+	
+	<update id="editTaskwithAssignee" >
+	<![CDATA[
+	update task set name=#{name},priority=#{priority},status=#{status},description=#{description},
+	last_update=#{last_update},duration=#{duration},last_assignee=#{last_assignee} where id=#{id};
+	insert into task_notes(update_time,assignee,task_id) 
+	  		values(#{last_update},#{assigneeName},#{id})
+	]]>	
+	</update>
+	
+	<update id="editTaskwithoutAssignee" >
+	<![CDATA[
+	update task set name=#{name},priority=#{priority},status=#{status},description=#{description},
+	last_update=#{last_update},duration=#{duration} where id=#{id}
+	]]>	
+	</update>
+	
+	<update id="assignTaskTo">
+	<![CDATA[	
+	update task set last_assignee=#{assigneeId},last_update=#{update_time} WHERE id=#{task_id};
+	insert into task_notes(update_time,assignee,note,task_id) 
+	  		values(#{update_time},#{assignee},#{note},#{task_id})
+	]]>
+	</update>
+	<update id="startTask">
+		update task set status=1,start_time=#{1},last_update=#{1} where id=#{0}
+	</update>
+	
+	<update id="completeTask">
+	 update task set status=2,last_update=#{1},complete_time=#{1} where id=#{0} and start_time is not null and status=1  
+	</update>
+	
+	<select id="listAll" resultMap="TaskResultMap">
+  		<![CDATA[  select * from task  ]]>
+	</select>
+	
+	<select id="listCurrentWeekCount" resultType="int">
+	  		SELECT count(*) FROM jd WHERE modifydate>DATE_SUB(CURDATE(), INTERVAL 1 WEEK) 
+	</select>
+
+
+	
+</mapper>

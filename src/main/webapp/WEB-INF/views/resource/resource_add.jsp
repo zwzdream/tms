@@ -140,17 +140,17 @@ function addResume(form){
 
     </div>	
        <div class="form-group tr-new">
-           <label class="col-sm-2 control-label" for="website">webSite</label>
+           <label class="col-sm-2 control-label" for="website">Web&nbsp;Site</label>
         <div class="col-sm-4" >
 			<input type="email" class="form-control" id="website" name="website" placeholder="Website" style="height:35px;"></input>							        	
     	</div>
-           <label class="col-sm-2 control-label" for="workEligibility">WorkEligibility</label>
+           <label class="col-sm-2 control-label" for="workEligibility">Work&nbsp;Eligibility</label>
         <div class="col-sm-4" >
 			<input type="email" class="form-control" id="workEligibility" name="workEligibility" placeholder="WorkEligibility" style="height:35px;"></input>							        	
     	</div>
     </div>
     <div class="form-group tr-new">
-    	      <label class="col-sm-2 control-label" for="inputFile">Candidates&nbsp;Resume</label>
+    	      <label class="col-sm-2 control-label" for="inputFile">Resume</label>
          <div class="col-sm-4">
                   <input type="file" id="inputFile" name="inputFile"> 
          </div>	

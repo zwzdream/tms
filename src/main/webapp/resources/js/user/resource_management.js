@@ -1,4 +1,12 @@
-
+function notEnter()
+{
+	$(this).keydown( function(e) {
+	    var key = window.event?e.keyCode:e.which;
+	    if(key.toString() == "13"){
+	        return false;
+	    }
+	});
+}
 function searchResource(url){
 	var keyWord = $('#keyWord').val();
 	if(keyWord=='') {
@@ -14,6 +22,7 @@ function initTable(){
 	var keyWord = $('#keyWord').val();
 	$('#rsRepositoryTable').DataTable({
     	searching: false,
+    	bAutoWidth:false,
     	iDisplayLength: 10,//pagesize
     	aLengthMenu: [2, 5, 8, 10],
     	bLengthChange: true,
@@ -40,14 +49,14 @@ function initTable(){
         },
     	sAjaxSource: ctx+'/Resource/searchresource?keyWord='+keyWord, //'Get'to server url
     	aoColumns: [
-				 {sDefaultContent: ''},
-    	         {mData: 'name'},
-    	         {mData: 'industryExperience'},
+				 {"sWidth": "5%",sDefaultContent: ''},
+    	         {"sWidth": "20%",mData: 'name'},
+    	         {"sWidth": "10%",mData: 'industryExperience'},
     	         {mData: 'title'},
-    	         {mData: 'location'},
-    	         {mData: 'workEligibility'},
-    	         {sDefaultContent: ''},
-    	         {sDefaultContent: ''},
+    	         {"sWidth": "10%",mData: 'location'},
+    	         {"sWidth": "5%",mData: 'workEligibility'},
+    	         {"sWidth": "10%",sDefaultContent: ''},
+    	         {"sWidth": "15%",sDefaultContent: ''},
     	],
     	fnRowCallback: function(nRow, aData, iDisplayIndex) {
     		var tableSetings = this.fnSettings(); 
@@ -56,7 +65,7 @@ function initTable(){
     		//$('td:eq(0)', nRow).html(aData.id);
     		
     		$('td:eq(6)', nRow).html('<a  href="#" onclick=ajaxContent(\"/Resource/toScanResource\","resourceId='+ aData.id +'");>'
-    				+'<i class="glyphicon glyphicon-edit icon-white"></i>Resume</a>');
+    				+'<i class="glyphicon glyphicon-eye-open icon-white"></i>Resume</a>');
     				
     		$('td:eq(7)', nRow).html('<a  href="#" onclick=ajaxContent(\"/Resource/toEditResource\","resourceId='+ aData.id +'");>'
     	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit</a>&nbsp;'
@@ -71,6 +80,7 @@ function initTable(){
 }
 $(document).ready(function() {  
 	initTable();
+	notEnter();
 });
 
 

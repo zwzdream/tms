@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -108,6 +109,13 @@ public class JDManagementController {
 		jdBeanService.closeJD(no, new Date());
 		return view;
 
+	}
+	@RequestMapping(value = "/delete/{no}", method = RequestMethod.POST)
+	public ModelAndView delete(@PathVariable int no) {
+		ModelAndView view = new ModelAndView("/jd/jd_management");
+		jdBeanService.deleteJD(no);
+		return view;
+		
 	}
 
 }

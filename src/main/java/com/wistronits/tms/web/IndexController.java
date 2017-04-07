@@ -66,6 +66,8 @@ public class IndexController {
 				return "user/user_management";
 			} else if ("group".equals(targetAction)) {
 				return "group/group_management";
+			} else if ("task".equals(targetAction)) {
+				return "task/task_management";
 			} else {
 				return "/home";
 			}
@@ -143,6 +145,11 @@ public class IndexController {
 	@RequestMapping(value = "/group/init", method = RequestMethod.POST)
 	public String group(Model model) {
 		return "/group/group_management";
+	}
+	
+	@RequestMapping(value = "/task/init", method = RequestMethod.POST)
+	public String task(Model model) {
+		return "/task/task_management";
 	}
 
 }

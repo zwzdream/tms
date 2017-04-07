@@ -13,8 +13,8 @@
 							<i class="glyphicon glyphicon-cog"></i></a> 
 						<a href="#" class="btn btn-minimize btn-round btn-default">
 							<i class="glyphicon glyphicon-chevron-up"></i></a> 
-						<a href="#" class="btn btn-close btn-round btn-default">
-							<i class="glyphicon glyphicon-remove"></i></a>
+						<!-- <a href="#" class="btn btn-close btn-round btn-default">
+							<i class="glyphicon glyphicon-remove"></i></a> -->
 					</div>
 				</div>
 				<div class="box-content">
@@ -23,7 +23,8 @@
 						    <tr>
 						    	<th>No.</th>
 						        <th>Name</th>
-						        <th>Industry&nbsp;Experience</th>
+						        <th>Industry&nbsp;
+						        Experience</th>
 						        <th>Title</th>
 						        <th>Location</th>
 						        <th>Work&nbsp;Eligibility</th>

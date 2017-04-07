@@ -138,6 +138,7 @@ public class ResourceRepositoryController {
 			fileError=returnList.get(1);
 		}
 		
+		mv.addObject("resourceId",resourceId);
 		mv.addObject("filePath",filePath);
 		mv.addObject("fileError",fileError);
 

@@ -32,7 +32,7 @@
      like concat('%',#{param},'%')  或者 like '%${param}%' ，推荐使用前者，可以避免sql注入。   -->
   
 	  		select * from jd A  where A.title like concat('%',#{keyword},'%') 
-	  		union  select * from jd A where A.status=1 and A.description like concat('%',#{keyword},'%') order by number desc
+	  		union  select * from jd A where  A.description like concat('%',#{keyword},'%') order by number desc
 	  	<!-- 	<if test="_parameter !=null and _parameter!=''">
                and A.status=1
               </if> -->
@@ -46,7 +46,7 @@
 	
 	<update id="editJDBean" >
 	<![CDATA[
-	update jd set number=#{number},priority=#{priority},title=#{title},client=#{client},location=#{location},duration=#{location},duration=#{duration},
+	update jd set number=#{number},priority=#{priority},title=#{title},client=#{client},location=#{location},duration=#{duration},
 	payrate=#{payrate},keyword=#{keyword},status=#{status},local=#{local},owner=#{owner},description=#{description},qualification=#{qualification},
 	notes=#{notes},modifydate=#{modifydate} where no=#{no}
 	]]>	
@@ -74,6 +74,10 @@
 	<select id="getJDsInAdd" resultMap="BaseResultMap">
      	SELECT a.* FROM jd a LEFT JOIN jd_resume_resource b ON b.jd_id =a.no LEFT JOIN RESUME c ON c.id=b.resource_id WHERE c.id=#{rid} order by a.number desc
      </select>
+     
+       <delete id="deleteJD" parameterType="int">
+     	delete from jd where no=#{no};
+     </delete>
 
 	
 </mapper>

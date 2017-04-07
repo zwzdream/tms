@@ -185,9 +185,9 @@ function listAllUser(){
    		</div> -->
    		  <div class="col-sm-4">
        	  <select id="status" name="status"  class="form-control" data-rel="chosen">
-                              <option value="0" >closed</option>
-                              <option value="1">hold on</option>
-                               <option value="2">open</option>
+                              <option value="0" >Closed</option>
+                              <option value="1">On hold</option>
+                               <option value="2">Open</option>
            </select>
     	</div>
     </div>					                    
@@ -218,9 +218,9 @@ function listAllUser(){
         <div class="col-sm-4">
          	<%-- <input type="text" class="form-control" id="priority" name="priority" value="${jd.priority }" style=height:35px;"> --%>
                         <select id="priority" name="priority"  class="form-control" data-rel="chosen">
-                              <option value="0" >common</option>
-                              <option value="1">priority</option>
-                               <option value="2">emergency</option>
+                              <option value="0" >Common</option>
+                              <option value="1">Priority</option>
+                               <option value="2">Emergency</option>
                         </select>
      
         </div>

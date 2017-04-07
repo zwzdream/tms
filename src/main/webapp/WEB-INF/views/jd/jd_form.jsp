@@ -68,9 +68,9 @@
    		  <label class="col-sm-2 control-label" for="status">Status</label>
          <div class="col-sm-4">
        	  <select id="status" name="status"  class="form-control" data-rel="chosen">
-                              <option value="0" >closed</option>
-                              <option value="1">hold on</option>
-                               <option value="2">open</option>
+                              <option value="0" >Closed</option>
+                              <option value="1">On hold</option>
+                               <option value="2">Open</option>
            </select>
     	</div>
    	<!-- 	<input type="hidden" class="form-control" id="status" name="status" value="1" > -->
@@ -111,9 +111,9 @@
          <label class="col-sm-2 control-label" for="priority">Priority</label>
          <div class="col-sm-4">
        	  <select id="priority" name="priority"  class="form-control" data-rel="chosen">
-                              <option value="0" >common</option>
-                              <option value="1">priority</option>
-                               <option value="2">emergency</option>
+                              <option value="0" >Common</option>
+                              <option value="1">Priority</option>
+                               <option value="2">Emergency</option>
            </select>
     	</div>
     	

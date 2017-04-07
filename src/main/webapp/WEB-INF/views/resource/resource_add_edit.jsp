@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <script>
-$(function(){
-	attachCalendarInput();
+ $(function(){
+	//attachCalendarInput();
 	var gender = '${bean.relocation}';
 	gender?$(':radio[name=relocation][value=true]').attr('checked',true):$(':radio[name=relocation][value=false]').attr('checked',true);
-});
+}); 
 function updateResume(form){
 	var formData = new FormData(form);
 	form.action= ctx + '/Resource/updateResource';
@@ -146,17 +146,17 @@ function updateResume(form){
 
     </div>	
        <div class="form-group tr-new">
-           <label class="col-sm-2 control-label" for="website">webSite</label>
+           <label class="col-sm-2 control-label" for="website">Web&nbsp;Site</label>
         <div class="col-sm-4" >
 			<input type="email" class="form-control" id="website" name="website" value="${bean.website}" style="height:35px;"></input>							        	
     	</div>
-           <label class="col-sm-2 control-label" for="workEligibility">WorkEligibility</label>
+           <label class="col-sm-2 control-label" for="workEligibility">Work&nbsp;Eligibility</label>
         <div class="col-sm-4" >
 			<input type="email" class="form-control" id="workEligibility" name="workEligibility" value="${bean.workEligibility}" style="height:35px;"></input>							        	
     	</div>
     </div>
     <div class="form-group tr-new">
-    	      <label class="col-sm-2 control-label" for="inputFile">Candidates&nbsp;Resume</label>
+    	      <label class="col-sm-2 control-label" for="inputFile">Resume</label>
          <div class="col-sm-4">
                   <input type="file" id="inputFile" name="inputFile"> 
          </div>	

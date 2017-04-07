@@ -31,6 +31,11 @@
                 		<i class="glyphicon glyphicon-user"></i><span> Group Management</span>
                 	</a>
                 </li>
+                <li>
+                	<a class="ajax-link" href="${ctx}/Index/home/task">
+                		<i class="glyphicon glyphicon-book"></i><span> Task Management</span>
+                	</a>
+                </li>
             </ul>
         </div>
     </div>

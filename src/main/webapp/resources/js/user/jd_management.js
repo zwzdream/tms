@@ -2,6 +2,8 @@ $(function(){
 	$table=$('#table1');
    initTable();
     notEnter();
+  //  $table. fnGetNodes("tr:even").css("background-color","#FFFF0000");//奇数行设置颜色
+  // $table.("tr:even").css("background-color","#E9F3FF");//偶数行设置颜色
 });
 
 
@@ -64,7 +66,7 @@ function initTable(){
          },
       
    	aoColumns:[
-    		{mData: 'number'},
+   	     { mData: 'number' },
     		{mData:'title'},
     		{mData:'client'},
     		{mData:'payrate'},
@@ -87,6 +89,8 @@ function initTable(){
     		}
     		$('td:eq(7)', nRow).html('<a  href="#" onclick=ajaxContent(\"/JD/toEdit/\","no='+ aData.no +'");>'
 	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit</a>&nbsp;'
+	    			+'<a  href="#" onclick="deleteJD(\''+ aData.no + '\')";>'
+	    			+'<i class="glyphicon glyphicon-trash icon-white"></i>Delete</a>'
 	    		/*	+'<a class="btn btn-success" href="#" onclick=ajaxContent(\"/JD/toAddResource\","no='+ aData.no +'");>'
 	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Add Resource</a>'*/);
     	},
@@ -97,3 +101,8 @@ function initTable(){
     });
 }
 
+function deleteJD(no){
+	if(confirm('Are you sure?')){ajaxContent('/JD/delete/' + no,'',function(){  
+		alert('DELETE SUCCESS!');
+    });}
+}

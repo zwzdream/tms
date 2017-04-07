@@ -69,7 +69,9 @@ function listCanJoinResources(){
     		var page_start = tableSetings._iDisplayStart;//查询页开始的索引
     		$('td:eq(0)', nRow).html(page_start+iDisplayIndex+1);
     		$('td:eq(6)', nRow).html('<a  href="#" onclick=ajaxContent(\"/Resource/toEditFromJD\","resourceId='+ aData.id+'&no='+no+'");>'
-	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit</a>&nbsp;');
+	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit</a>&nbsp;'
+	    			+'<a  href="#" onclick=ajaxContent(\"/Resource/addTheResourceToJD\","rId='+ aData.id+'&jdId='+no+'");>'
+	    			+'<i class="glyphicon glyphicon-plus icon-white"></i>Add</a>');
     	},
 
     	fnInitComplete: function(oSettings, json) { 
@@ -126,7 +128,10 @@ function listTheBelongResources(){
    		var page_start = tableSetings._iDisplayStart;//查询页开始的索引
    		$('td:eq(0)', nRow).html(page_start+iDisplayIndex+1);
    		$('td:eq(6)', nRow).html('<a  href="#" onclick=ajaxContent(\"/Resource/toEditFromJD2\","resourceId='+ aData.id+'&no='+no+'");>'
-	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit</a>&nbsp;');
+	    			+'<i class="glyphicon glyphicon-edit icon-white"></i>Edit</a>&nbsp;'
+	    			+'<a  href="#" onclick=ajaxContent(\"/Resource/deleteTheResourceFromJD\","rId='+ aData.id+'&jdId='+no+'");>'
+	    			+'<i class="glyphicon glyphicon-remove icon-white"></i>Remove</a>'
+	    			);
    	},
 
     	fnInitComplete: function(oSettings, json) { 

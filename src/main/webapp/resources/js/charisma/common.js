@@ -86,6 +86,29 @@ function ajaxContent(url, data, callback){
         }
 	});
 }
+function ajaxJSON(url, data, callback){
+	$.ajax({
+		type : "post",
+		url : encodeURI(encodeURI(ctx + url)),
+		data : data,
+		dataType : "json",
+		cache: false,
+		success:function(returnData){
+			var data=eval(returnData);
+			if(data!=""){
+			noty({type:"success",text: data.message, layout: "center", timeout: 3000});
+			}
+			if( callback != null ){
+				callback();
+			}
+			
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) { 
+			noty({type:"error",text: "An internal error has occurred. Please contact your system administrator!", layout: "center", timeout: 3000});
+		}
+	
+	});
+}
 
 
 /**

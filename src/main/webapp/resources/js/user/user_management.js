@@ -1,7 +1,19 @@
 $(function(){
 	$table=$('#dataTable');
    initTable();
+   notEnter();
 });
+
+function notEnter()
+{
+	$(this).keydown( function(e) {
+	    var key = window.event?e.keyCode:e.which;
+	    if(key.toString() == "13"){
+	        return false;
+	    }
+	});
+}
+
 function doQry(){
 	var username= $('#username').val();
 	if(username=='') {

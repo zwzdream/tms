@@ -13,6 +13,7 @@ public interface IJDBeanDao {
 	public ArrayList<JDBean> listByKeyword(String keyword);
 	public JDBean getJD(int no);
 	public void closeJD(int no,Date date);
+	public void deleteJD(int no);
 	public ArrayList<JDBean> listAll();
 	public int listCurrentWeekCount();
 	public ArrayList<JDBean> getJDsInAdd(int rid);

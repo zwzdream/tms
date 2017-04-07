@@ -43,6 +43,17 @@ public class UserManagementController {
 		return view;
 	}
 	
+	@RequestMapping(value = "/getUser/{id}")
+	public @ResponseBody Map<Object,Object> getUserById(@PathVariable int id) {
+		 Map<Object,Object> map=new HashMap<Object,Object>();
+		if(id !=0){
+		 map.put("username", userService.getUserById(id).getUsername());
+		}
+		return map;
+	}
+	
+	
+	
 	@RequestMapping(value = "/edit/update", method = RequestMethod.POST)
 	public ModelAndView edit(@ModelAttribute("editForm") UserBean form, Model model, ModelMap map) {
 		form.setDate(new Date());
