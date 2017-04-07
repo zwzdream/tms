@@ -76,15 +76,15 @@ public class ITaskServiceImpl implements ITaskService{
 	}
 
 	@Override
-	public String completeTask(int id, Date complete_time) {
+	public String completeTask(int id, Date complete_time,int uid) {
 		int oldStatus=taskDao.getTaskById(id).getStatus();
 		
 		if(oldStatus==0){
-			if((taskDao.startTask(id, complete_time)==1)&(taskDao.completeTask(id, complete_time))==1){
+			if((taskDao.startTask(id, complete_time)==1)&(taskDao.completeTask(id, complete_time,uid))==1){
 				return "Complete the task successfully!";
 			}		
 		}else if(oldStatus==1){
-			if(taskDao.completeTask(id, complete_time)==1){
+			if(taskDao.completeTask(id, complete_time,uid)==1){
 			 return "Complete the task successfully!";
 			}
 		}else if(oldStatus==2){

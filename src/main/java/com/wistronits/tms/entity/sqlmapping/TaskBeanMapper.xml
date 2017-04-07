@@ -79,7 +79,7 @@
 	</update>
 	
 	<update id="completeTask">
-	 update task set status=2,last_update=#{1},complete_time=#{1} where id=#{0} and start_time is not null and status=1  
+	 update task set status=2,consummator=#{2},last_update=#{1},complete_time=#{1} where id=#{0} and start_time is not null and status=1  
 	</update>
 	
 	<select id="listAll" resultMap="TaskResultMap">

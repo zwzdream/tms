@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
+<c:set var="uid" value="${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.id}" />
+<script>
+var uid = ${uid};
+</script>
 <script src="${ctx}/resources/js/user/task_management.js"></script>
+
+
 <form id="taskPage" class="form-horizontal" action="#" method="POST">
 	<div>
 		<ul class="breadcrumb">

@@ -89,9 +89,10 @@ public class TaskManagementController {
 	}
 	
 	@RequestMapping(value = "/completeTask", method = RequestMethod.POST)
-	public @ResponseBody Map<Object,Object> completeTask(@ModelAttribute("id") int id) {
+	public @ResponseBody Map<Object,Object> completeTask(
+			@RequestParam(value="id") int id,@RequestParam(value="uid") int uid) {
 		Map<Object,Object> returnData=new HashMap<Object,Object>();
-		returnData.put("message",taskService.completeTask(id, new Date()));
+		returnData.put("message",taskService.completeTask(id, new Date(),uid));
 		return returnData;
 	}
 	
@@ -130,12 +131,5 @@ public class TaskManagementController {
 	   return map;	
 	}
 
-	@RequestMapping(value = "/edit/complete", method = RequestMethod.POST)
-	public ModelAndView close(int id) {
-		ModelAndView view = new ModelAndView("/jd/jd_management");
-		taskService.completeTask(id, new Date());
-		return view;
-
-	}
 
 }

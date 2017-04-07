@@ -16,7 +16,7 @@ public interface ITaskDao {
 	public ArrayList<TaskBean> listByKeyword(String keyword);
 	public TaskBean getTaskById(int id);
 	public int startTask(int id,Date start_time);
-	public int completeTask(int id,Date complete_time);
+	public int completeTask(int id,Date complete_time,int uid);
 	public ArrayList<TaskBean> listAll();
 	public ArrayList<TaskNotes> getTaskNotesById(int id);
 	public int listCurrentTask();

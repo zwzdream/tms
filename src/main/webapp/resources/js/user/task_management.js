@@ -151,7 +151,7 @@ function initTable(){
 	    			+'<i class="glyphicon glyphicon-edit icon-white"></i></a>&nbsp;'
 	    			+'<a  href="#" onclick=ajaxContent(\"/Task/toAssign\","id='+ aData.id +'");>'
 	    			+'<i class="glyphicon glyphicon-hand-right  icon-white"></i></a>'
-	    			+'<a  href="#" onclick=ajaxJSON(\"/Task/completeTask\","id='+ aData.id +'",initTable);>'
+	    			+'<a  href="#" onclick=ajaxJSON(\"/Task/completeTask\","id='+ aData.id +'&uid='+uid+'",initTable);>'
 	    			+'<i class="glyphicon glyphicon-ok  icon-white"></i></a>'
     		        +'<a  href="#" onclick=ajaxJSON(\"/Task/deleteTask\","id='+ aData.id +'",initTable);>'
     		        +'<i class="glyphicon glyphicon-trash  icon-white"></i></a>');
@@ -163,7 +163,7 @@ function initTable(){
     	    			+'<i class="glyphicon glyphicon-edit icon-white"></i></a>&nbsp;'
     	    			+'<a  href="#" onclick=ajaxContent(\"/Task/toAssign\","id='+ aData.id +'");>'
     	    			+'<i class="glyphicon glyphicon-hand-right  icon-white"></i></a>'
-    	    			+'<a  href="#" onclick=ajaxJSON(\"/Task/completeTask\","id='+ aData.id +'",initTable);>'
+    	    			+'<a  href="#" onclick=ajaxJSON(\"/Task/completeTask\","id='+ aData.id +'&uid='+uid+'",initTable);>'
     	    			+'<i class="glyphicon glyphicon-ok  icon-white"></i></a>'
     	    			+'<a  href="#" onclick=ajaxJSON(\"/Task/deleteTask\","id='+ aData.id +'",initTable);>'
     	    		    +'<i class="glyphicon glyphicon-trash  icon-white"></i></a>');

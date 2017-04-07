@@ -2,7 +2,7 @@
 <%@ page import="com.wistronits.tms.entity.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
-<c:set var="tid" value="'${task.id}'" />
+<c:set var="tid" value="${task.id}" />
 <script>
 var tid = ${tid};
 </script>

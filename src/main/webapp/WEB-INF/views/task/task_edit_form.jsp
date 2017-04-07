@@ -36,7 +36,7 @@ $(function(){
     				+'<i class="glyphicon glyphicon-play icon-white"></i>Start</a>&nbsp;'
 	    			+'<a class="btn iframe"  href="#" onclick=ajaxContent(\"/Task/toAssign\","id='+id +'");>'
 	    			+'<i class="glyphicon glyphicon-hand-right  icon-white"></i>Assign&nbsp;To</a>'
-	    			+'<a class="btn iframe" href="#" onclick=ajaxJSON(\"/Task/completeTask\","id='+id +'",refresh);>'
+	    			+'<a class="btn iframe" href="#" onclick=ajaxJSON(\"/Task/completeTask\","id='+id+'&uid='+uid +'",refresh);>'
 	    			+'<i class="glyphicon glyphicon-ok  icon-white"></i>Complete</a>' 
 	    			+'<a  href="#" onclick=ajaxJSON(\"/Task/deleteTask\","id='+id +'");>'
 	    		    +'<i class="glyphicon glyphicon-trash  icon-white"></i>Delete</a>');
@@ -46,7 +46,7 @@ $(function(){
     				+'<i class="glyphicon glyphicon-play icon-white" style="color:gray;"></i>Start</a>&nbsp;'
 	    			+'<a class="btn iframe" href="#" onclick=ajaxContent(\"/Task/toAssign\","id='+ id +'");>'
 	    			+'<i class="glyphicon glyphicon-hand-right  icon-white"></i>Assign&nbsp;To</a>'
-	    			+'<a class="btn iframe" href="#" onclick=ajaxJSON(\"/Task/completeTask\","id='+ id +'",refresh);>'
+	    			+'<a class="btn iframe" href="#" onclick=ajaxJSON(\"/Task/completeTask\","id='+ id +'&uid='+uid+'",refresh);>'
 	    			+'<i class="glyphicon glyphicon-ok  icon-white"></i>Complete</a>'
 	    			+'<a  href="#" onclick=ajaxJSON(\"/Task/deleteTask\","id='+ id +'");>'
 	    		    +'<i class="glyphicon glyphicon-trash  icon-white"></i>Delete</a>');
