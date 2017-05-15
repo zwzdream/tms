@@ -78,11 +78,11 @@
 				 <table id="dataTable" class="table table-striped table-bordered bootstrap-datatable responsive" >
 				 	    <thead>
 						    <tr>
-						    	<th>ID</th>
-						        <th>userName</th>
+						    	<th>No.</th>
+						        <th>User&nbsp;Name</th>
 						        <th>Password</th>
-						        <th>Mail</th>
-						        <th>Telphone</th>
+						        <th>Email</th>
+						        <th>Telephone</th>
 						        <th>Permission</th>
 						        <th>Date</th>
 						        <th>Operate</th>

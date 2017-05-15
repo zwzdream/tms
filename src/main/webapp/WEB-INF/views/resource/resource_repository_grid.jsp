@@ -20,7 +20,7 @@
 				<div class="box-content">
 				    <table id="rsRepositoryTable" class="table table-striped table-bordered bootstrap-datatable responsive" >
 						    <thead>
-						    <tr>
+					<!-- 	    <tr>
 						    	<th>No.</th>
 						        <th>Name</th>
 						        <th>Industry&nbsp;
@@ -30,6 +30,17 @@
 						        <th>Work&nbsp;Eligibility</th>
 						        <th>Resume</th>
 						        <th>Actions</th>
+						    </tr> -->
+						    <tr>
+						    	<th  style="text-align:center;">No.</th>
+						        <th  style="text-align:center;">Name</th>
+						        <th  style="text-align:center;">Industry&nbsp;
+						        Experience</th>
+						        <th  style="text-align:center;">Title</th>
+						        <th  style="text-align:center;">Location</th>
+						        <th  style="text-align:center;">Work&nbsp;Eligibility</th>
+						        <th  style="text-align:center;">Resume</th>
+						        <th  style="text-align:center;">Actions</th>
 						    </tr>
 						    </thead>
 				    </table>

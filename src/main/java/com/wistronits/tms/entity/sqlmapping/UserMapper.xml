@@ -5,16 +5,16 @@
 		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="username" property="username" jdbcType="VARCHAR" />
 		<result column="password" property="password" jdbcType="VARCHAR" />
-		<result column="mail" property="mail" jdbcType="VARCHAR" />
-		<result column="telphone" property="telphone" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="telephone" property="telephone" jdbcType="VARCHAR" />
 		<result column="permission" property="permission" jdbcType="INTEGER" />
 		<result column="date" property="date" jdbcType="TIMESTAMP"/>
 	</resultMap>
 
 	<insert id="addUser" useGeneratedKeys="true" keyProperty="id">
 	  <![CDATA[
-	  		insert into user(id,username,password,mail,telphone,permission,date) 
-	  		values(#{id},#{username},#{password},#{mail},#{telphone},#{permission},#{date})
+	  		insert into user(id,username,password,email,telephone,permission,date) 
+	  		values(#{id},#{username},#{password},#{email},#{telephone},#{permission},#{date})
 	  	]]>
 	</insert>
 	<select id="listByName" resultMap="BaseResultMap">
@@ -40,7 +40,7 @@
 	
 	<update id="editUser" >
 	<![CDATA[
-	update user set username=#{username},password=#{password},mail=#{mail},telphone=#{telphone},
+	update user set username=#{username},password=#{password},email=#{email},telephone=#{telephone},
 	permission=#{permission},date=#{date} where id=#{id} 
 	]]>	
 	</update>

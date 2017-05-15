@@ -54,31 +54,31 @@
 </script>
 <fieldset>
 	 <div class="form-group tr-new">
-        <label class="col-sm-1 control-label" for="id">Id</label>
+        <label class="col-sm-1 control-label" for="id">ID</label>
         <div class="col-sm-5">
          	<input type="number" class="form-control" id="id" name="id" value="${user.id }" style="height:35px;" readonly>
         </div>
-          <label class="col-sm-1 control-label" for="title">UserName</label>
+          <label class="col-sm-1 control-label" for="username">User&nbsp;Name</label>
         <div class="col-sm-5">
    			<input type="text" class="form-control" id="username" name="username" value="${user.username }" style="height:35px;"></input>
    		</div>
   </div>	
     <div class="form-group tr-new">
-        <label class="col-sm-1 control-label" for="status">Password</label>
+        <label class="col-sm-1 control-label" for="password">Password</label>
         <div class="col-sm-5">
         	<input type="text" class="form-control" id="password" name="password" value="${user.password }" style="height:35px;">
    		</div>
-   		 <label class="col-sm-1 control-label" for="location">Mail</label>
+   		 <label class="col-sm-1 control-label" for="email">Email</label>
         <div class="col-sm-5">
-			<input type="text" class="form-control" id="mail" name="mail" value="${user.mail }" style="height:35px;"></input>							        	
+			<input type="text" class="form-control" id="email" name="email" value="${user.email }" style="height:35px;"></input>							        	
     	</div>
     </div>					                    				                    
     <div class="form-group tr-new">
-        <label class="col-sm-1 control-label" for="payrate">Telphone</label>
+        <label class="col-sm-1 control-label" for="telephone">Telephone</label>
         <div class="col-sm-5">
-        	<input type="text" class="form-control" id="telphone" name="telphone" value="${user.telphone }" style="height:35px;">
+        	<input type="text" class="form-control" id="telephone" name="telephone" value="${user.telephone }" style="height:35px;">
    		</div>
-   		  <label class="col-sm-1 control-label" for="Permission">Permission</label>
+   		  <label class="col-sm-1 control-label" for="permission">Permission</label>
         <div class="col-sm-5">
         	<input type="text" class="form-control" id="permission" name="permission" value="${user.permission }" style="height:35px;"></input>
    		</div>

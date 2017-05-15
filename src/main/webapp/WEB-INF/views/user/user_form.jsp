@@ -55,27 +55,27 @@
         </div>
     </div> -->
      <div class="form-group tr-new">
-        <label class="col-sm-1 control-label" for="title">UserName</label>
+        <label class="col-sm-1 control-label" for="username">User&nbsp;Name</label>
         <div class="col-sm-5">
-   			<input type="text" class="form-control" id="username" name="username" placeholder="UserName" style="height:35px;"></input>
+   			<input type="text" class="form-control" id="username" name="username" placeholder="User Name" style="height:35px;"></input>
    		</div>
-   		    <label class="col-sm-1 control-label" for="status">Password</label>
+   		    <label class="col-sm-1 control-label" for="password">Password</label>
         <div class="col-sm-5">
         	<input type="text" class="form-control" id="password" name="password" placeholder="Password" style="height:35px;">
    		</div>
     </div>					                    
     <div class="form-group tr-new">
-        <label class="col-sm-1 control-label" for="location">Mail</label>
+        <label class="col-sm-1 control-label" for="email">Email</label>
         <div class="col-sm-5">
-			<input type="text" class="form-control" id="mail" name="mail" placeholder="Mail" style="height:35px;"></input>							        	
+			<input type="text" class="form-control" id="email" name="email" placeholder="Email" style="height:35px;"></input>							        	
     	</div>
-    	   <label class="col-sm-1 control-label" for="payrate">Telphone</label>
+    	   <label class="col-sm-1 control-label" for="telephone">Telephone</label>
         <div class="col-sm-5">
-        	<input type="text" class="form-control" id="telphone" name="telphone" placeholder="Telphone" style="height:35px;">
+        	<input type="text" class="form-control" id="telephone" name="telephone" placeholder="Telephone" style="height:35px;">
    		</div>
     </div>					                    
     <div class="form-group tr-new">
-        <label class="col-sm-1 control-label" for="Permission">Permission</label>
+        <label class="col-sm-1 control-label" for="permission">Permission</label>
         <div class="col-sm-5">
         	<input type="text" class="form-control" id="permission" name="permission" placeholder="Permission" style="height:35px;"></input>
    		</div>

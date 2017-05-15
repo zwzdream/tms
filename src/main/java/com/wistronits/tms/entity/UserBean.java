@@ -7,8 +7,8 @@ public class UserBean {
 	private int id;
 	private String username;
 	private String password;
-	private String mail;
-	private String telphone;
+	private String email;
+	private String telephone;
 	private int permission;
 	private Date date;
 	public int getId() {
@@ -29,17 +29,17 @@ public class UserBean {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getMail() {
-		return mail;
+	public String getEmail() {
+		return email;
 	}
-	public void setMail(String mail) {
-		this.mail = mail;
+	public void setEmail(String email) {
+		this.email = email;
 	}
-	public String getTelphone() {
-		return telphone;
+	public String getTelephone() {
+		return telephone;
 	}
-	public void setTelphone(String telphone) {
-		this.telphone = telphone;
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
 	}
 	public int getPermission() {
 		return permission;
